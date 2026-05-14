@@ -1,0 +1,1739 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Victorian Milers Club</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400;1,700&family=Inter:wght@300;400;500;600&family=Bebas+Neue&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0;padding:0;}
+:root{
+  --red:#C0001A;--red-dark:#8B0012;--red-deep:#3D0008;
+  --gold:#C9A84C;--gold-light:#E8C97A;--gold-pale:#F5EDD0;
+  --cream:#FAF7F2;--dark:#0D0D0D;--dark2:#1A1A1A;
+  --text:#F5F0E8;--muted:rgba(245,240,232,0.45);--border:#E0D8CC;
+}
+body{font-family:'Inter',sans-serif;background:var(--cream);color:var(--dark);overflow-x:hidden;}
+.page{display:none;}.page.active{display:block;}
+
+/* ── NAV ── */
+.nav{position:sticky;top:0;z-index:200;background:var(--dark);border-bottom:2px solid var(--red);display:flex;align-items:center;justify-content:space-between;padding:0 40px;}
+.nav-logo{display:flex;align-items:center;gap:12px;padding:12px 0;cursor:pointer;}
+.logo-badge{width:40px;height:40px;background:var(--red);display:flex;align-items:center;justify-content:center;}
+.logo-badge span{font-family:'Bebas Neue',sans-serif;font-size:20px;color:#fff;}
+.logo-text-main{font-family:'Playfair Display',serif;font-size:12px;letter-spacing:3px;text-transform:uppercase;color:var(--text);font-weight:700;}
+.logo-text-sub{font-size:9px;letter-spacing:2px;text-transform:uppercase;color:var(--gold);font-weight:400;margin-top:2px;}
+.nav-links{display:flex;list-style:none;}
+.nav-links a{display:block;padding:20px 15px;font-size:10px;letter-spacing:2px;text-transform:uppercase;text-decoration:none;color:rgba(245,240,232,.5);font-weight:500;border-bottom:2px solid transparent;transition:color .2s,border-color .2s;cursor:pointer;}
+.nav-links a:hover,.nav-links a.active{color:var(--gold);border-bottom-color:var(--gold);}
+.nav-right{display:flex;align-items:center;gap:12px;}
+.nav-social{display:flex;gap:8px;}
+.nav-social a{width:32px;height:32px;border:1px solid rgba(245,240,232,.15);display:flex;align-items:center;justify-content:center;color:rgba(245,240,232,.4);text-decoration:none;transition:border-color .2s,color .2s;font-size:12px;}
+.nav-social a:hover{border-color:var(--gold);color:var(--gold);}
+.nav-cta{background:var(--red);color:#fff;border:none;padding:10px 22px;font-family:'Inter',sans-serif;font-size:10px;font-weight:600;letter-spacing:2px;text-transform:uppercase;cursor:pointer;}
+.nav-cta:hover{background:var(--red-dark);}
+
+/* ── SHARED COMPONENTS ── */
+.sec-eyebrow{font-size:9px;letter-spacing:3px;text-transform:uppercase;color:var(--red);font-weight:600;margin-bottom:8px;}
+.sec-eyebrow-gold{font-size:9px;letter-spacing:3px;text-transform:uppercase;color:var(--gold);font-weight:600;margin-bottom:8px;}
+.sec-title{font-family:'Playfair Display',serif;font-size:24px;font-weight:700;color:var(--dark);}
+.sec-title-light{font-family:'Playfair Display',serif;font-size:22px;font-weight:700;color:var(--text);}
+.divider{height:1px;background:var(--border);margin:32px 0;}
+.divider-gold{height:1px;background:rgba(201,168,76,.2);margin:24px 0;}
+.pos-g{display:inline-flex;align-items:center;justify-content:center;width:24px;height:24px;border-radius:50%;border:1.5px solid var(--gold);font-family:'Bebas Neue',sans-serif;font-size:11px;color:var(--gold);}
+.pos-s{display:inline-flex;align-items:center;justify-content:center;width:24px;height:24px;border-radius:50%;border:1.5px solid #909090;font-family:'Bebas Neue',sans-serif;font-size:11px;color:#707070;}
+.pos-b{display:inline-flex;align-items:center;justify-content:center;width:24px;height:24px;border-radius:50%;border:1.5px solid #A0723A;font-family:'Bebas Neue',sans-serif;font-size:11px;color:#A0723A;}
+.pos-n{text-align:center;font-family:'Bebas Neue',sans-serif;font-size:13px;color:#C4B090;}
+.cr-flag{display:inline-block;font-size:7px;letter-spacing:1px;text-transform:uppercase;background:var(--gold-pale);color:#6B5010;border:1px solid var(--gold);padding:2px 5px;margin-left:5px;font-weight:600;vertical-align:middle;}
+.btn-red{background:var(--red);color:#fff;border:none;padding:12px 28px;font-family:'Inter',sans-serif;font-size:10px;font-weight:600;letter-spacing:2px;text-transform:uppercase;cursor:pointer;}
+.btn-red:hover{background:var(--red-dark);}
+.btn-ghost-light{background:transparent;color:#8A7052;border:1px solid var(--border);padding:12px 28px;font-family:'Inter',sans-serif;font-size:10px;font-weight:500;letter-spacing:2px;text-transform:uppercase;cursor:pointer;}
+
+/* ── PAGE HEROES ── */
+.page-hero{background:var(--dark);padding:52px 48px;position:relative;overflow:hidden;border-bottom:3px solid var(--red);}
+.page-hero-bg{position:absolute;inset:0;opacity:0.04;background-image:repeating-linear-gradient(0deg,transparent,transparent 39px,#fff 39px,#fff 40px),repeating-linear-gradient(90deg,transparent,transparent 39px,#fff 39px,#fff 40px);}
+.page-hero-wm{position:absolute;right:-10px;bottom:-20px;font-family:'Bebas Neue',sans-serif;font-size:180px;color:var(--red);opacity:0.06;line-height:1;pointer-events:none;letter-spacing:-4px;}
+.ph-content{position:relative;z-index:2;}
+.ph-eyebrow{font-size:9px;letter-spacing:3px;text-transform:uppercase;color:var(--gold);font-weight:600;margin-bottom:10px;}
+.ph-title{font-family:'Playfair Display',serif;font-size:clamp(32px,5vw,52px);font-weight:900;color:var(--text);line-height:1;}
+.ph-title em{font-style:italic;color:var(--gold);}
+.ph-sub{font-size:13px;color:var(--muted);font-weight:300;margin-top:12px;max-width:520px;line-height:1.7;}
+
+/* tabs generic */
+.tab-row{display:flex;border-bottom:2px solid var(--border);margin:14px 0 0;}
+.tab-btn{padding:10px 14px;font-size:9px;letter-spacing:2px;text-transform:uppercase;font-weight:600;cursor:pointer;color:#8A7052;border-bottom:2px solid transparent;margin-bottom:-2px;background:transparent;border-top:none;border-left:none;border-right:none;font-family:'Inter',sans-serif;white-space:nowrap;transition:color .15s;}
+.tab-btn.active{color:var(--red);border-bottom-color:var(--red);}
+.tab-btn:hover{color:var(--dark);}
+.tab-btn-gold{padding:10px 14px;font-size:9px;letter-spacing:2px;text-transform:uppercase;font-weight:600;cursor:pointer;color:rgba(245,240,232,.35);border-bottom:2px solid transparent;margin-bottom:-2px;background:transparent;border-top:none;border-left:none;border-right:none;font-family:'Inter',sans-serif;white-space:nowrap;transition:color .15s;}
+.tab-btn-gold.active{color:var(--gold);border-bottom-color:var(--gold);}
+.tab-btn-gold:hover{color:var(--gold);}
+
+/* light table */
+.table-scroll{overflow-x:auto;width:100%;-webkit-overflow-scrolling:touch;}
+.data-table{width:100%;border-collapse:collapse;}
+.data-table th{font-size:8px;letter-spacing:2px;text-transform:uppercase;color:#8A7052;font-weight:600;padding:10px 10px;text-align:left;border-bottom:1px solid var(--border);background:#F0EBE0;}
+.data-table th.r{text-align:right;}
+.data-table th:first-child{text-align:center;width:38px;}
+.dt-row:hover{background:#F5EFE4;}
+.dt-row td{padding:9px 10px;border-bottom:1px solid rgba(224,216,204,.35);vertical-align:middle;}
+.dt-row:last-child td{border-bottom:none;}
+.td-name{font-size:12px;font-weight:500;color:var(--dark);}
+.td-club{font-size:10px;color:#8A7052;font-weight:300;margin-top:1px;}
+.td-time{text-align:right;font-family:'Bebas Neue',sans-serif;font-size:15px;color:var(--dark);}
+.td-pts{text-align:right;font-size:11px;color:#8A7052;}
+.td-pts span{color:var(--red);font-weight:600;}
+.td-sm{text-align:right;font-size:10px;color:#8A7052;}
+
+/* FOOTER */
+.site-footer{background:var(--dark);border-top:2px solid var(--red);}
+.footer-main{padding:32px 48px;display:grid;grid-template-columns:1fr 1fr 1fr;gap:40px;}
+.footer-col-title{font-family:'Playfair Display',serif;font-size:14px;color:var(--text);margin-bottom:12px;font-weight:600;}
+.footer-links-list{display:flex;flex-direction:column;gap:6px;}
+.footer-links-list a{font-size:10px;letter-spacing:1.5px;text-transform:uppercase;color:rgba(245,240,232,.3);text-decoration:none;cursor:pointer;transition:color .15s;}
+.footer-links-list a:hover{color:var(--gold);}
+.footer-social{display:flex;gap:10px;margin-top:10px;}
+.footer-social-btn{width:36px;height:36px;border:1px solid rgba(245,240,232,.12);display:flex;align-items:center;justify-content:center;color:rgba(245,240,232,.3);text-decoration:none;font-size:14px;transition:all .15s;}
+.footer-social-btn:hover{border-color:var(--gold);color:var(--gold);}
+.footer-bottom{padding:16px 48px;border-top:1px solid rgba(245,240,232,.06);display:flex;justify-content:space-between;align-items:center;}
+.footer-copy{font-size:9px;color:rgba(245,240,232,.2);letter-spacing:1px;}
+.gsheet-badge{display:inline-flex;align-items:center;gap:8px;background:rgba(201,168,76,.08);border:1px solid rgba(201,168,76,.18);padding:8px 14px;}
+.gsheet-badge span{font-size:10px;color:var(--muted);}
+.gsheet-badge strong{color:var(--gold);}
+
+
+/* ════════════════════════════════════
+   HOME PAGE STYLES
+════════════════════════════════════ */
+/* CALENDAR HORIZONTAL STRIP */
+.cal-strip{background:var(--dark2);border-bottom:1px solid rgba(201,168,76,.15);overflow-x:auto;}
+.cal-strip-inner{display:flex;min-width:max-content;padding:0;}
+.cal-meet-pill{display:flex;align-items:center;gap:0;border-right:1px solid rgba(201,168,76,.1);min-width:180px;transition:background .15s;cursor:pointer;}
+.cal-meet-pill:hover{background:rgba(201,168,76,.06);}
+.cmp-num{background:var(--red);padding:14px 12px;display:flex;flex-direction:column;align-items:center;justify-content:center;min-width:44px;}
+.cmp-n-lbl{font-size:7px;letter-spacing:2px;text-transform:uppercase;color:rgba(255,255,255,.5);}
+.cmp-n-val{font-family:'Bebas Neue',sans-serif;font-size:22px;color:#fff;line-height:1;}
+.cmp-info{padding:10px 14px;}
+.cmp-date{font-size:10px;font-weight:500;color:var(--text);margin-bottom:1px;}
+.cmp-venue{font-size:9px;color:var(--muted);font-weight:300;margin-bottom:3px;}
+.cmp-status{font-size:8px;letter-spacing:1.5px;text-transform:uppercase;font-weight:600;padding:2px 7px;display:inline-block;}
+.st-enter{background:rgba(192,0,26,.2);color:#ff6b7a;}
+.st-results{background:rgba(201,168,76,.15);color:var(--gold);}
+.st-closed{background:rgba(255,255,255,.05);color:rgba(245,240,232,.3);}
+
+/* HERO */
+.home-hero{position:relative;background:var(--dark);min-height:580px;display:flex;align-items:center;justify-content:center;overflow:hidden;}
+.hero-bg-abs{position:absolute;inset:0;background-image:url('https://scontent.fmel15-2.fna.fbcdn.net/v/t39.30808-6/474215808_1287893112302452_6190038884489150018_n.jpg?_nc_cat=107&ccb=1-7&_nc_sid=cc71e4&_nc_ohc=Ft4qD7yt8PAQ7kNvwFoDggQ&_nc_oc=AdpcnTJSPP3hl0s6cs_SdAEqtNRGnkm4MLnTA6d6psEgyaEXGFho8AtpzKyUDfP_QXo&_nc_zt=23&_nc_ht=scontent.fmel15-2.fna&_nc_gid=9CR62SE-LqRcmGNgvglWHw&_nc_ss=7b2a8&oh=00_Af6Mf7W9_ODsPW7RvjRS_ByldwAtdzG3j2gRKue1ynLdlw&oe=6A0A9B63');background-size:cover;background-position:center;}
+.hero-grad{position:absolute;inset:0;background:radial-gradient(ellipse 90% 70% at 50% 50%, rgba(61,0,8,.65) 0%, rgba(13,13,13,.97) 100%);}
+.hero-track-svg{position:absolute;inset:0;opacity:.05;}
+.hero-track-svg svg{width:100%;height:100%;}
+.hero-wm{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;pointer-events:none;}
+.hero-wm span{font-family:'Bebas Neue',sans-serif;font-size:300px;color:var(--red);opacity:.055;letter-spacing:-8px;line-height:1;user-select:none;}
+.hero-centre{position:relative;z-index:2;text-align:center;display:flex;flex-direction:column;align-items:center;padding:56px 40px;}
+.hero-logo-ring{width:96px;height:96px;border:2px solid var(--gold);border-radius:50%;display:flex;align-items:center;justify-content:center;margin-bottom:20px;position:relative;}
+.hero-logo-ring::before{content:'';position:absolute;inset:5px;border:1px solid rgba(201,168,76,.3);border-radius:50%;}
+.hero-vmc{font-family:'Bebas Neue',sans-serif;font-size:34px;color:var(--gold);letter-spacing:3px;}
+.hero-club-name{font-family:'Playfair Display',serif;font-size:12px;letter-spacing:5px;text-transform:uppercase;color:rgba(245,240,232,.4);margin-bottom:20px;}
+.hero-red-rule{width:60px;height:1px;background:var(--red);margin:0 auto 20px;}
+.hero-tagline{font-family:'Playfair Display',serif;font-size:clamp(26px,4vw,44px);font-weight:700;color:var(--text);line-height:1.1;margin-bottom:10px;max-width:580px;}
+.hero-tagline em{font-style:italic;color:var(--gold);}
+.hero-sub{font-size:14px;color:var(--muted);line-height:1.7;font-weight:300;max-width:460px;margin-bottom:28px;}
+.hero-btns{display:flex;gap:14px;justify-content:center;margin-bottom:44px;}
+.btn-ghost-hero{background:transparent;color:rgba(245,240,232,.6);border:1px solid rgba(245,240,232,.18);padding:13px 32px;font-family:'Inter',sans-serif;font-size:10px;font-weight:400;letter-spacing:2px;text-transform:uppercase;cursor:pointer;transition:border-color .2s,color .2s;}
+.btn-ghost-hero:hover{border-color:var(--gold);color:var(--gold);}
+
+/* CHAMPIONS STRIP */
+.champs-strip{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;width:100%;max-width:820px;background:rgba(201,168,76,.15);border:1px solid rgba(201,168,76,.2);}
+.champ-cell{background:rgba(13,13,13,.88);padding:14px 18px;text-align:center;backdrop-filter:blur(4px);}
+.cc-event{font-size:8px;letter-spacing:2.5px;text-transform:uppercase;color:var(--gold);font-weight:600;margin-bottom:5px;}
+.cc-name{font-size:11px;font-weight:500;color:var(--text);margin-bottom:3px;}
+.cc-time{font-family:'Bebas Neue',sans-serif;font-size:20px;color:#fff;letter-spacing:.5px;line-height:1;}
+.cc-label{font-size:8px;letter-spacing:1px;text-transform:uppercase;color:rgba(245,240,232,.25);margin-top:2px;}
+
+/* RECORDS & STATS */
+.records-band{background:var(--red);display:grid;grid-template-columns:repeat(4,1fr);}
+.rec-cell{padding:18px 24px;border-right:1px solid rgba(255,255,255,.1);text-align:center;}
+.rec-cell:last-child{border-right:none;}
+.rec-event{font-size:8px;letter-spacing:2px;text-transform:uppercase;color:rgba(255,255,255,.6);font-weight:600;margin-bottom:4px;}
+.rec-time{font-family:'Bebas Neue',sans-serif;font-size:28px;color:#fff;letter-spacing:1px;line-height:1;margin-bottom:3px;}
+.rec-name{font-size:10px;color:rgba(255,255,255,.5);font-weight:300;}
+.stats-band{background:var(--dark);display:grid;grid-template-columns:repeat(4,1fr);border-top:1px solid rgba(201,168,76,.12);}
+.stat-cell{padding:20px 24px;border-right:1px solid rgba(255,255,255,.05);text-align:center;}
+.stat-cell:last-child{border-right:none;}
+.stat-n{font-family:'Bebas Neue',sans-serif;font-size:34px;color:var(--gold);letter-spacing:1px;line-height:1;margin-bottom:4px;}
+.stat-l{font-size:9px;letter-spacing:2px;text-transform:uppercase;color:rgba(245,240,232,.3);}
+
+/* HOME MAIN LAYOUT */
+.home-main{display:grid;grid-template-columns:1fr 300px;border-top:3px solid var(--dark);}
+.home-results-row{display:grid;grid-template-columns:1fr 300px;border-top:1px solid var(--border);background:var(--cream);}
+.hm-col{padding:32px 28px;border-right:1px solid var(--border);}
+.hm-col:last-child{border-right:none;}
+.hm-col-dark{background:var(--dark2);padding:32px 28px;border-right:1px solid rgba(201,168,76,.1);}
+
+/* PHOTO SLIDER */
+.photo-section{background:var(--dark2);border-top:3px solid var(--gold);padding:32px 0 0;}
+.photo-header{padding:0 48px 18px;display:flex;align-items:flex-end;justify-content:space-between;}
+.photo-nav-btns{display:flex;gap:8px;}
+.pnav{width:36px;height:36px;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.1);color:rgba(245,240,232,.45);font-size:15px;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all .15s;}
+.pnav:hover{background:rgba(201,168,76,.15);color:var(--gold);border-color:rgba(201,168,76,.4);}
+.photo-track{overflow:hidden;padding:0 48px;}
+.photo-reel{display:flex;gap:14px;transition:transform .45s cubic-bezier(.4,0,.2,1);}
+.photo-card{flex-shrink:0;width:210px;}
+.photo-img{width:210px;height:148px;position:relative;overflow:hidden;}
+.photo-img img{width:100%;height:100%;object-fit:cover;}
+.photo-img-placeholder{width:100%;height:100%;background:linear-gradient(135deg,var(--red-deep) 0%,var(--dark2) 100%);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;}
+.photo-overlay{position:absolute;inset:0;background:rgba(13,13,13,.3);}
+.photo-caption{padding:8px 0;}
+.photo-cap-title{font-size:11px;font-weight:500;color:rgba(245,240,232,.75);}
+.photo-cap-sub{font-size:10px;color:var(--muted);font-weight:300;margin-top:1px;}
+.photo-dots{display:flex;gap:6px;justify-content:center;padding:18px 0 26px;}
+.pdot{width:22px;height:2px;background:rgba(255,255,255,.1);cursor:pointer;transition:background .2s;}
+.pdot.active{background:var(--gold);}
+
+/* SPONSORS */
+.sponsors-section{padding:32px 48px;background:#F0EBE0;border-top:1px solid var(--border);}
+.sponsor-logos{display:flex;gap:0;flex-wrap:wrap;margin-top:18px;border:1px solid var(--border);}
+.sponsor-cell{flex:1;min-width:100px;padding:22px;border-right:1px solid var(--border);display:flex;align-items:center;justify-content:center;}
+.sponsor-cell:last-child{border-right:none;}
+.sponsor-ph{width:100%;height:36px;background:#E0D8CC;display:flex;align-items:center;justify-content:center;font-size:9px;letter-spacing:2px;text-transform:uppercase;color:#A09070;font-weight:500;}
+
+/* IG STRIP */
+.ig-section{background:var(--dark);border-top:1px solid rgba(201,168,76,.15);padding:32px 0 0;}
+.ig-header{padding:0 48px 16px;display:flex;align-items:center;justify-content:space-between;}
+.ig-link{font-size:10px;letter-spacing:1.5px;text-transform:uppercase;color:var(--gold);text-decoration:none;font-weight:600;}
+.ig-track{overflow:hidden;padding:0 48px;}
+.ig-reel{display:flex;gap:12px;transition:transform .4s cubic-bezier(.4,0,.2,1);}
+.ig-card{flex-shrink:0;width:160px;height:160px;position:relative;overflow:hidden;cursor:pointer;}
+.ig-card-bg{width:100%;height:100%;background:linear-gradient(135deg,rgba(61,0,8,.8),rgba(26,26,26,.9));display:flex;align-items:center;justify-content:center;flex-direction:column;gap:6px;transition:transform .2s;}
+.ig-card:hover .ig-card-bg{transform:scale(1.04);}
+.ig-icon{font-size:22px;opacity:.35;}
+.ig-num{font-family:'Bebas Neue',sans-serif;font-size:28px;color:rgba(255,255,255,.08);}
+.ig-overlay{position:absolute;bottom:0;left:0;right:0;background:linear-gradient(to top,rgba(13,13,13,.8),transparent);padding:10px 8px 6px;}
+.ig-cap{font-size:9px;color:rgba(245,240,232,.7);font-weight:300;line-height:1.3;}
+.ig-dots{display:flex;gap:5px;justify-content:center;padding:14px 0 22px;}
+.ig-dot{width:18px;height:2px;background:rgba(255,255,255,.1);cursor:pointer;transition:background .2s;}
+.ig-dot.active{background:var(--gold);}
+
+/* ═══════════════════════════════════
+   EVENTS PAGE
+═══════════════════════════════════ */
+.events-filter{display:flex;gap:0;border-bottom:2px solid var(--border);padding:0 48px;background:#fff;flex-wrap:wrap;}
+.efil{padding:13px 18px;font-size:10px;letter-spacing:2px;text-transform:uppercase;font-weight:600;cursor:pointer;color:#8A7052;border-bottom:2px solid transparent;margin-bottom:-2px;background:transparent;border-top:none;border-left:none;border-right:none;font-family:'Inter',sans-serif;white-space:nowrap;}
+.efil.active{color:var(--red);border-bottom-color:var(--red);}
+.efil:hover{color:var(--dark);}
+.events-grid{padding:36px 48px;display:grid;gap:14px;}
+.event-card{background:#fff;border:1px solid var(--border);overflow:hidden;transition:box-shadow .2s,border-color .2s;}
+.event-card:hover{box-shadow:0 4px 20px rgba(0,0,0,.07);border-color:rgba(192,0,26,.25);}
+.ec-header{display:grid;grid-template-columns:56px 1fr auto;align-items:stretch;}
+.ec-num{background:var(--dark);display:flex;flex-direction:column;align-items:center;justify-content:center;padding:14px 8px;}
+.ec-num-lbl{font-size:7px;letter-spacing:2px;text-transform:uppercase;color:rgba(255,255,255,.4);margin-bottom:1px;}
+.ec-num-n{font-family:'Bebas Neue',sans-serif;font-size:24px;color:var(--gold);line-height:1;}
+.ec-num-yr{font-size:8px;color:rgba(255,255,255,.25);margin-top:2px;letter-spacing:1px;}
+.ec-info{padding:14px 18px;}
+.ec-date{font-size:13px;font-weight:600;color:var(--dark);margin-bottom:2px;}
+.ec-venue{font-size:11px;color:#8A7052;margin-bottom:3px;}
+.ec-events-tag{font-size:10px;color:var(--dark);}
+.ec-meta{padding:14px 16px;display:flex;flex-direction:column;align-items:flex-end;justify-content:center;gap:5px;}
+.ec-time-v{font-family:'Bebas Neue',sans-serif;font-size:16px;color:var(--gold);}
+.ec-cta{padding:8px 12px;font-size:9px;letter-spacing:1.5px;text-transform:uppercase;font-weight:600;font-family:'Inter',sans-serif;cursor:pointer;border:none;white-space:nowrap;}
+.cta-enter{background:var(--red);color:#fff;}
+.cta-results{background:var(--gold);color:var(--dark);}
+.cta-closed{background:#E8E0D0;color:#8A7052;cursor:default;}
+.ec-body{border-top:1px solid var(--border);padding:10px 18px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px;}
+.ec-close{font-size:10px;color:#8A7052;}
+.ec-close strong{color:var(--dark);font-weight:600;}
+.ec-links{display:flex;gap:8px;}
+.ec-link-btn{padding:5px 12px;font-size:9px;letter-spacing:1.5px;text-transform:uppercase;font-weight:600;font-family:'Inter',sans-serif;cursor:pointer;border:1px solid var(--border);background:transparent;color:#8A7052;transition:all .15s;}
+.ec-link-btn:hover{border-color:var(--red);color:var(--red);}
+.toggle-btn{font-size:9px;letter-spacing:1.5px;text-transform:uppercase;font-weight:600;color:var(--red);cursor:pointer;background:none;border:none;font-family:'Inter',sans-serif;padding:0;}
+.res-expand{background:var(--cream);border-top:1px solid var(--border);padding:0;max-height:0;overflow:hidden;transition:max-height .3s ease,padding .3s ease;}
+.res-expand.open{max-height:4000px;padding:20px 18px;overflow-y:auto;}
+.res-expand-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;}
+.res-ev-col h4{font-size:9px;letter-spacing:2px;text-transform:uppercase;color:var(--red);font-weight:600;margin-bottom:10px;padding-bottom:6px;border-bottom:1px solid var(--border);}
+.res-row{display:flex;align-items:center;gap:6px;padding:4px 0;border-bottom:1px solid rgba(224,216,204,.4);}
+.res-row:last-child{border-bottom:none;}
+.res-pos{font-family:'Bebas Neue',sans-serif;font-size:14px;color:var(--gold);min-width:18px;}
+.res-name{font-size:11px;font-weight:500;color:var(--dark);flex:1;}
+.res-time{font-family:'Bebas Neue',sans-serif;font-size:13px;color:var(--dark);}
+
+/* ═══════════════════════════════════
+   STANDINGS PAGE
+═══════════════════════════════════ */
+.standings-layout{display:grid;grid-template-columns:1fr 260px;}
+.standings-main{padding:40px 48px;border-right:1px solid var(--border);}
+.standings-sidebar{padding:28px 22px;background:var(--dark);}
+.season-btns{display:flex;gap:6px;margin-bottom:20px;flex-wrap:wrap;}
+.s-btn{padding:7px 14px;font-size:9px;letter-spacing:1.5px;text-transform:uppercase;font-weight:600;font-family:'Inter',sans-serif;cursor:pointer;background:transparent;color:#8A7052;border:1px solid var(--border);transition:all .15s;}
+.s-btn.active{background:var(--red);color:#fff;border-color:var(--red);}
+
+/* ═══════════════════════════════════
+   HISTORY PAGE
+═══════════════════════════════════ */
+.history-layout{display:grid;grid-template-columns:200px 1fr;}
+.hist-nav{background:var(--dark);padding:24px 0;position:sticky;top:62px;max-height:calc(100vh - 62px);overflow-y:auto;}
+.hn-label{font-size:8px;letter-spacing:2.5px;text-transform:uppercase;color:rgba(201,168,76,.45);font-weight:600;padding:12px 22px 6px;}
+.hn-item{display:block;padding:8px 22px;font-size:11px;color:rgba(245,240,232,.45);cursor:pointer;transition:color .15s,background .15s;border:none;background:transparent;font-family:'Inter',sans-serif;text-align:left;width:100%;font-weight:400;border-right:2px solid transparent;}
+.hn-item:hover{color:var(--gold);background:rgba(201,168,76,.04);}
+.hn-item.active{color:var(--gold);background:rgba(192,0,26,.08);border-right-color:var(--red);}
+.hist-content{padding:40px 48px;}
+.hist-section{display:none;}
+.hist-section.active{display:block;}
+.champ-year-block{margin-bottom:24px;}
+.cy-title{font-family:'Bebas Neue',sans-serif;font-size:28px;color:var(--red);border-bottom:1px solid var(--border);padding-bottom:6px;margin-bottom:10px;letter-spacing:1px;}
+.cy-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:0;border:1px solid var(--border);}
+.cy-cell{padding:10px 14px;border-right:1px solid var(--border);}
+.cy-cell:last-child{border-right:none;}
+.cy-event{font-size:8px;letter-spacing:2px;text-transform:uppercase;color:var(--red);font-weight:600;margin-bottom:5px;}
+.cy-name{font-size:12px;font-weight:600;color:var(--dark);}
+.cy-club{font-size:10px;color:#8A7052;font-weight:300;margin-top:1px;}
+.cy-time{font-family:'Bebas Neue',sans-serif;font-size:17px;color:var(--dark);margin-top:3px;}
+.olympians-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:16px;}
+.ol-card{background:#fff;border:1px solid var(--border);padding:14px 16px;}
+.ol-name{font-size:13px;font-weight:600;color:var(--dark);margin-bottom:2px;}
+.ol-games{font-size:9px;color:var(--red);font-weight:600;letter-spacing:1px;text-transform:uppercase;margin-bottom:3px;}
+.ol-club{font-size:10px;color:#8A7052;font-weight:300;}
+.ol-ev{display:inline-block;font-size:8px;letter-spacing:1px;text-transform:uppercase;background:var(--gold-pale);color:#6B5010;border:1px solid rgba(201,168,76,.4);padding:2px 7px;margin-top:5px;font-weight:600;}
+.toplist-wrap{max-height:600px;overflow-y:auto;border:1px solid var(--border);}
+.toplist-wrap::-webkit-scrollbar{width:4px;}
+.toplist-wrap::-webkit-scrollbar-thumb{background:rgba(192,0,26,.3);border-radius:2px;}
+.tl-row{display:grid;grid-template-columns:36px 1fr 70px 44px;gap:8px;align-items:center;padding:8px 14px;border-bottom:1px solid rgba(224,216,204,.3);}
+.tl-row:last-child{border-bottom:none;}
+.tl-row:hover{background:#F5EFE4;}
+.tl-pos{font-family:'Bebas Neue',sans-serif;font-size:15px;color:rgba(192,0,26,.35);text-align:center;}
+.tl-pos.gold{color:var(--gold);font-size:18px;}
+.tl-name{font-size:11px;font-weight:500;color:var(--dark);}
+.tl-club{font-size:9px;color:#8A7052;font-weight:300;}
+.tl-time{font-family:'Bebas Neue',sans-serif;font-size:14px;color:var(--dark);text-align:right;}
+.tl-year{font-size:9px;color:#8A7052;text-align:right;}
+.wins-table{width:100%;border-collapse:collapse;}
+.wins-table th{font-size:8px;letter-spacing:2px;text-transform:uppercase;color:#8A7052;font-weight:600;padding:9px 12px;border-bottom:1px solid var(--border);background:#F0EBE0;text-align:left;}
+.wins-table th.r{text-align:right;}
+.wins-row:hover{background:#F5EFE4;}
+.wins-row td{padding:9px 12px;border-bottom:1px solid rgba(224,216,204,.3);}
+.wins-row:last-child td{border-bottom:none;}
+.wins-bar{height:3px;background:var(--border);border-radius:2px;margin-top:4px;overflow:hidden;}
+.wins-bar-fill{height:3px;background:var(--red);border-radius:2px;}
+
+/* ═══════════════════════════════════
+   ABOUT PAGE
+═══════════════════════════════════ */
+.about-layout{display:grid;grid-template-columns:1fr 300px;border-top:3px solid var(--dark);}
+.about-main{padding:48px;border-right:1px solid var(--border);}
+.about-sidebar{padding:32px 24px;background:var(--dark);}
+.about-section{margin-bottom:44px;}
+.about-rule{width:48px;height:2px;background:var(--red);margin:14px 0;}
+.about-body{font-size:13px;line-height:1.8;color:#3A3228;font-weight:300;max-width:600px;}
+.about-body p{margin-bottom:14px;}
+.rule-item{display:flex;gap:12px;padding:10px 0;border-bottom:1px solid var(--border);}
+.rule-item:last-child{border-bottom:none;}
+.rule-num{font-family:'Bebas Neue',sans-serif;font-size:20px;color:var(--red);min-width:24px;line-height:1;}
+.rule-text{font-size:12px;color:#3A3228;line-height:1.6;font-weight:300;}
+.board-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:14px;}
+.bc{background:#fff;border:1px solid var(--border);padding:14px 16px;}
+.bc-name{font-size:13px;font-weight:600;color:var(--dark);margin-bottom:2px;}
+.bc-role{font-size:9px;letter-spacing:1.5px;text-transform:uppercase;color:var(--red);font-weight:600;}
+.prize-table{width:100%;border-collapse:collapse;margin-top:12px;}
+.prize-table th{font-size:8px;letter-spacing:2px;text-transform:uppercase;color:#8A7052;font-weight:600;padding:9px 12px;border-bottom:1px solid var(--border);background:#F0EBE0;text-align:left;}
+.prize-table th.r{text-align:right;}
+.prize-row:hover{background:#F5EFE4;}
+.prize-row td{padding:9px 12px;border-bottom:1px solid rgba(224,216,204,.3);font-size:12px;}
+.prize-row:last-child td{border-bottom:none;}
+.prize-amt{text-align:right;font-family:'Bebas Neue',sans-serif;font-size:16px;color:var(--dark);}
+
+/* ── HAMBURGER ── */
+.hamburger { display: none; flex-direction: column; gap: 4px; cursor: pointer; z-index: 201; }
+.hamburger span { display: block; width: 22px; height: 2px; background: var(--text); transition: 0.3s; }
+.hamburger.active span:nth-child(1) { transform: translateY(6px) rotate(45deg); }
+.hamburger.active span:nth-child(2) { opacity: 0; }
+.hamburger.active span:nth-child(3) { transform: translateY(-6px) rotate(-45deg); }
+
+/* ── MOBILE RESPONSIVENESS ── */
+@media (max-width: 1024px) {
+  .home-main, .home-results-row, .about-layout, .standings-layout, .history-layout {
+    grid-template-columns: 1fr;
+  }
+  .hist-nav { position: static; max-height: none; border-bottom: 1px solid var(--border); }
+  .hm-col, .hm-col-dark, .about-main, .standings-main {
+    border-right: none;
+    border-bottom: 1px solid var(--border);
+  }
+  .records-band, .stats-band, .champs-strip {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  .footer-main {
+    grid-template-columns: 1fr;
+    gap: 30px;
+  }
+  .nav {
+    padding: 0 20px;
+  }
+  .page-hero, .about-main, .standings-main, .events-grid, .hist-content, .footer-main { padding: 40px 20px; }
+  .events-filter { padding: 0 20px; }
+  .hm-col, .hm-col-dark { padding: 24px 20px; }
+  .photo-header, .photo-track, .ig-header, .ig-track, .sponsors-section { padding: 32px 20px; }
+  .hamburger { display: flex; }
+  .nav-links {
+    display: flex;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    width: 100%;
+    background: var(--dark);
+    flex-direction: column;
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.3s ease;
+    border-bottom: 2px solid var(--red);
+  }
+  .nav-links.active { max-height: 500px; }
+  .nav-links a { padding: 15px 30px; border-bottom: 1px solid rgba(255,255,255,0.05); }
+  .nav-social, .logo-text-sub { display: none; }
+  .logo-text-main { font-size: 10px; }
+  .cy-grid, .olympians-grid, .store-grid, .res-expand-grid { grid-template-columns: 1fr; }
+  .hero-wm span { font-size: 140px; }
+  .home-hero { min-height: 480px; }
+  .sec-title { font-size: 20px; }
+}
+
+@media (max-width: 600px) {
+  .records-band, .stats-band, .champs-strip, .cy-grid, .board-grid {
+    grid-template-columns: 1fr;
+  }
+  .rec-cell { border-right: none; border-bottom: 1px solid rgba(255,255,255,0.1); }
+}
+</style>
+</head>
+<body>
+
+<!-- ══ NAV ══ -->
+<nav class="nav">
+  <div class="nav-logo" onclick="showPage('home')">
+    <div class="logo-badge"><span>VMC</span></div>
+    <div>
+      <div class="logo-text-main">Victorian Milers Club</div>
+      <div class="logo-text-sub">Melbourne, Victoria</div>
+    </div>
+  </div>
+  <ul class="nav-links" id="navLinks">
+    <li><a onclick="showPage('home')" id="nav-home" class="active">Home</a></li>
+    <li><a onclick="showPage('events')" id="nav-events">Events</a></li>
+    <li><a onclick="showPage('standings')" id="nav-standings">Standings</a></li>
+    <li><a onclick="showPage('history')" id="nav-history">History</a></li>
+    <li><a onclick="showPage('about')" id="nav-about">About</a></li>
+  </ul>
+  <div class="nav-right">
+    <div class="nav-social">
+      <a href="#" title="Instagram">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/></svg>
+      </a>
+      <a href="#" title="Facebook">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 2h-3a5 5 0 00-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 011-1h3z"/></svg>
+      </a>
+    </div>
+    <button class="nav-cta">Enter Now</button>
+    <div class="hamburger" id="hamburger" onclick="toggleMenu()">
+      <span></span>
+      <span></span>
+      <span></span>
+    </div>
+  </div>
+</nav>
+
+<!-- ══════════════════════════════════════════
+     HOME PAGE
+══════════════════════════════════════════ -->
+<div id="page-home" class="page active">
+
+  <!-- Horizontal Race Calendar -->
+  <div class="cal-strip">
+    <div class="cal-strip-inner" id="calStrip"></div>
+  </div>
+
+  <!-- Hero -->
+  <div class="home-hero">
+    <div class="hero-bg-abs">
+      <div class="hero-grad"></div>
+      <div class="hero-track-svg">
+        <svg viewBox="0 0 1200 600" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg">
+          <ellipse cx="600" cy="300" rx="570" ry="255" fill="none" stroke="white" stroke-width="1.5"/>
+          <ellipse cx="600" cy="300" rx="470" ry="195" fill="none" stroke="white" stroke-width="1"/>
+          <ellipse cx="600" cy="300" rx="370" ry="135" fill="none" stroke="white" stroke-width="1"/>
+          <ellipse cx="600" cy="300" rx="270" ry="75" fill="none" stroke="white" stroke-width=".5"/>
+          <line x1="30" y1="300" x2="1170" y2="300" stroke="white" stroke-width=".5" opacity=".35"/>
+        </svg>
+      </div>
+    </div>
+    <div class="hero-wm"><span>VMC</span></div>
+    <div class="hero-centre">
+      <div class="hero-logo-ring"><span class="hero-vmc">VMC</span></div>
+      <div class="hero-club-name">Victorian Milers Club</div>
+      <div class="hero-red-rule"></div>
+      <h1 class="hero-tagline">Premier <em>middle-distance</em><br>competition in Victoria</h1>
+      <p class="hero-sub">Graded racing for all abilities — from club athletes to Olympians.</p>
+      <div class="hero-btns">
+        <button class="btn-red" onclick="showPage('events')">Enter a Meet</button>
+        <button class="btn-ghost-hero" onclick="showPage('events')">2025–26 Schedule</button>
+      </div>
+      <div style="width:100%;max-width:820px;">
+        <div style="font-size:9px;letter-spacing:3px;text-transform:uppercase;color:rgba(201,168,76,.6);font-weight:600;margin-bottom:10px;text-align:center;">2025-26 VMC Champions</div>
+        <div class="champs-strip">
+          <div class="champ-cell"><div class="cc-event">W 800M</div><div class="cc-name">Lucy Delbridge</div><div class="cc-time">2:06.04</div><div class="cc-label">Collingwood Harriers</div></div>
+          <div class="champ-cell"><div class="cc-event">M 800M</div><div class="cc-name">Bob Abdelrahim</div><div class="cc-time">1:46.08</div><div class="cc-label">St. Kevin's AC</div></div>
+          <div class="champ-cell"><div class="cc-event">W 1500M</div><div class="cc-name">Madison King</div><div class="cc-time">4:21.45</div><div class="cc-label">Glenhuntly AC</div></div>
+          <div class="champ-cell"><div class="cc-event">M 1500M</div><div class="cc-name">Tiarnan Crorken</div><div class="cc-time">3:44.56</div><div class="cc-label">Great Britain</div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- VMC Records -->
+  <div class="records-band">
+    <div class="rec-cell"><div class="rec-event">VMC Record — W 800m</div><div class="rec-time">2:01.4</div><div class="rec-name">Sarah Mitchell, 2019</div></div>
+    <div class="rec-cell"><div class="rec-event">VMC Record — M 800m</div><div class="rec-time">1:46.8</div><div class="rec-name">David Lowe, 2017</div></div>
+    <div class="rec-cell"><div class="rec-event">VMC Record — W 1500m</div><div class="rec-time">4:07.2</div><div class="rec-name">Emma Clarke, 2021</div></div>
+    <div class="rec-cell"><div class="rec-event">VMC Record — M 1500m</div><div class="rec-time">3:35.9</div><div class="rec-name">James Reardon, 2022</div></div>
+  </div>
+  <div class="records-band" style="border-top:1px solid rgba(255,255,255,0.15);">
+    <div class="rec-cell"><div class="rec-event">VMC Record — W Mile</div><div class="rec-time">4:28.5</div><div class="rec-name">Sarah Mitchell, 2020</div></div>
+    <div class="rec-cell"><div class="rec-event">VMC Record — M Mile</div><div class="rec-time">3:54.2</div><div class="rec-name">James Reardon, 2023</div></div>
+    <div class="rec-cell"><div class="rec-event">VMC Record — W 3000m</div><div class="rec-time">8:56.4</div><div class="rec-name">Emma Clarke, 2022</div></div>
+    <div class="rec-cell"><div class="rec-event">VMC Record — M 3000m</div><div class="rec-time">7:48.1</div><div class="rec-name">Patrick Lim, 2023</div></div>
+  </div>
+
+  <!-- Main 3 col: Standings | Results | Calendar -->
+  <div class="home-main">
+    <!-- Standings -->
+    <div class="hm-col">
+      <div class="sec-eyebrow">2025–26 Season</div>
+      <div class="sec-title">Season Standings</div>
+      <div class="tab-row" id="homeLbTabs">
+        <button class="tab-btn active" data-key="w800">W 800m</button>
+        <button class="tab-btn" data-key="m800">M 800m</button>
+        <button class="tab-btn" data-key="w1500">W 1500m</button>
+        <button class="tab-btn" data-key="m1500">M 1500m</button>
+      </div>
+      <div class="table-scroll">
+        <table class="data-table">
+          <thead><tr><th>Pos</th><th>Athlete</th><th>Club</th><th class="r">SB</th><th class="r">PB</th><th class="r">Pts</th></tr></thead>
+          <tbody id="homeLbBody"></tbody>
+        </table>
+      </div>
+      
+      <div class="divider"></div>
+      <div class="sec-eyebrow">After Meet 5</div>
+      <div class="sec-title">Club Leaderboard</div>
+      <div id="homeClubBoard" style="margin-top:16px;"></div>
+
+      <div class="divider"></div>
+
+      <div class="sec-eyebrow">Latest Results — Meet 5</div>
+      <div class="sec-title" style="margin-bottom:0;">31 Mar 2026, Box Hill</div>
+      <div class="tab-row" id="homeResTabs">
+        <button class="tab-btn active" data-key="rw800">W 800m</button>
+        <button class="tab-btn" data-key="rm800">M 800m</button>
+        <button class="tab-btn" data-key="rw1500">W 1500m</button>
+        <button class="tab-btn" data-key="rm1500">M 1500m</button>
+      </div>
+      <div style="margin-top:8px;font-size:8px;letter-spacing:2px;text-transform:uppercase;background:var(--red);color:#fff;padding:3px 10px;display:inline-block;font-weight:600;">Top 8 Finishers</div>
+      <div id="homeResBody"></div>
+    </div>
+
+    <!-- Calendar Sidebar -->
+    <div class="hm-col" style="background:var(--dark);border-right:none;">
+      <div class="sec-eyebrow-gold">2025–26 Season</div>
+      <div class="sec-title-light" style="margin-bottom:14px;">Race Calendar</div>
+      <div id="homeCalSidebar"></div>
+
+      <div class="divider-gold"></div>
+      <div id="latestWinnersSidebar"></div>
+
+      <div class="divider-gold"></div>
+      <div class="sec-eyebrow-gold">Season Impact</div>
+      <div class="sec-title-light" style="margin-bottom:16px;">Competition Stats</div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;">
+        <div style="background:rgba(255,255,255,.03);padding:16px;text-align:center;border:1px solid rgba(201,168,76,.12);">
+          <div class="stat-n">312</div><div class="stat-l">Total Entries</div>
+        </div>
+        <div style="background:rgba(255,255,255,.03);padding:16px;text-align:center;border:1px solid rgba(201,168,76,.12);">
+          <div class="stat-n">5</div><div class="stat-l">Rounds Complete</div>
+        </div>
+        <div style="background:rgba(255,255,255,.03);padding:16px;text-align:center;border:1px solid rgba(201,168,76,.12);">
+          <div class="stat-n">74</div><div class="stat-l">PBs Set This Season</div>
+        </div>
+        <div style="background:rgba(255,255,255,.03);padding:16px;text-align:center;border:1px solid rgba(201,168,76,.12);">
+          <div class="stat-n">11</div><div class="stat-l">Olympians Competed</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Photo Slider -->
+  <div class="photo-section">
+    <div class="photo-header">
+      <div><div class="sec-eyebrow-gold">Gallery</div><div class="sec-title-light">Race Memories</div></div>
+      <div class="photo-nav-btns">
+        <button class="pnav" id="photoPrev">&#8592;</button>
+        <button class="pnav" id="photoNext">&#8594;</button>
+      </div>
+    </div>
+    <div class="photo-track"><div class="photo-reel" id="photoReel"></div></div>
+    <div class="photo-dots" id="photoDots"></div>
+  </div>
+
+  <!-- Instagram Strip -->
+  <div class="ig-section">
+    <div class="ig-header">
+      <div>
+        <div class="sec-eyebrow-gold">Social</div>
+        <div class="sec-title-light">Latest from Instagram</div>
+      </div>
+      <a href="https://instagram.com/vicmilers" class="ig-link">@vicmilers ↗</a>
+    </div>
+    <div class="ig-track"><div class="ig-reel" id="igReel"></div></div>
+    <div class="ig-dots" id="igDots"></div>
+  </div>
+
+  <!-- Sponsors -->
+  <div class="sponsors-section">
+    <div class="sec-eyebrow">Partners</div>
+    <div class="sec-title">Club Sponsors</div>
+    <div class="sponsor-logos">
+      <div class="sponsor-cell"><div class="sponsor-ph">Principal Sponsor</div></div>
+      <div class="sponsor-cell"><div class="sponsor-ph">Gold Sponsor</div></div>
+      <div class="sponsor-cell"><div class="sponsor-ph">Gold Sponsor</div></div>
+      <div class="sponsor-cell"><div class="sponsor-ph">Silver Sponsor</div></div>
+      <div class="sponsor-cell"><div class="sponsor-ph">Silver Sponsor</div></div>
+      <div class="sponsor-cell"><div class="sponsor-ph">Partner</div></div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════
+     EVENTS PAGE
+══════════════════════════════════════════ -->
+<div id="page-events" class="page">
+  <div class="page-hero">
+    <div class="page-hero-bg"></div>
+    <div class="page-hero-wm">EVENTS</div>
+    <div class="ph-content">
+      <div class="ph-eyebrow">Victorian Milers Club</div>
+      <h1 class="ph-title">Race <em>Events</em></h1>
+      <p class="ph-sub">Every VMC meet — past and present. Enter upcoming races, apply to pace, or view historical results.</p>
+    </div>
+  </div>
+  <div class="events-filter">
+    <button class="efil active" onclick="filterEvents('all',this)">All Meets</button>
+    <button class="efil" onclick="filterEvents('upcoming',this)">Upcoming</button>
+    <button class="efil" onclick="filterEvents('completed',this)">Completed</button>
+    <button class="efil" onclick="filterEvents('2025',this)">2025–26</button>
+    <button class="efil" onclick="filterEvents('2023',this)">2023–24</button>
+    <button class="efil" onclick="filterEvents('2022',this)">2022–23</button>
+    <button class="efil" onclick="filterEvents('2021',this)">2021–22</button>
+  </div>
+  <div class="events-grid" id="eventsGrid"></div>
+</div>
+
+<!-- ══════════════════════════════════════════
+     STANDINGS PAGE
+══════════════════════════════════════════ -->
+<div id="page-standings" class="page">
+  <div class="page-hero">
+    <div class="page-hero-bg"></div>
+    <div class="page-hero-wm">STANDINGS</div>
+    <div class="ph-content">
+      <div class="ph-eyebrow">2025–26 Season</div>
+      <h1 class="ph-title">Season <em>Standings</em></h1>
+      <p class="ph-sub">Full season rankings. Points accumulated across all meets. Updated after every race. Powered by Google Sheets.</p>
+    </div>
+  </div>
+  <div class="standings-layout">
+    <div class="standings-main">
+      <div class="season-btns">
+        <button class="s-btn active">2025–26</button>
+        <button class="s-btn">2023–24</button>
+        <button class="s-btn">2022–23</button>
+        <button class="s-btn">2021–22</button>
+        <button class="s-btn">2020–21</button>
+      </div>
+      <div class="tab-row" id="standingsTabs">
+        <button class="tab-btn active" data-key="w800">Women's 800m</button>
+        <button class="tab-btn" data-key="m800">Men's 800m</button>
+        <button class="tab-btn" data-key="w1500">Women's 1500m</button>
+        <button class="tab-btn" data-key="m1500">Men's 1500m</button>
+      </div>
+      <div class="table-scroll">
+        <table class="data-table">
+          <thead><tr><th>Pos</th><th>Athlete</th><th>Club</th><th>Nat</th><th class="r">Season Best</th><th class="r">PB</th><th class="r">M1</th><th class="r">M2</th><th class="r">Total</th></tr></thead>
+          <tbody id="standingsBody"></tbody>
+        </table>
+      </div>
+    </div>
+    <div class="standings-sidebar">
+      <div class="sec-eyebrow-gold" style="margin-bottom:8px;">After Meet 2</div>
+      <div class="sec-title-light" style="font-size:17px;margin-bottom:14px;">Club Board</div>
+      <div id="sideClub"></div>
+      <div class="divider-gold"></div>
+      <div class="sec-eyebrow-gold" style="margin-bottom:8px;">Season Info</div>
+      <div style="font-size:11px;color:var(--muted);line-height:1.9;font-weight:300;">
+        Meets completed: <span style="color:var(--gold);font-weight:600;">2 of 6</span><br>
+        Points: <span style="color:var(--gold);font-weight:600;">Best 4 of 6</span><br>
+        Athletes: <span style="color:var(--gold);font-weight:600;">247</span><br>
+        PBs set: <span style="color:var(--gold);font-weight:600;">74</span>
+      </div>
+      <div style="margin-top:16px;" class="gsheet-badge">
+        <span>📊 <strong>Google Sheets</strong> powered — update one file, site updates instantly.</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════
+     HISTORY PAGE
+══════════════════════════════════════════ -->
+<div id="page-history" class="page">
+  <div class="page-hero">
+    <div class="page-hero-bg"></div>
+    <div class="page-hero-wm">HISTORY</div>
+    <div class="ph-content">
+      <div class="ph-eyebrow">Wall of Fame</div>
+      <h1 class="ph-title">VMC <em>History</em></h1>
+      <p class="ph-sub">Champions, Olympians, records and the complete story of Victorian Milers Club.</p>
+    </div>
+  </div>
+  <div class="history-layout">
+    <div class="hist-nav">
+      <div class="hn-label">Navigate</div>
+      <button class="hn-item active" onclick="showHist('story',this)">Our Story</button>
+      <button class="hn-item" onclick="showHist('champions',this)">Season Champions</button>
+      <button class="hn-item" onclick="showHist('olympians',this)">Olympians</button>
+      <button class="hn-item" onclick="showHist('toplist',this)">Top 200 Lists</button>
+      <button class="hn-item" onclick="showHist('mostwins',this)">Most Race Wins</button>
+      <button class="hn-item" onclick="showHist('clubchamps',this)">Club Champions</button>
+    </div>
+    <div class="hist-content">
+
+      <div class="hist-section active" id="hist-story">
+        <div class="sec-eyebrow">The Beginning</div>
+        <div class="sec-title">How VMC Began</div>
+        <div class="about-rule"></div>
+        <div class="about-body">
+          <p>The Victorian Milers Club was founded by a small group of middle-distance enthusiasts who believed that the mile — and its metric equivalents — deserved a dedicated competitive home in Victoria. What began as informal time trials at local tracks grew into one of Australia's most respected graded middle-distance series.</p>
+          <p>The club introduced a unique graded racing format that allowed club athletes to compete alongside elite performers, creating a culture of competition and improvement that has attracted Olympians, Commonwealth Games representatives, and national champions to the start line alongside local weekend runners chasing their first sub-5 minute mile.</p>
+          <p>Over the decades, VMC has produced some of Australia's finest middle-distance talent. The club's commitment to authentic competition — real times, real pacers, real racing — has kept it at the centre of Victorian athletics through every generation.</p>
+        </div>
+        <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:28px;">
+          <div style="background:#fff;border:1px solid var(--border);padding:18px;text-align:center;">
+            <div style="font-family:'Bebas Neue',sans-serif;font-size:44px;color:var(--red);line-height:1;">35+</div>
+            <div style="font-size:9px;letter-spacing:2px;text-transform:uppercase;color:#8A7052;margin-top:4px;">Seasons of Racing</div>
+          </div>
+          <div style="background:#fff;border:1px solid var(--border);padding:18px;text-align:center;">
+            <div style="font-family:'Bebas Neue',sans-serif;font-size:44px;color:var(--red);line-height:1;">11</div>
+            <div style="font-size:9px;letter-spacing:2px;text-transform:uppercase;color:#8A7052;margin-top:4px;">Olympians Competed</div>
+          </div>
+          <div style="background:#fff;border:1px solid var(--border);padding:18px;text-align:center;">
+            <div style="font-family:'Bebas Neue',sans-serif;font-size:44px;color:var(--red);line-height:1;">1000+</div>
+            <div style="font-size:9px;letter-spacing:2px;text-transform:uppercase;color:#8A7052;margin-top:4px;">PBs Set at VMC</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="hist-section" id="hist-champions">
+        <div class="sec-eyebrow">Roll of Honour</div>
+        <div class="sec-title" style="margin-bottom:4px;">Season Champions</div>
+        <p style="font-size:11px;color:#8A7052;margin-bottom:20px;font-weight:300;">← Powered by Google Sheets — update the spreadsheet to update this list.</p>
+        <div id="championsHistory"></div>
+      </div>
+
+      <div class="hist-section" id="hist-olympians">
+        <div class="sec-eyebrow">Wall of Fame</div>
+        <div class="sec-title" style="margin-bottom:14px;">VMC Olympians</div>
+        <div class="olympians-grid" id="olympiansGrid"></div>
+      </div>
+
+      <div class="hist-section" id="hist-toplist">
+        <div class="sec-eyebrow">All-Time Performance</div>
+        <div class="sec-title" style="margin-bottom:4px;">VMC Top 200 Lists</div>
+        <p style="font-size:11px;color:#8A7052;margin-bottom:0;font-weight:300;">Scrollable — 200 athletes per event. Powered by Google Sheets.</p>
+        <div class="tab-row" id="toplistTabs" style="border-color:var(--border);">
+          <button class="tab-btn active" data-tl="w800">Women's 800m</button>
+          <button class="tab-btn" data-tl="m800">Men's 800m</button>
+          <button class="tab-btn" data-tl="w1500">Women's 1500m</button>
+          <button class="tab-btn" data-tl="m1500">Men's 1500m</button>
+        </div>
+        <div style="margin-top:0;">
+          <div style="background:#F0EBE0;display:grid;grid-template-columns:36px 1fr 70px 44px;gap:8px;padding:8px 14px;border:1px solid var(--border);border-bottom:none;">
+            <div style="font-size:8px;letter-spacing:2px;text-transform:uppercase;color:#8A7052;font-weight:600;text-align:center;">Pos</div>
+            <div style="font-size:8px;letter-spacing:2px;text-transform:uppercase;color:#8A7052;font-weight:600;">Athlete / Club</div>
+            <div style="font-size:8px;letter-spacing:2px;text-transform:uppercase;color:#8A7052;font-weight:600;text-align:right;">Time</div>
+            <div style="font-size:8px;letter-spacing:2px;text-transform:uppercase;color:#8A7052;font-weight:600;text-align:right;">Year</div>
+          </div>
+          <div class="toplist-wrap" id="toplistBody"></div>
+        </div>
+        <div class="gsheet-badge" style="margin-top:12px;">
+          <span>📊 <strong>Google Sheets powered</strong> — paste athlete times into the sheet and this list updates automatically.</span>
+        </div>
+      </div>
+
+      <div class="hist-section" id="hist-mostwins">
+        <div class="sec-eyebrow">All-Time</div>
+        <div class="sec-title" style="margin-bottom:14px;">Most Race Wins</div>
+        <div class="table-scroll">
+          <table class="wins-table"><thead><tr><th>Athlete</th><th>Club</th><th class="r">Wins</th><th class="r">Seasons</th></tr></thead><tbody id="mostWinsBody"></tbody></table>
+        </div>
+      </div>
+
+      <div class="hist-section" id="hist-clubchamps">
+        <div class="sec-eyebrow">Team Award</div>
+        <div class="sec-title" style="margin-bottom:14px;">Club Championship Winners</div>
+        <div class="table-scroll">
+          <table class="wins-table"><thead><tr><th>Season</th><th>Club</th><th class="r">Points</th><th class="r">Athletes</th></tr></thead><tbody id="clubChampsBody"></tbody></table>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════
+     ABOUT PAGE
+══════════════════════════════════════════ -->
+<div id="page-about" class="page">
+  <div class="page-hero">
+    <div class="page-hero-bg"></div>
+    <div class="page-hero-wm">ABOUT</div>
+    <div class="ph-content">
+      <div class="ph-eyebrow">Victorian Milers Club</div>
+      <h1 class="ph-title">About <em>VMC</em></h1>
+      <p class="ph-sub">Our mission, our people, our rules — and the sponsors who make it all possible.</p>
+    </div>
+  </div>
+  <div class="about-layout">
+    <div class="about-main">
+      <div class="about-section">
+        <div class="sec-eyebrow">Who We Are</div>
+        <div class="sec-title">About VMC</div>
+        <div class="about-rule"></div>
+        <div class="about-body">
+          <p>The Victorian Milers Club is Victoria's premier middle-distance racing series, dedicated to the 800m, 1500m, and Mile. We provide a competitive, graded racing environment for athletes of all abilities — from first-time racers to Olympians.</p>
+          <p>VMC meets are held across Melbourne throughout the season at Lakeside Stadium, Box Hill, Aberfeldie, and Doncaster. Each meet features multiple grades so every athlete competes at their level.</p>
+        </div>
+      </div>
+      <div class="divider"></div>
+      <div class="about-section">
+        <div class="sec-eyebrow">Purpose</div>
+        <div class="sec-title">Mission Statement</div>
+        <div class="about-rule"></div>
+        <div style="background:var(--dark);padding:24px 28px;border-left:3px solid var(--red);">
+          <p style="font-family:'Playfair Display',serif;font-size:17px;color:var(--text);font-style:italic;line-height:1.6;">"To provide the highest quality middle-distance racing in Victoria — accessible to all abilities, honouring the tradition of the mile, and fostering a community built on authentic competition."</p>
+        </div>
+      </div>
+      <div class="divider"></div>
+      <div class="about-section">
+        <div class="sec-eyebrow">Competition</div>
+        <div class="sec-title">Rules & Regulations</div>
+        <div class="about-rule"></div>
+        <div>
+          <div class="rule-item"><div class="rule-num">01</div><div class="rule-text">All athletes must be registered with Athletics Australia or an affiliated international body. Entry closes the Monday prior to each meet at 12pm.</div></div>
+          <div class="rule-item"><div class="rule-num">02</div><div class="rule-text">Graded heats are assigned based on submitted estimated times. Athletes are responsible for providing accurate estimates — misrepresentation may result in disqualification.</div></div>
+          <div class="rule-item"><div class="rule-num">03</div><div class="rule-text">Pacemakers must apply separately and are subject to committee approval. Pacers must withdraw before the bell lap if still leading.</div></div>
+          <div class="rule-item"><div class="rule-num">04</div><div class="rule-text">Season points are awarded to the top 8 finishers in each heat. Best 4 results from 6 meets count toward the final standings.</div></div>
+          <div class="rule-item"><div class="rule-num">05</div><div class="rule-text">Club championship points are aggregated from all members' individual points. The leading club after the final meet is declared Club Champion.</div></div>
+          <div class="rule-item"><div class="rule-num">06</div><div class="rule-text">All decisions by the VMC committee regarding results, disqualifications, and points are final.</div></div>
+        </div>
+      </div>
+      <div class="divider"></div>
+      <div class="about-section">
+        <div class="sec-eyebrow">Leadership</div>
+        <div class="sec-title">Board Members</div>
+        <div class="about-rule"></div>
+        <div class="board-grid">
+          <div class="bc"><div class="bc-name">Michael Thompson</div><div class="bc-role">President</div></div>
+          <div class="bc"><div class="bc-name">Sarah Jenkins</div><div class="bc-role">Vice President</div></div>
+          <div class="bc"><div class="bc-name">David Chen</div><div class="bc-role">Secretary</div></div>
+          <div class="bc"><div class="bc-name">Lisa Nguyen</div><div class="bc-role">Treasurer</div></div>
+          <div class="bc"><div class="bc-name">Tom Harbridge</div><div class="bc-role">Results Director</div></div>
+          <div class="bc"><div class="bc-name">Emma Walsh</div><div class="bc-role">Events Coordinator</div></div>
+        </div>
+      </div>
+      <div class="divider"></div>
+      <div class="about-section">
+        <div class="sec-eyebrow">Prize Money</div>
+        <div class="sec-title">Season Prizes</div>
+        <div class="about-rule"></div>
+        <div class="table-scroll">
+          <table class="prize-table">
+            <thead><tr><th>Award</th><th>Event</th><th class="r">Prize</th></tr></thead>
+            <tbody>
+              <tr class="prize-row"><td>Season Champion</td><td>Women's 800m</td><td class="prize-amt">$500</td></tr>
+              <tr class="prize-row"><td>Season Champion</td><td>Men's 800m</td><td class="prize-amt">$500</td></tr>
+              <tr class="prize-row"><td>Season Champion</td><td>Women's 1500m</td><td class="prize-amt">$500</td></tr>
+              <tr class="prize-row"><td>Season Champion</td><td>Men's 1500m</td><td class="prize-amt">$500</td></tr>
+              <tr class="prize-row"><td>Club Championship</td><td>All Events</td><td class="prize-amt">$1,000</td></tr>
+              <tr class="prize-row"><td>VMC Record Bonus</td><td>Any Event</td><td class="prize-amt">$250</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+    <div class="about-sidebar">
+      <div class="sec-eyebrow-gold" style="margin-bottom:8px;">Our Partners</div>
+      <div class="sec-title-light" style="font-size:17px;margin-bottom:14px;">Sponsors</div>
+      <div style="display:flex;flex-direction:column;gap:8px;">
+        <div style="background:rgba(255,255,255,.04);border:1px solid rgba(201,168,76,.15);padding:14px;text-align:center;">
+          <div style="font-size:8px;letter-spacing:2px;text-transform:uppercase;color:var(--gold);margin-bottom:8px;">Principal Sponsor</div>
+          <div style="height:34px;background:rgba(255,255,255,.05);display:flex;align-items:center;justify-content:center;font-size:9px;letter-spacing:2px;text-transform:uppercase;color:rgba(245,240,232,.2);">Your Logo Here</div>
+        </div>
+        <div style="background:rgba(255,255,255,.03);border:1px solid rgba(201,168,76,.1);padding:12px;text-align:center;">
+          <div style="font-size:8px;letter-spacing:2px;text-transform:uppercase;color:rgba(201,168,76,.6);margin-bottom:6px;">Gold Sponsor</div>
+          <div style="height:28px;background:rgba(255,255,255,.04);display:flex;align-items:center;justify-content:center;font-size:9px;letter-spacing:2px;text-transform:uppercase;color:rgba(245,240,232,.15);">Logo</div>
+        </div>
+        <div style="background:rgba(255,255,255,.03);border:1px solid rgba(201,168,76,.1);padding:12px;text-align:center;">
+          <div style="font-size:8px;letter-spacing:2px;text-transform:uppercase;color:rgba(201,168,76,.6);margin-bottom:6px;">Silver Sponsor</div>
+          <div style="height:28px;background:rgba(255,255,255,.04);display:flex;align-items:center;justify-content:center;font-size:9px;letter-spacing:2px;text-transform:uppercase;color:rgba(245,240,232,.15);">Logo</div>
+        </div>
+      </div>
+      <div class="divider-gold"></div>
+      <div style="font-size:10px;color:var(--muted);line-height:1.7;font-weight:300;">Sponsorship enquiries:<br><span style="color:var(--gold);">sponsors@vicmilers.com</span></div>
+      <div class="divider-gold"></div>
+      <div class="sec-eyebrow-gold" style="margin-bottom:10px;">Follow Us</div>
+      <div class="footer-social">
+        <a href="#" class="footer-social-btn" title="Instagram">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/></svg>
+        </a>
+        <a href="#" class="footer-social-btn" title="Facebook">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 2h-3a5 5 0 00-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 011-1h3z"/></svg>
+        </a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<footer class="site-footer">
+  <div class="footer-main">
+    <div>
+      <div style="display:flex;align-items:center;gap:10px;margin-bottom:12px;">
+        <div class="logo-badge" style="width:36px;height:36px;"><span style="font-size:17px;">VMC</span></div>
+        <div class="logo-text-main">Victorian Milers Club</div>
+      </div>
+      <div style="font-size:11px;color:var(--muted);font-weight:300;line-height:1.7;max-width:240px;">Victoria's premier middle-distance racing series, dedicated to the 800m, 1500m, and Mile.</div>
+      <div class="footer-social" style="margin-top:14px;">
+        <a href="#" class="footer-social-btn" title="Instagram">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/></svg>
+        </a>
+        <a href="#" class="footer-social-btn" title="Facebook">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 2h-3a5 5 0 00-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 011-1h3z"/></svg>
+        </a>
+      </div>
+    </div>
+    <div>
+      <div class="footer-col-title">Navigation</div>
+      <div class="footer-links-list">
+        <a onclick="showPage('home')">Home</a>
+        <a onclick="showPage('events')">Events</a>
+        <a onclick="showPage('standings')">Standings</a>
+        <a onclick="showPage('history')">History</a>
+        <a onclick="showPage('about')">About</a>
+      </div>
+    </div>
+    <div>
+      <div class="footer-col-title">Contact</div>
+      <div style="font-size:11px;color:var(--muted);font-weight:300;line-height:1.9;">
+        info@vicmilers.com<br>
+        sponsors@vicmilers.com<br>
+        Melbourne, Victoria<br>
+        Athletics Australia Affiliated
+      </div>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <div class="footer-copy">© 2024 Victorian Milers Club. All rights reserved.</div>
+    <div class="gsheet-badge"><span>📊 Data <strong>powered by Google Sheets</strong></span></div>
+  </div>
+</footer>
+
+<script>
+// ═══════════════════ DATA ═══════════════════
+const CONFIG = {
+  // This is the main Google Sheet ID. All GIDs below refer to tabs within this sheet.
+  SHEET_ID: '2PACX-1vS333fIm5YAKqvOLj31o925Qi-K8qb3Ucx_rWBdRvVqPg95AYZsw3422SOnEBkLuUu93P2fgs_CAIpf',
+  GIDS: {
+    LB_W800: '0', // GID for Women's 800m Leaderboard tab
+    LB_M800: '123456789', // GID for Men's 800m Leaderboard tab
+    RESULTS: '987654321', // GID for Results tab
+    TL_W800: '0', // GID for the Women's 800m Toplist tab (usually '0' for the first sheet)
+    TL_M800: 'ADD_YOUR_MEN_800_GID_HERE', // GID for the Men's 800m Toplist tab
+    TL_W1500: 'ADD_YOUR_WOMEN_1500_GID_HERE',
+    TL_M1500: 'ADD_YOUR_MEN_1500_GID_HERE'
+  }
+};
+
+let toplist_w800 = [], toplist_m800 = [], toplist_w1500 = [], toplist_m1500 = [];
+let lbData = {
+  w800:[
+    {name:"Sophie Nguyen",club:"Box Hill Athletics",nat:"AUS",sb:"2:04.3",pb:"2:03.1",m1:"-",m2:12,pts:118,cr:true},
+    {name:"Ella Mackenzie",club:"St. Kevin's AC",nat:"AUS",sb:"2:06.1",pb:"2:05.8",m1:"-",m2:11,pts:109},
+    {name:"Chloe Bartlett",club:"Mentone Athletics",nat:"AUS",sb:"2:07.4",pb:"2:06.2",m1:"-",m2:10,pts:101},
+    {name:"Amara Diallo",club:"Melbourne Uni AC",nat:"AUS",sb:"2:08.9",pb:"2:07.5",m1:"-",m2:9,pts:94},
+    {name:"Grace Thornton",club:"Glenhuntly AC",nat:"AUS",sb:"2:09.2",pb:"2:08.1",m1:"-",m2:8,pts:87},
+    {name:"Priya Sharma",club:"Knox AC",nat:"AUS",sb:"2:10.0",pb:"2:09.4",m1:"-",m2:7,pts:79},
+    {name:"Lily Chen",club:"Coburg Harriers",nat:"AUS",sb:"2:11.3",pb:"2:10.8",m1:"-",m2:6,pts:71},
+    {name:"Niamh O'Brien",club:"Williamstown AC",nat:"IRL",sb:"2:12.7",pb:"2:11.0",m1:"-",m2:5,pts:63},
+    {name:"Zoe Papadopoulos",club:"Glenhuntly AC",nat:"AUS",sb:"2:13.4",pb:"2:12.2",m1:"-",m2:4,pts:54},
+    {name:"Hannah Wu",club:"St. Kevin's AC",nat:"AUS",sb:"2:14.1",pb:"2:13.5",m1:"-",m2:3,pts:46},
+    {name:"Freya Andersen",club:"Mentone Athletics",nat:"DEN",sb:"2:15.0",pb:"2:14.2",m1:"-",m2:2,pts:37},
+    {name:"Sienna Brooks",club:"Knox AC",nat:"AUS",sb:"2:16.3",pb:"2:15.8",m1:"-",m2:1,pts:28},
+    {name:"Mia Russo",club:"Coburg Harriers",nat:"AUS",sb:"2:17.1",pb:"2:16.4",m1:"-",m2:"-",pts:19},
+    {name:"Olivia Grant",club:"Williamstown AC",nat:"AUS",sb:"2:18.0",pb:"2:17.3",m1:"-",m2:"-",pts:11},
+    {name:"Jade Tran",club:"Box Hill Athletics",nat:"AUS",sb:"2:19.2",pb:"2:18.5",m1:"-",m2:"-",pts:4},
+  ],
+  m800:[
+    {name:"James Reardon",club:"Melbourne Uni AC",nat:"AUS",sb:"1:48.2",pb:"1:47.4",m1:"-",m2:12,pts:122,cr:true},
+    {name:"Tom Harbridge",club:"Glenhuntly AC",nat:"AUS",sb:"1:49.8",pb:"1:49.1",m1:"-",m2:11,pts:114},
+    {name:"Daniel Osei",club:"Knox AC",nat:"GHA",sb:"1:51.3",pb:"1:50.2",m1:"-",m2:10,pts:106},
+    {name:"Marcus Webb",club:"Box Hill Athletics",nat:"AUS",sb:"1:52.0",pb:"1:51.4",m1:"-",m2:9,pts:98},
+    {name:"Lachlan Ford",club:"St. Kevin's AC",nat:"AUS",sb:"1:53.1",pb:"1:52.7",m1:"-",m2:8,pts:90},
+    {name:"Ben Nakamura",club:"Mentone Athletics",nat:"AUS",sb:"1:54.4",pb:"1:53.9",m1:"-",m2:7,pts:81},
+    {name:"Oliver Szabo",club:"Coburg Harriers",nat:"HUN",sb:"1:55.2",pb:"1:54.5",m1:"-",m2:6,pts:73},
+    {name:"Finn Carroll",club:"Williamstown AC",nat:"AUS",sb:"1:56.8",pb:"1:55.1",m1:"-",m2:5,pts:64},
+    {name:"Ryan Tran",club:"Box Hill Athletics",nat:"AUS",sb:"1:57.4",pb:"1:56.8",m1:"-",m2:4,pts:55},
+    {name:"Connor Walsh",club:"Glenhuntly AC",nat:"AUS",sb:"1:58.1",pb:"1:57.3",m1:"-",m2:3,pts:46},
+    {name:"Ethan Brooks",club:"Melbourne Uni AC",nat:"AUS",sb:"1:58.9",pb:"1:58.2",m1:"-",m2:2,pts:38},
+    {name:"Lucas Pham",club:"Knox AC",nat:"AUS",sb:"1:59.7",pb:"1:59.0",m1:"-",m2:1,pts:29},
+  ],
+  w1500:[
+    {name:"Chloe Bartlett",club:"Mentone Athletics",nat:"AUS",sb:"4:12.4",pb:"4:10.8",m1:"-",m2:12,pts:120,cr:true},
+    {name:"Sophie Nguyen",club:"Box Hill Athletics",nat:"AUS",sb:"4:14.1",pb:"4:13.2",m1:"-",m2:11,pts:111},
+    {name:"Grace Thornton",club:"Glenhuntly AC",nat:"AUS",sb:"4:16.7",pb:"4:15.0",m1:"-",m2:10,pts:103},
+    {name:"Amara Diallo",club:"Melbourne Uni AC",nat:"AUS",sb:"4:18.3",pb:"4:17.1",m1:"-",m2:9,pts:95},
+    {name:"Ella Mackenzie",club:"St. Kevin's AC",nat:"AUS",sb:"4:20.1",pb:"4:18.9",m1:"-",m2:8,pts:87},
+    {name:"Niamh O'Brien",club:"Williamstown AC",nat:"IRL",sb:"4:22.5",pb:"4:21.3",m1:"-",m2:7,pts:78},
+    {name:"Lily Chen",club:"Coburg Harriers",nat:"AUS",sb:"4:24.0",pb:"4:23.2",m1:"-",m2:6,pts:70},
+    {name:"Priya Sharma",club:"Knox AC",nat:"AUS",sb:"4:26.8",pb:"4:25.1",m1:"-",m2:5,pts:61},
+    {name:"Zoe Papadopoulos",club:"Glenhuntly AC",nat:"AUS",sb:"4:28.1",pb:"4:27.4",m1:"-",m2:4,pts:52},
+    {name:"Hannah Wu",club:"St. Kevin's AC",nat:"AUS",sb:"4:30.2",pb:"4:29.5",m1:"-",m2:3,pts:43},
+    {name:"Freya Andersen",club:"Mentone Athletics",nat:"DEN",sb:"4:32.0",pb:"4:31.1",m1:"-",m2:2,pts:35},
+    {name:"Sienna Brooks",club:"Knox AC",nat:"AUS",sb:"4:34.1",pb:"4:33.3",m1:"-",m2:1,pts:26},
+  ],
+  m1500:[
+    {name:"Patrick Lim",club:"St. Kevin's AC",nat:"AUS",sb:"3:38.7",pb:"3:37.2",m1:"-",m2:12,pts:119,cr:true},
+    {name:"James Reardon",club:"Melbourne Uni AC",nat:"AUS",sb:"3:40.1",pb:"3:39.4",m1:"-",m2:11,pts:112},
+    {name:"Tom Harbridge",club:"Glenhuntly AC",nat:"AUS",sb:"3:41.8",pb:"3:40.9",m1:"-",m2:10,pts:104},
+    {name:"Daniel Osei",club:"Knox AC",nat:"GHA",sb:"3:43.2",pb:"3:42.0",m1:"-",m2:9,pts:96},
+    {name:"Marcus Webb",club:"Box Hill Athletics",nat:"AUS",sb:"3:45.0",pb:"3:44.1",m1:"-",m2:8,pts:88},
+    {name:"Lachlan Ford",club:"Mentone Athletics",nat:"AUS",sb:"3:47.3",pb:"3:46.2",m1:"-",m2:7,pts:79},
+    {name:"Ben Nakamura",club:"Coburg Harriers",nat:"AUS",sb:"3:49.1",pb:"3:48.0",m1:"-",m2:6,pts:71},
+    {name:"Oliver Szabo",club:"Williamstown AC",nat:"HUN",sb:"3:51.4",pb:"3:50.3",m1:"-",m2:5,pts:62},
+    {name:"Ryan Tran",club:"Box Hill Athletics",nat:"AUS",sb:"3:53.2",pb:"3:52.4",m1:"-",m2:4,pts:53},
+    {name:"Connor Walsh",club:"Glenhuntly AC",nat:"AUS",sb:"3:54.7",pb:"3:53.9",m1:"-",m2:3,pts:45},
+    {name:"Ethan Brooks",club:"Melbourne Uni AC",nat:"AUS",sb:"3:56.1",pb:"3:55.0",m1:"-",m2:2,pts:36},
+    {name:"Lucas Pham",club:"Knox AC",nat:"AUS",sb:"3:57.4",pb:"3:56.5",m1:"-",m2:1,pts:27},
+  ]
+};
+
+let resultData = {
+  rw800:[
+    {pos:1,name:'Lucy Delbridge',club:'Collingwood',time:'2:06.04'},
+    {pos:2,name:'Declyn Tanner',club:'Mornington',time:'2:07.54'},
+    {pos:3,name:'Victoria Cholsh',club:'South Australia',time:'2:07.62'},
+    {pos:4,name:'Ally Brooks',club:'Box Hill',time:'2:08.00'},
+    {pos:5,name:'Elly Fleming',club:'Wellington',time:'2:09.52'},
+    {pos:6,name:'Meg Deane',club:'Vic Cross Co',time:'2:10.02'},
+    {pos:7,name:'Karen Haidar',club:'Mentone',time:'2:11.86'},
+    {pos:8,name:'Briana Sherry',club:'Casey Cardinia',time:'2:12.42'},
+  ],
+  rm800:[
+    {pos:1,name:'Bob Abdelrahim',club:'St Kevins',time:'1:46.08'},
+    {pos:2,name:'Alex Hanigan',club:'St Kevins',time:'1:47.50'},
+    {pos:3,name:'Tom Forster',club:'St Kevins',time:'1:48.49'},
+    {pos:4,name:'Luka Sideridis',club:'Glenhuntly',time:'1:49.42'},
+    {pos:5,name:'Lachlan Thomas',club:'Chilwell',time:'1:50.60'},
+    {pos:6,name:'Thomas Kemp',club:'South Australia',time:'1:52.54'},
+    {pos:7,name:'Oscar Wright',club:'Nunawading',time:'1:53.75'},
+    {pos:8,name:'William Callaghan',club:'Athletics So',time:'1:59.20'},
+  ],
+  rw1500:[
+    {pos:1,name:'Madison King',club:'Glenhuntly',time:'4:21.45'},
+    {pos:2,name:'Mia Jade Gray',club:'Glenhuntly',time:'4:21.58'},
+    {pos:3,name:'Stephanie Kelly',club:'Coburg',time:'4:23.47'},
+    {pos:4,name:'Maddison Caulfield',club:'Essendon',time:'4:24.27'},
+    {pos:5,name:'Janae Mackrell',club:'Western Athletics',time:'4:26.29'},
+    {pos:6,name:'Leanne Ellis',club:'Western Athletics',time:'4:26.76'},
+    {pos:7,name:'Chloe Baldock',club:'Doncaster',time:'4:28.10'},
+    {pos:8,name:'Sienna Rowe',club:'Essendon',time:'4:30.50'},
+  ],
+  rm1500:[
+    {pos:1,name:'Tiarnan Crorken',club:'Great Britain',time:'3:44.56'},
+    {pos:2,name:'Evander Scott',club:'Chilwell',time:'3:44.58'},
+    {pos:3,name:'Thomas Moorcroft',club:'Western Australia',time:'3:44.61'},
+    {pos:4,name:'Luke Shaw',club:'Collingwood',time:'3:45.32'},
+    {pos:5,name:'Will Lewis',club:'St Kevins',time:'3:45.86'},
+    {pos:6,name:'Joshua Unthank',club:'Bellarine',time:'3:47.24'},
+    {pos:7,name:'Brady Ryan',club:'Glenhuntly',time:'3:48.24'},
+    {pos:8,name:'Jackson Unthank',club:'Bellarine',time:'3:49.07'},
+  ]
+};
+
+let clubData = [
+  {name:"Melbourne Uni AC",pts:288},{name:"Box Hill Athletics",pts:287},
+  {name:"Glenhuntly AC",pts:264},{name:"St. Kevin's AC",pts:241},
+  {name:"Mentone Athletics",pts:228},{name:"Knox AC",pts:196},
+  {name:"Coburg Harriers",pts:154},{name:"Williamstown AC",pts:121},
+];
+
+let meetsData = [
+  // 2025-26 Season (A Open Premier Results)
+  {n:1,year:'2025',date:'Thu 13 Nov 2025',venue:'Sandringham',time:'6:00pm',events:'3000m',status:'enter',entryLink:'https://members.athsvic.org.au/events/352968',close:'Wed 12 Nov 2025 12pm'},
+  {n:2,year:'2025',date:'Thu 18 Dec 2025',venue:'Box Hill',time:'6:30pm',events:'800m & 1500m',status:'results',
+    results:{
+      'M 800m M':[{p:1,n:'James Lynn',c:'Williamstown',t:'2:20.10'},{p:2,n:'Lincoln Phillips',c:'Unattached',t:'2:21.83'},{p:3,n:'Ashton Foster',c:'Mentone',t:'2:25.75'},{p:4,n:'Ben Tierney',c:'Old Xaverians',t:'2:31.93'},{p:5,n:'Lucas Yang',c:'Unattached',t:'2:35.14'},{p:6,n:'Glenn Crawford',c:'Traralgon',t:'2:36.52'},{p:7,n:'Angus Murrie',c:'Glenhuntly',t:'2:36.65'},{p:8,n:'Angus Hosking',c:'Glenhuntly',t:'2:43.12'},{p:9,n:'Mike Bryant',c:'Sandringham',t:'2:45.32'},{p:10,n:'Neil Mcrobinson',c:'Sandringham',t:'2:56.06'},{p:11,n:'Tony Brain',c:'Melbourne Uni',t:'3:01.56'}],
+      'M 800m L':[{p:1,n:'Thomas Kanavan',c:'Wellington',t:'2:13.21'},{p:2,n:'Sidney Box',c:'Wellington',t:'2:15.17'},{p:3,n:'Riley Nicholas',c:'Wellington',t:'2:16.20'},{p:4,n:'Jared Sim',c:'Ringwood',t:'2:16.94'},{p:5,n:'Scott Morton',c:'Knox',t:'2:17.18'},{p:6,n:'Eric Plant',c:'Box Hill',t:'2:18.11'},{p:7,n:'Patrick Maddocks',c:'Doncaster',t:'2:18.76'}],
+      'W 800m H':[{p:1,n:'Allegra Sirgiovanni',c:'Unattached',t:'2:38.73'},{p:2,n:'Arneis Markham',c:'Mornington',t:'2:38.85'},{p:3,n:'Maria Stoyanova',c:'South Melbourne',t:'2:49.49'},{p:4,n:'Laura Coleman',c:'Wellington',t:'2:56.18'},{p:5,n:'Alira Braybrook',c:'Wellington',t:'2:56.55'},{p:6,n:'Tracey Hayward',c:'South Coast',t:'3:05.49'},{p:7,n:'Eftalia Kompogiorgas',c:'South Coast',t:'3:29.96'}],
+      'M 800m K':[{p:2,n:'Bailey Barrett',c:'Mornington',t:'2:14.72'},{p:3,n:'Felix Burrell',c:'Box Hill',t:'2:15.75'},{p:4,n:'Samuel Gordon',c:'Box Hill',t:'2:17.22'},{p:5,n:'Dylan Mcgilton',c:'Glenhuntly',t:'2:17.81'},{p:6,n:'Christian Bourke',c:'Glenhuntly',t:'2:19.49'},{p:7,n:'Mark Ballantine',c:'Old Scotch',t:'2:19.84'},{p:8,n:'Neil Brennan',c:'Mentone',t:'2:19.89'}],
+      'M 800m J':[{p:1,n:'Luke Dwyer',c:'Unattached',t:'2:09.94'},{p:2,n:'Rhodri Whelan',c:'Diamond Valley',t:'2:10.21'},{p:3,n:'Joshua Ward',c:'Unattached',t:'2:12.00'},{p:4,n:'Andrew Kusman-Boyd',c:'Coburg',t:'2:13.37'},{p:5,n:'Dustin Biernacki',c:'Melbourne Uni',t:'2:14.13'},{p:6,n:'Mason Fleming',c:'South Bendigo',t:'2:17.38'},{p:7,n:'Nicholas O\'Halloran',c:'St Kevins',t:'2:20.98'},{p:8,n:'Connor Riky',c:'Casey Cardinia',t:'2:21.40'}],
+      'W 800m G':[{p:1,n:'Olivia Wall',c:'Unattached',t:'2:38.92'},{p:2,n:'Maya Pendrigh',c:'Box Hill',t:'2:39.05'},{p:3,n:'Niesha Richards',c:'Mornington',t:'2:43.57'},{p:4,n:'Anna Mulquiny',c:'South Bendigo',t:'2:44.71'},{p:5,n:'Lara Richards',c:'Nunawading',t:'2:45.20'},{p:6,n:'Grace Clarke',c:'Doncaster',t:'2:51.05'},{p:7,n:'Freya Ballard',c:'Unattached',t:'2:51.49'},{p:8,n:'Charlotte Cunningham',c:'Wellington',t:'2:53.06'}],
+      'M 800m I':[{p:1,n:'Alexander Johnson',c:'Sandringham',t:'2:10.02'},{p:2,n:'Linus Hunter',c:'Sandringham',t:'2:10.08'},{p:3,n:'Thomas Mohring',c:'Ringwood',t:'2:10.16'},{p:4,n:'Gilbert Mccann',c:'Nunawading',t:'2:10.64'},{p:5,n:'James Mavity',c:'Ballarat Ycw',t:'2:13.02'},{p:6,n:'Brad Johnson',c:'South Melbourne',t:'2:14.79'},{p:7,n:'Ario Sakhaie',c:'Box Hill',t:'2:16.01'}],
+      'M 800m H':[{p:1,n:'Archie Harper',c:'Chilwell',t:'2:05.97'},{p:2,n:'Lewis Mclennan',c:'Doncaster',t:'2:07.33'},{p:3,n:'Hugo Mills',c:'Mentone',t:'2:07.91'},{p:4,n:'Flynn Walker',c:'Glenhuntly',t:'2:08.62'},{p:5,n:'Dempsey Podmore',c:'Traralgon',t:'2:10.50'},{p:6,n:'Riley Sullivan',c:'Mentone',t:'2:11.24'},{p:7,n:'Chase Jardine',c:'Essendon',t:'2:12.14'},{p:8,n:'Jakai Wescombe',c:'Unattached',t:'2:15.60'}],
+      'W 800m F':[{p:1,n:'Maria Kasapis',c:'Essendon',t:'2:29.33'},{p:2,n:'Claire Hurley',c:'Unattached',t:'2:29.42'},{p:3,n:'Erica Dunham',c:'Knox',t:'2:32.38'},{p:4,n:'Aleasha Read',c:'Wellington',t:'2:34.33'},{p:5,n:'Isabella Napoletano',c:'Diamond Valley',t:'2:35.34'},{p:6,n:'Sienna Fleisner',c:'Casey Cardinia',t:'2:36.77'},{p:7,n:'Annabel Atkins',c:'Old Scotch',t:'2:37.62'},{p:8,n:'Ally Anderson',c:'Unattached',t:'2:39.47'}],
+      'M 800m G':[{p:1,n:'Branson Botha',c:'Essendon',t:'2:04.37'},{p:2,n:'Douglas Shuttleworth',c:'Unattached',t:'2:06.64'},{p:3,n:'Alexander Feehan',c:'Glenhuntly',t:'2:07.17'},{p:4,n:'Jack Field',c:'Ringwood',t:'2:07.36'},{p:5,n:'Maksim Rikanovic',c:'Mentone',t:'2:07.63'},{p:6,n:'Luke Mathews',c:'Keilor St Bernards',t:'2:09.95'},{p:7,n:'Josh Turner',c:'Unattached',t:'2:09.97'},{p:8,n:'Suvan Sujeendran',c:'Glenhuntly',t:'2:11.10'}],
+      'M 800m F':[{p:1,n:'Christopher Dale',c:'Unattached',t:'2:00.65'},{p:2,n:'Alex Pizer-Di Ciero',c:'Mentone',t:'2:01.69'},{p:3,n:'Lachlan Rosato',c:'Wellington',t:'2:02.02'},{p:4,n:'Henry Curlewis',c:'Old Scotch',t:'2:03.66'},{p:5,n:'Zavier Madden',c:'Glenhuntly',t:'2:04.06'},{p:6,n:'Raj Kambo',c:'Chilwell',t:'2:04.57'},{p:7,n:'Tyler Derksen',c:'South Melbourne',t:'2:04.83'},{p:8,n:'Oliver Grant',c:'Eureka',t:'2:04.89'},{p:9,n:'Cedric Fun',c:'Unattached',t:'2:05.16'},{p:10,n:'Alexander Kennedy',c:'Sandringham',t:'2:07.89'}],
+      'W 800m E':[{p:1,n:'Kaydence Fleming',c:'Wellington',t:'2:23.60'},{p:2,n:'Sarah Cavill',c:'Mansfield',t:'2:25.14'},{p:3,n:'Sarah Hastings',c:'Mentone',t:'2:26.84'},{p:4,n:'Tilly Morton',c:'Knox',t:'2:27.00'},{p:5,n:'Sapphire Pratt',c:'Unattached',t:'2:27.60'},{p:6,n:'Surapiga Sujeendran',c:'Glenhuntly',t:'2:28.07'},{p:7,n:'Ellie Dyason',c:'Doncaster',t:'2:28.16'},{p:8,n:'Claudia Tierney',c:'St Kevins',t:'2:30.76'},{p:9,n:'Ashley Denny',c:'Doncaster',t:'2:38.84'}],
+      'M 800m E':[{p:1,n:'Oscar Brivulis',c:'Old Scotch',t:'2:00.38'},{p:2,n:'Eddy Franzke',c:'Albury',t:'2:00.66'},{p:3,n:'Christopher Menara',c:'Unattached',t:'2:00.67'},{p:4,n:'Hamish Mclennan',c:'Doncaster',t:'2:00.78'},{p:5,n:'Harvey Williams',c:'Unattached',t:'2:01.79'},{p:6,n:'Fraser Lucas',c:'Glenhuntly',t:'2:01.81'},{p:7,n:'Glen Imbriano',c:'Diamond Valley',t:'2:02.55'},{p:8,n:'Joel Dean',c:'Mentone',t:'2:03.34'},{p:9,n:'Eric Wood',c:'Albury',t:'2:06.89'}],
+      'W 800m D':[{p:1,n:'Yuki Braybrook',c:'Wellington',t:'2:22.27'},{p:2,n:'Freya Brown',c:'Essendon',t:'2:23.09'},{p:3,n:'Ailish Ryan',c:'Eureka',t:'2:25.23'},{p:4,n:'Saana Jayasinghe',c:'Essendon',t:'2:28.67'},{p:5,n:'Poppy Scot-Dalgleish',c:'Diamond Valley',t:'2:28.99'},{p:6,n:'Lily Marazzato',c:'Wellington',t:'2:34.33'},{p:7,n:'Laney Scott',c:'Unattached',t:'2:44.34'},{p:8,n:'Freya Mithen',c:'South Melbourne',t:'2:46.71'}],
+      'M 800m D':[{p:1,n:'Jobie Wescombe',c:'Unattached',t:'1:59.16'},{p:2,n:'Alex Jones',c:'Doncaster',t:'1:59.22'},{p:3,n:'James Crome-Smith',c:'Yarra Ranges',t:'1:59.84'},{p:4,n:'David Mathews',c:'Keilor St Bernards',t:'2:00.13'},{p:5,n:'Samuel Reeve',c:'Diamond Valley',t:'2:01.73'},{p:6,n:'Zachary Naunton',c:'Box Hill',t:'2:02.20'},{p:7,n:'Nicholas Tomkins',c:'Diamond Valley',t:'2:04.24'}],
+      'W 800m C':[{p:1,n:'Amber Louw',c:'Melbourne Uni',t:'2:19.60'},{p:2,n:'Evette Cordy',c:'Glenhuntly',t:'2:19.95'},{p:3,n:'Aria Violini',c:'Ballarat Ycw',t:'2:21.51'},{p:4,n:'Maddie Tarabay',c:'Nunawading',t:'2:21.84'},{p:5,n:'Mia Scerri',c:'Sandringham',t:'2:23.01'},{p:6,n:'Alessia Mcgrath',c:'Box Hill',t:'2:23.63'},{p:7,n:'Molly Butler',c:'Mentone',t:'2:23.75'},{p:8,n:'Charlotte Wilson',c:'Bellarine',t:'2:25.65'},{p:9,n:'Ava Plant',c:'Box Hill',t:'2:26.65'},{p:10,n:'Mia Calleja',c:'Wellington',t:'2:26.84'},{p:11,n:'Riddhi Mehta',c:'Essendon',t:'2:34.80'}],
+      'M 800m C':[{p:1,n:'Harry Maddocks',c:'Doncaster',t:'1:56.97'},{p:2,n:'Joel Wood',c:'Unattached',t:'1:57.43'},{p:3,n:'Robert Weitsz',c:'Unattached',t:'1:57.82'},{p:4,n:'Hugo Stubbs',c:'Old Scotch',t:'1:57.87'},{p:5,n:'Brodie Batt',c:'Diamond Valley',t:'1:58.00'},{p:6,n:'Alexander Linke',c:'Ivanhoe',t:'1:58.01'},{p:7,n:'Archie Grant',c:'Eureka',t:'1:58.47'},{p:8,n:'Mackye Morrison',c:'Box Hill',t:'1:59.33'},{p:9,n:'Aiden Marasco',c:'Box Hill',t:'2:00.01'}],
+      'M 1500m M':[{p:1,n:'Brad Arnott',c:'Bendigo Uni',t:'4:44.36'},{p:2,n:'Lev Curtis',c:'Shepparton',t:'4:48.61'},{p:3,n:'Mitch Fitzgerald',c:'Bendigo Uni',t:'4:58.82'},{p:4,n:'Jensen Mcdonald',c:'Unattached',t:'5:06.32'},{p:5,n:'James Crilly',c:'Unattached',t:'5:07.23'},{p:6,n:'Joseph Lynch',c:'St Kevins',t:'5:10.03'},{p:7,n:'Gamage Perera',c:'Yarra Ranges',t:'5:11.33'},{p:8,n:'Dino Imbriano',c:'St Kevins',t:'5:11.97'},{p:9,n:'Joshua Christieson',c:'Mentone',t:'5:13.06'},{p:10,n:'Ian Dent',c:'Old Scotch',t:'5:14.95'},{p:11,n:'Max Collins',c:'Essendon',t:'5:36.73'},{p:12,n:'Steven Kompogiorgas',c:'South Coast',t:'5:58.19'}],
+      'M 1500m L':[{p:1,n:'Angus Shuttleworth',c:'Knox',t:'4:38.58'},{p:1,n:'Owen Roach',c:'Mentone',t:'4:38.58'},{p:3,n:'Jared Sim',c:'Ringwood',t:'4:39.31'},{p:4,n:'Finn Power',c:'Box Hill',t:'4:46.47'},{p:5,n:'Robert Schwerkolt',c:'Unattached',t:'4:46.71'},{p:6,n:'John Meagher',c:'Box Hill',t:'4:47.92'},{p:7,n:'Jed Blood',c:'Ballarat Ycw',t:'4:48.36'},{p:8,n:'Rafael Merchan',c:'Unattached',t:'4:48.95'},{p:9,n:'Archer Morrison',c:'Unattached',t:'4:53.04'},{p:10,n:'Eli Green',c:'Unattached',t:'4:53.51'},{p:11,n:'Christian Ganci',c:'Unattached',t:'4:57.87'},{p:12,n:'Josh Slade',c:'Williamstown',t:'4:58.97'},{p:13,n:'Oliver Kerr',c:'Mornington',t:'5:01.79'}],
+      'W 1500m G':[{p:1,n:'Katrina Prior',c:'Ballarat Ycw',t:'5:19.07'},{p:2,n:'Tori Kincaid',c:'Yarra Ranges',t:'5:27.15'},{p:3,n:'Adele Ellis',c:'Yarra Ranges',t:'5:30.34'},{p:4,n:'Isabella Napoletano',c:'Diamond Valley',t:'5:30.72'},{p:5,n:'Lily Clarke',c:'Yarra Ranges',t:'5:37.25'},{p:6,n:'Hattie Waterson',c:'Unattached',t:'5:40.47'},{p:7,n:'Zoey Ryan',c:'Diamond Valley',t:'5:41.25'},{p:8,n:'Millie Williams',c:'Sandringham',t:'5:45.76'},{p:9,n:'Libby Canty',c:'Unattached',t:'5:47.90'},{p:10,n:'Havana Ali',c:'Essendon',t:'5:51.32'},{p:11,n:'Isabella Keogh',c:'Western Athletics',t:'5:54.73'},{p:12,n:'Jaime Bell',c:'Chilwell',t:'6:08.67'},{p:13,n:'Eliza Griffin',c:'Box Hill',t:'6:17.69'}],
+      'M 1500m K':[{p:1,n:'Sajan Deol',c:'Unattached',t:'4:24.03'},{p:2,n:'Asher Grodski',c:'Maccabi',t:'4:25.87'},{p:3,n:'Andrew Crawford',c:'Wellington',t:'4:31.42'},{p:4,n:'Zachary Taylor',c:'Old Xaverians',t:'4:32.42'},{p:5,n:'Gerard Lynch',c:'Unattached',t:'4:32.46'},{p:6,n:'Willem Van Onselen',c:'Old Scotch',t:'4:32.71'},{p:7,n:'Blake Saloyedoff',c:'Yarra Ranges',t:'4:33.48'},{p:8,n:'Oscar Van Kouwen',c:'Glenhuntly',t:'4:35.19'},{p:9,n:'Charlie Roney',c:'Knox',t:'4:37.80'},{p:10,n:'Jordan Rudd',c:'Diamond Valley',t:'4:38.89'},{p:11,n:'Andrew Mcevoy',c:'Glenhuntly',t:'4:41.59'},{p:12,n:'Daniel Gibbs',c:'Yarra Ranges',t:'4:42.55'},{p:13,n:'Yianni Seretis',c:'Sandringham',t:'4:43.33'},{p:14,n:'Dustin Biernacki',c:'Melbourne Uni',t:'4:45.83'},{p:15,n:'Callan Duddy',c:'Glenhuntly',t:'4:53.92'}],
+      'M 1500m J':[{p:1,n:'Toby Gomme',c:'Mornington',t:'4:26.25'},{p:2,n:'Oliver Ryan',c:'Eureka',t:'4:27.81'},{p:3,n:'Jack Werrett',c:'Unattached',t:'4:29.37'},{p:4,n:'Manolo Segado',c:'Melbourne Uni',t:'4:30.69'},{p:5,n:'Cody Levidis',c:'Keilor St Bernards',t:'4:32.10'},{p:6,n:'Anthony Hine',c:'Williamstown',t:'4:34.13'},{p:7,n:'Kynan Dawes',c:'Box Hill',t:'4:34.40'},{p:8,n:'Archie Thomas',c:'Chilwell',t:'4:34.74'},{p:9,n:'Sebastian Tramontana',c:'South Melbourne',t:'4:34.98'},{p:10,n:'Felix Morgan',c:'Diamond Valley',t:'4:38.94'},{p:11,n:'Harry Lynn',c:'Williamstown',t:'4:39.96'},{p:12,n:'Lenny Robin',c:'Collingwood',t:'4:44.05'},{p:13,n:'Edward Smith',c:'Doncaster',t:'5:10.27'}],
+      'M 1500m I':[{p:1,n:'Jordan Trevena',c:'South Melbourne',t:'4:20.28'},{p:2,n:'John Brivulis',c:'Old Scotch',t:'4:21.05'},{p:3,n:'Dempsey Podmore',c:'Traralgon',t:'4:21.83'},{p:4,n:'Aston Delalande',c:'Unattached',t:'4:21.95'},{p:5,n:'Jake Reed',c:'Box Hill',t:'4:22.43'},{p:6,n:'Bon Martin',c:'Western Athletics',t:'4:22.92'},{p:7,n:'Cooper Dmytrenko',c:'Essendon',t:'4:25.84'},{p:8,n:'Tom Goodson',c:'Eureka',t:'4:25.90'},{p:9,n:'Ollie Burt',c:'Ballarat Ycw',t:'4:26.25'},{p:10,n:'Myles Boyle',c:'Diamond Valley',t:'4:26.30'},{p:11,n:'Jed Willis',c:'Bendigo Uni',t:'4:27.75'},{p:12,n:'Mitchell Price',c:'Geelong Guild',t:'4:29.42'},{p:13,n:'Lachlan Baxter',c:'Box Hill',t:'4:29.79'},{p:14,n:'Archer Spackman',c:'Ballarat Ycw',t:'4:32.95'}],
+      'W 1500m F':[{p:1,n:'Milla Malherbe',c:'Sandringham',t:'5:08.43'},{p:2,n:'Maryanne Mcsweeney',c:'Deakin',t:'5:08.63'},{p:3,n:'Sophie Arbaitman',c:'Sandringham',t:'5:09.23'},{p:4,n:'Grace Young',c:'Collingwood',t:'5:09.39'},{p:5,n:'Cassandra Siepen',c:'Melbourne Uni',t:'5:11.48'},{p:6,n:'Grace Hallifax',c:'Unattached',t:'5:11.51'},{p:7,n:'Erin Maloney',c:'Diamond Valley',t:'5:15.60'},{p:8,n:'Mia Strudley',c:'Yarra Ranges',t:'5:15.93'},{p:9,n:'Katrina Castles',c:'Unattached',t:'5:17.18'},{p:10,n:'Jana Hanak',c:'Glenhuntly',t:'5:17.53'},{p:11,n:'Aliye Hennessy-Tetik',c:'Coburg',t:'5:17.90'},{p:12,n:'Ella Mcdonald',c:'Western Athletics',t:'5:20.41'},{p:13,n:'Isla Mithen',c:'South Melbourne',t:'5:22.30'},{p:14,n:'Hannah Tumbri',c:'Coburg',t:'5:23.52'}],
+      'M 1500m H':[{p:1,n:'Daniel Hill',c:'Unattached',t:'4:09.81'},{p:2,n:'Louay Benaoum',c:'Mentone',t:'4:12.85'},{p:3,n:'Aric Reimers',c:'Collingwood',t:'4:13.83'},{p:4,n:'Aaron Houston',c:'Unattached',t:'4:16.94'},{p:5,n:'Perrie Grant',c:'Eureka',t:'4:17.84'},{p:6,n:'Ned Skinner',c:'Sandringham',t:'4:18.03'},{p:7,n:'Lenny Gray',c:'Essendon',t:'4:19.13'},{p:8,n:'David Grigg',c:'Ballarat Ycw',t:'4:19.17'},{p:9,n:'Ryder Holland',c:'Yarra Ranges',t:'4:19.84'},{p:10,n:'Dexter Hill',c:'Albury',t:'4:19.85'},{p:11,n:'Alex Konstantinidis',c:'Essendon',t:'4:24.19'},{p:12,n:'Jude Barrett',c:'Essendon',t:'4:27.01'},{p:13,n:'Thomas Mohring',c:'Ringwood',t:'4:27.83'},{p:14,n:'Travis Blok',c:'Nunawading',t:'4:27.84'},{p:15,n:'Liam Riky',c:'Casey Cardinia',t:'4:32.06'},{p:16,n:'Luke Tucker',c:'Mentone',t:'4:34.42'}],
+      'M 1500m G':[{p:1,n:'Benji Carfoot',c:'Echuca Moama',t:'4:11.04'},{p:2,n:'Mark Stodden',c:'Richmond',t:'4:15.35'},{p:3,n:'Frederick Quilty',c:'Box Hill',t:'4:16.32'},{p:4,n:'Eden Morgan',c:'Knox',t:'4:16.62'},{p:5,n:'William Quigley',c:'Diamond Valley',t:'4:16.65'},{p:6,n:'Josh Lewin',c:'St Kevins',t:'4:17.84'},{p:7,n:'William Hughes',c:'Mornington',t:'4:18.52'},{p:8,n:'Benjamin Grant',c:'Ringwood',t:'4:18.92'},{p:9,n:'Justin Wolsley',c:'Frankston',t:'4:22.27'},{p:10,n:'Ben Rowse',c:'Essendon',t:'4:23.68'},{p:11,n:'Jasper Gay',c:'Essendon',t:'4:25.99'},{p:12,n:'Douglas Shuttleworth',c:'Unattached',t:'4:28.56'},{p:13,n:'Asher Miller',c:'Bendigo Uni',t:'4:30.49'},{p:14,n:'Lachlan Stewart',c:'Old Scotch',t:'4:36.76'}],
+      'W 1500m E':[{p:1,n:'Eliza Ayres',c:'Mentone',t:'4:49.61'},{p:2,n:'Emily Davies',c:'Unattached',t:'4:50.40'},{p:3,n:'Olivia Beaton',c:'Ballarat Ycw',t:'4:52.12'},{p:4,n:'Holly Makaay',c:'Nunawading',t:'4:54.22'},{p:5,n:'Ela Uzun',c:'Essendon',t:'4:56.35'},{p:6,n:'Poppy Donaldson',c:'South Melbourne',t:'4:58.56'},{p:7,n:'Matilda Christie',c:'Frankston',t:'5:01.23'},{p:8,n:'Alexandra Gleisner',c:'Athletics So',t:'5:02.98'},{p:9,n:'Emily Wetzels',c:'Sandringham',t:'5:03.76'},{p:10,n:'Isabella Bisko',c:'Old Scotch',t:'5:05.19'},{p:11,n:'Rosa Barbanti',c:'Essendon',t:'5:05.55'},{p:12,n:'Millicent Fraser',c:'Box Hill',t:'5:12.83'},{p:13,n:'Zara Skinner',c:'Glenhuntly',t:'5:14.62'}],
+      'M 1500m F':[{p:1,n:'Angus Norman',c:'Yarra Ranges',t:'4:06.05'},{p:2,n:'Jesper Bignell',c:'Glenhuntly',t:'4:08.42'},{p:3,n:'Archie Hewett',c:'Mornington',t:'4:08.45'},{p:4,n:'Augustus Barton',c:'Eureka',t:'4:11.08'},{p:5,n:'Alan Vernal',c:'Nunawading',t:'4:11.22'},{p:6,n:'Rowan Ferguson',c:'Athletics So',t:'4:11.71'},{p:7,n:'Tyler Denboer',c:'Knox',t:'4:11.76'},{p:8,n:'Tris Anderson',c:'Bendigo Uni',t:'4:12.28'},{p:9,n:'Alfie Onley',c:'Doncaster',t:'4:12.39'},{p:10,n:'Jamie Cook',c:'Bendigo Harriers',t:'4:13.70'},{p:11,n:'Stephen Van Rees',c:'Bendigo Uni',t:'4:13.75'},{p:12,n:'Aden Thompson',c:'Essendon',t:'4:14.30'},{p:13,n:'Will Leslie',c:'Box Hill',t:'4:23.32'},{p:14,n:'Taylor Righi',c:'Unattached',t:'4:41.67'}],
+      'M 1500m E':[{p:1,n:'Darcy Powne',c:'Box Hill',t:'4:07.22'},{p:2,n:'Patrick Kavanagh',c:'Essendon',t:'4:08.09'},{p:3,n:'Ciaran Mawley',c:'Eureka',t:'4:09.77'},{p:4,n:'Samual Duncan',c:'Essendon',t:'4:10.65'},{p:5,n:'Simon Blight',c:'Unattached',t:'4:10.82'},{p:6,n:'William Davies',c:'Mornington',t:'4:11.00'},{p:7,n:'Richie Egan',c:'Deakin',t:'4:11.30'},{p:8,n:'Magnus Woods',c:'Chilwell',t:'4:11.73'},{p:9,n:'Laurence Tod',c:'Old Xaverians',t:'4:12.61'},{p:10,n:'Miles Thompson',c:'Essendon',t:'4:16.57'},{p:11,n:'Hamish Maclaren',c:'Essendon',t:'4:18.22'},{p:12,n:'Matthew Bergin',c:'Mentone',t:'4:19.07'},{p:13,n:'Tyler Hughes',c:'Mornington',t:'4:21.79'},{p:14,n:'Jackson Lynch',c:'Deakin',t:'4:27.27'}],
+      'W 800m B':[{p:1,n:'Frankie Hyde',c:'Glenhuntly',t:'2:16.73'},{p:2,n:'Thea Prattley',c:'Nunawading',t:'2:17.27'},{p:3,n:'Maddy Boyd',c:'Wellington',t:'2:17.42'},{p:4,n:'Mikaela Ward',c:'Box Hill',t:'2:17.80'},{p:5,n:'Ella Fallen',c:'Box Hill',t:'2:17.95'},{p:6,n:'Aleisha Harmer',c:'Ringwood',t:'2:18.18'},{p:7,n:'Anna Kasapis',c:'Essendon',t:'2:18.81'},{p:8,n:'Matilda De Young',c:'Sandringham',t:'2:19.30'},{p:9,n:'Zahli Wescombe',c:'Unattached',t:'2:19.50'},{p:10,n:'Lucy Kearney',c:'Doncaster',t:'2:23.52'}],
+      'M 800m B':[{p:1,n:'Charles Leahy',c:'Chilwell',t:'1:53.94'},{p:2,n:'Gideon Fisher',c:'Mentone',t:'1:55.20'},{p:3,n:'Alex Rowe',c:'Vic Cross Co',t:'1:55.52'},{p:4,n:'Michael Monaghan',c:'Glenhuntly',t:'1:56.01'},{p:5,n:'Nick Grech',c:'Mentone',t:'1:56.23'},{p:6,n:'Lachlan Gance',c:'Old Scotch',t:'1:57.42'},{p:7,n:'Jayvel Singh',c:'Nunawading',t:'1:57.72'},{p:8,n:'James Denton',c:'Casey Cardinia',t:'1:58.23'},{p:9,n:'Archie Mattsson',c:'Glenhuntly',t:'2:01.13'},{p:10,n:'Aric Reimers',c:'Collingwood',t:'2:04.88'}],
+      'W 800m A':[{p:1,n:'Abbey Caldwell',c:'Doncaster',t:'2:08.40'},{p:2,n:'Victoria Cholsh',c:'Unattached',t:'2:09.32'},{p:3,n:'Elly Fleming',c:'Wellington',t:'2:09.62'},{p:4,n:'Honour Tobin',c:'Western Athletics',t:'2:11.53'},{p:5,n:'Karen Haidar',c:'Mentone',t:'2:12.04'},{p:6,n:'Briana Sherry',c:'Casey Cardinia',t:'2:12.72'},{p:7,n:'Suzanna Mavromihalis',c:'Bellarine',t:'2:14.66'}],
+      'M 800m A':[{p:1,n:'Will Katic',c:'Old Scotch',t:'1:50.03'},{p:2,n:'Thomas Kemp',c:'Unattached',t:'1:50.71'},{p:3,n:'Riley Bryce',c:'Old Xaverians',t:'1:50.85'},{p:4,n:'Oscar Wright',c:'Nunawading',t:'1:51.20'},{p:5,n:'William Callaghan',c:'Athletics So',t:'1:51.73'},{p:6,n:'Lachlan Thomas',c:'Chilwell',t:'1:51.99'},{p:7,n:'James Frankcombe',c:'Unattached',t:'1:54.82'},{p:8,n:'Matthew Gough',c:'Glenhuntly',t:'1:56.46'},{p:9,n:'Alain Dutton',c:'Unattached',t:'1:57.39'}],
+      'W 1500m A':[{p:1,n:'Abbey Caldwell',c:'Doncaster',t:'4:14.20'},{p:2,n:'Madison King',c:'Glenhuntly',t:'4:22.97'},{p:3,n:'Ally Brooks',c:'Box Hill',t:'4:24.40'},{p:4,n:'Maddison Caulfield',c:'Essendon',t:'4:26.37'},{p:5,n:'Katherine Dowie',c:'Eureka',t:'4:27.94'},{p:6,n:'Sophie Hall',c:'Box Hill',t:'4:28.55'},{p:7,n:'Sienna Rowe',c:'Essendon',t:'4:29.16'},{p:8,n:'Alexandra Schulz',c:'Williamstown',t:'4:30.08'},{p:9,n:'Katie Goodge',c:'Melbourne Uni',t:'4:34.05'},{p:10,n:'Annabelle Colman',c:'Old Xaverians',t:'4:35.91'},{p:11,n:'Khushi Deol',c:'Box Hill',t:'4:36.07'},{p:12,n:'Matisse Lazzari',c:'Essendon',t:'4:38.20'},{p:13,n:'Lia Watters',c:'Unattached',t:'4:42.01'},{p:14,n:'Gabrielle Vincent',c:'Sandringham',t:'4:42.77'}],
+      'M 1500m A':[{p:1,n:'Alexander Cameron-Smith',c:'Western Athletics',t:'3:41.71'},{p:2,n:'Luke Shaw',c:'Collingwood',t:'3:42.54'},{p:3,n:'Evander Scott',c:'Chilwell',t:'3:43.50'},{p:4,n:'Wolfgang Cotra-Nemesi',c:'Collingwood',t:'3:45.81'},{p:5,n:'Joshua Unthank',c:'Bellarine',t:'3:46.01'},{p:6,n:'Alex Hanigan',c:'St Kevins',t:'3:46.31'},{p:7,n:'Edward Beischer',c:'Old Scotch',t:'3:47.19'},{p:8,n:'Bart Leeton',c:'Old Scotch',t:'3:48.15'},{p:9,n:'Joseph Ryan',c:'Unattached',t:'3:48.45'},{p:10,n:'Degras Amekata',c:'Unattached',t:'3:49.40'},{p:11,n:'Matthew Patton',c:'Knox',t:'3:49.57'},{p:12,n:'Brady Ryan',c:'Glenhuntly',t:'3:50.23'},{p:13,n:'Patrick Matthews',c:'Keilor St Bernards',t:'3:58.63'}],
+      'W 1500m B':[{p:1,n:'Olivia Twining',c:'Yarra Ranges',t:'4:34.58'},{p:2,n:'Heidi Kuppler',c:'Diamond Valley',t:'4:35.19'},{p:3,n:'Mikaila Young',c:'Collingwood',t:'4:35.40'},{p:4,n:'Ashlee Treagus',c:'Box Hill',t:'4:36.08'},{p:5,n:'Sophia Brown',c:'Unattached',t:'4:37.38'},{p:6,n:'Bridgette Williams',c:'South Melbourne',t:'4:38.38'},{p:7,n:'Isobel Rhodes',c:'Collingwood',t:'4:41.69'},{p:8,n:'Bronwyn Poole',c:'Unattached',t:'4:42.42'},{p:9,n:'Asha Morrow',c:'Mornington',t:'4:42.74'},{p:10,n:'Paige Tuddenham',c:'Ballarat Ycw',t:'4:44.28'},{p:11,n:'Addie Taylor',c:'Box Hill',t:'4:45.02'},{p:12,n:'Madeleine Sekias',c:'Box Hill',t:'4:55.20'},{p:13,n:'Poppy Nivarovich',c:'Deakin',t:'4:58.28'},{p:14,n:'Madeleine Kearney',c:'Doncaster',t:'4:59.48'}],
+      'M 1500m B':[{p:1,n:'Jackson Unthank',c:'Bellarine',t:'3:50.87'},{p:2,n:'Joshua Carlin',c:'Box Hill',t:'3:51.67'},{p:3,n:'Mitchell Thompson',c:'Wendouree',t:'3:51.74'},{p:4,n:'Benjamin Stevens',c:'Eureka',t:'3:52.20'},{p:5,n:'Mason Johns',c:'Collingwood',t:'3:52.66'},{p:6,n:'Jonathan Neethling',c:'Essendon',t:'3:53.24'},{p:7,n:'Joe Cross',c:'Unattached',t:'3:53.94'},{p:8,n:'Caden Murray',c:'Diamond Valley',t:'3:54.34'},{p:9,n:'Tom Mcfarlane',c:'Glenhuntly',t:'3:54.43'},{p:10,n:'Broden Bond',c:'Bellarine',t:'3:54.44'},{p:11,n:'Oliver Lewry',c:'Chilwell',t:'3:56.42'},{p:12,n:'Jett Keeley',c:'Knox',t:'3:56.59'},{p:13,n:'Ben Gibson',c:'Unattached',t:'4:00.92'},{p:14,n:'John Portwood',c:'Doncaster',t:'4:03.48'},{p:15,n:'Thomas Lindeman',c:'Old Scotch',t:'4:07.84'}],
+      'W 1500m C':[{p:1,n:'Rose Ashman',c:'Ballarat Ycw',t:'4:39.37'},{p:2,n:'Sienna Mumme',c:'Box Hill',t:'4:40.44'},{p:3,n:'Elizabeth Craig',c:'Sandringham',t:'4:42.61'},{p:4,n:'Charlotte Jackson',c:'Essendon',t:'4:42.83'},{p:5,n:'Zali Metcalfe',c:'Wellington',t:'4:43.72'},{p:6,n:'Tess Rhodes',c:'Geelong Guild',t:'4:45.55'},{p:7,n:'Phoebe Grant',c:'Old Scotch',t:'4:45.62'},{p:8,n:'Zoe Clarke',c:'Yarra Ranges',t:'4:46.21'},{p:9,n:'Bonnie Burt',c:'Ballarat Ycw',t:'4:48.04'},{p:10,n:'Ruby Donaldson',c:'South Melbourne',t:'4:49.84'},{p:11,n:'Lucy Jones',c:'South Bendigo',t:'4:49.96'},{p:12,n:'Serena Bryant',c:'Glenhuntly',t:'4:50.94'},{p:13,n:'Grace Wells',c:'Collingwood',t:'4:54.22'},{p:14,n:'Charlotte Staaks',c:'Athletics So',t:'4:56.71'},{p:15,n:'Sophie Field',c:'Doncaster',t:'4:58.97'}],
+      'M 1500m C':[{p:1,n:'Solomon Miesen',c:'Keilor St Bernards',t:'3:55.01'},{p:2,n:'Callum Settle',c:'Ringwood',t:'3:56.67'},{p:3,n:'Kane Hijlkema',c:'Glenhuntly',t:'3:57.37'},{p:4,n:'Zac Ashkanasy',c:'Maccabi',t:'3:57.95'},{p:5,n:'Flynn Smith',c:'Knox',t:'3:58.05'},{p:6,n:'Bailey Wilson',c:'Chilwell',t:'3:58.36'},{p:7,n:'Robbie Petrie',c:'Box Hill',t:'3:59.06'},{p:8,n:'Tom Davoren',c:'Sandringham',t:'3:59.39'},{p:9,n:'Lachlan Monger',c:'Essendon',t:'3:59.45'},{p:10,n:'Archie Sideridis',c:'Glenhuntly',t:'4:01.00'},{p:11,n:'Tyler Fynch',c:'South Bendigo',t:'4:02.48'},{p:12,n:'Matthew Stoner',c:'Unattached',t:'4:02.78'},{p:13,n:'Darragh Mulcahy',c:'Unattached',t:'4:03.79'}],
+      'W 1500m D':[{p:1,n:'Orla Hardiman',c:'Essendon',t:'4:47.68'},{p:2,n:'Audrey Savage',c:'Essendon',t:'4:49.56'},{p:3,n:'Sammy Prime',c:'Unattached',t:'4:50.42'},{p:4,n:'Lelle Kovacs',c:'Essendon',t:'4:50.56'},{p:5,n:'Leni Hartley',c:'Sandringham',t:'4:52.35'},{p:6,n:'Amelie Saldanha',c:'Sandringham',t:'4:52.83'},{p:7,n:'Abigail Bassos',c:'Western Athletics',t:'4:55.98'},{p:8,n:'Laura Tomic',c:'South Coast',t:'4:57.71'},{p:9,n:'Lily Baker',c:'Mentone',t:'4:57.83'},{p:10,n:'Jemima Lord',c:'Glenhuntly',t:'4:57.85'},{p:11,n:'Rebecca Wilkinson',c:'Bendigo Uni',t:'5:00.52'},{p:12,n:'Leila Bruce',c:'Glenhuntly',t:'5:00.90'},{p:13,n:'Isla Jennings',c:'Knox',t:'5:00.94'},{p:14,n:'Charlie Miller',c:'Unattached',t:'5:02.58'},{p:15,n:'Isabella Johnstone',c:'Unattached',t:'5:02.96'},{p:16,n:'Franziska Stumpf',c:'Mansfield',t:'5:07.49'}],
+      'M 1500m D':[{p:1,n:'Rhylee Stewart',c:'Wellington',t:'4:00.00'},{p:2,n:'Thomas Mcarthur',c:'South Bendigo',t:'4:00.27'},{p:3,n:'James Leahy',c:'Chilwell',t:'4:01.09'},{p:4,n:'Oscar Woodhouse',c:'Wellington',t:'4:03.33'},{p:5,n:'Oscar Lichter',c:'Essendon',t:'4:04.04'},{p:6,n:'Shevin Hettiarachchi',c:'Nunawading',t:'4:04.07'},{p:7,n:'Ethan Armstrong-Bourne',c:'Diamond Valley',t:'4:04.12'},{p:8,n:'Oliver Bradshaw',c:'Deakin',t:'4:05.59'},{p:9,n:'Lachlan Menara',c:'Glenhuntly',t:'4:07.61'},{p:10,n:'Liam Stocky',c:'Old Xaverians',t:'4:08.41'},{p:11,n:'Cameron Ellis',c:'Diamond Valley',t:'4:08.68'},{p:12,n:'Thomas Scott',c:'Mentone',t:'4:10.71'},{p:13,n:'William Short',c:'Glenhuntly',t:'4:12.65'},{p:14,n:'Angus Thomas',c:'Williamstown',t:'4:13.78'},{p:15,n:'Daniel Milone',c:'Knox',t:'4:18.67'}]
+    }
+  },
+  {n:3,year:'2025',date:'Tue 20 Jan 2026',venue:'Doncaster',time:'6:00pm',events:'800m & 1500m',status:'results',
+    results:{
+      'W 800m':[{p:1,n:'Tess Kirsopp-Cole',t:'2:05.51'}],'M 800m':[{p:1,n:'Jack Lunn',t:'1:50.09'}],
+      'W 1500m':[{p:1,n:'Abbey Caldwell',t:'4:04.13'}],'M 1500m':[{p:1,n:'Jonathan Harris',t:'3:41.24'}],
+    }
+  },
+  {n:4,year:'2025',date:'Thu 05 Feb 2026',venue:'Lakeside Stadium',time:'6:00pm',events:'800m & Mile',status:'results',close:'Wed 04 Feb 2026 12pm',
+    results:{
+      'W 800m':[{p:1,n:'Tess Kirsopp-Cole',t:'2:05.51'}],'M 800m':[{p:1,n:'Jack Lunn',t:'1:50.09'}],
+      'W Mile':[{p:1,n:'Olivia Twining',t:'5:02.94'}],'M Mile':[{p:1,n:'Oscar Gray',t:'4:14.41'}]
+    }
+  },
+  {n:5,year:'2025',date:'Tue 31 Mar 2026',venue:'Box Hill Athletics Track',time:'6:30pm',events:'800m & 1500m',status:'results',
+    results:{
+      'Men 800 Metre Run M Open':[{p:1,n:'Harry Eagleson',c:'Unattached',t:'2:12.90'},{p:2,n:'Ben Tierney',c:'Old Xaverians',t:'2:19.41'},{p:3,n:'Oliver Lewis-Lyons',c:'Collingwood',t:'2:23.56'},{p:4,n:'Beau Bullard',c:'Unattached',t:'2:24.27'},{p:5,n:'Cameron Galvin-Stirling',c:'Unattached',t:'2:29.19'},{p:6,n:'Angus Murrie',c:'Glenhuntly',t:'2:29.69'},{p:7,n:'Max Collins',c:'Essendon',t:'2:30.62'},{p:8,n:'Glenn Crawford',c:'Traralgon',t:'2:32.47'},{p:9,n:'Tasman Knowles',c:'Unattached',t:'2:32.68'},{p:10,n:'Finn Rossthorn',c:'Yarra Ranges',t:'2:33.05'},{p:11,n:'Angus Hosking',c:'Glenhuntly',t:'2:33.32'},{p:12,n:'Henry Stott',c:'Unattached',t:'2:35.90'}],
+      'Men 800 Metre Run L Open':[{p:1,n:'Sam Crouch',c:'Unattached',t:'2:16.51'},{p:2,n:'Asher Knuckey',c:'Diamond Valley',t:'2:18.09'},{p:3,n:'Christian Bourke',c:'Glenhuntly',t:'2:19.88'},{p:4,n:'Darren Stojanovic',c:'Unattached',t:'2:20.36'},{p:5,n:'Jack Alcock',c:'Unattached',t:'2:21.10'},{p:6,n:'Zane Gray',c:'Essendon',t:'2:22.53'},{p:7,n:'Chris Bridge',c:'Unattached',t:'2:23.38'},{p:8,n:'Dean Kalathenos',c:'Unattached',t:'2:29.96'},{p:9,n:'William Kerr',c:'Unattached',t:'2:38.61'}],
+      'Women 800 Metre Run I Open':[{p:1,n:'Bridget Southward',c:'Unattached',t:'2:33.44'},{p:2,n:'Charlotte Biram',c:'Unattached',t:'2:40.94'},{p:3,n:'Harriet Gray',c:'Essendon',t:'2:43.56'},{p:4,n:'Penny Knight',c:'Unattached',t:'2:44.64'},{p:5,n:'Jasmina Mihaljevic',c:'Essendon',t:'2:46.58'},{p:6,n:'Christal Xie',c:'Doncaster',t:'2:48.08'},{p:7,n:'Alira Braybrook',c:'Wellington',t:'2:50.30'},{p:8,n:'Laura Coleman',c:'Wellington',t:'2:52.56'},{p:9,n:'Bianca Edward',c:'Old Scotch',t:'3:02.83'}],
+      'Men 800 Metre Run K Open':[{p:1,n:'Jasper Mckinna',c:'South Melbourne',t:'2:08.79'},{p:2,n:'Bryce Forlano',c:'Unattached',t:'2:09.79'},{p:3,n:'Samuel Gordon',c:'Box Hill',t:'2:12.95'},{p:4,n:'Alexander Rajan',c:'Old Scotch',t:'2:15.13'},{p:5,n:'Lincoln Phillips',c:'Unattached',t:'2:16.07'},{p:6,n:'Patrick Maddocks',c:'Unattached',t:'2:16.53'},{p:7,n:'Jasper Hopper',c:'Unattached',t:'2:18.49'},{p:8,n:'Kennedy Chen',c:'Unattached',t:'2:23.23'}],
+      'Men 800 Metre Run J Open':[{p:1,n:'Mitchell Pointon',c:'Yarra Ranges',t:'2:07.39'},{p:2,n:'Archie Thomas',c:'Chilwell',t:'2:08.69'},{p:3,n:'Jed Blood',c:'Ballarat Ycw',t:'2:09.95'},{p:4,n:'Felix Burrell',c:'Box Hill',t:'2:10.60'},{p:5,n:'Lachlan Stewart',c:'Old Scotch',t:'2:10.87'},{p:6,n:'Ishaan Burgu',c:'Western Athletics',t:'2:11.13'},{p:7,n:'Andrew Crawford',c:'Wellington',t:'2:11.76'},{p:8,n:'Thomas Kanavan',c:'Wellington',t:'2:13.09'},{p:9,n:'Henry Parker',c:'Essendon',t:'2:17.03'}],
+      'Women 800 Metre Run H Open':[{p:1,n:'Sarah Cotchett',c:'Bellarine',t:'2:28.45'},{p:2,n:'Georgia L\'Estrange',c:'Diamond Valley',t:'2:29.39'},{p:3,n:'Macy Parks',c:'Williamstown',t:'2:29.66'},{p:4,n:'Darcy Knowles',c:'Wellington',t:'2:30.08'},{p:5,n:'Isabella Napoletano',c:'Diamond Valley',t:'2:31.16'},{p:6,n:'Lara Richards',c:'Nunawading',t:'2:36.19'},{p:7,n:'Riddhi Mehta',c:'Essendon',t:'2:38.21'},{p:8,n:'Anna Mulquiny',c:'South Bendigo',t:'2:42.99'}],
+      'Men 800 Metre Run I Open':[{p:1,n:'Lewis Mclennan',c:'Doncaster',t:'2:08.04'},{p:2,n:'Callan Duddy',c:'Glenhuntly',t:'2:08.47'},{p:3,n:'Felix Morgan',c:'Diamond Valley',t:'2:09.10'},{p:4,n:'Rhodri Whelan',c:'Diamond Valley',t:'2:09.18'},{p:5,n:'Yorke Murray',c:'Diamond Valley',t:'2:09.55'},{p:6,n:'Billy Preston',c:'Unattached',t:'2:09.66'},{p:7,n:'Kynan Dawes',c:'Box Hill',t:'2:10.52'},{p:8,n:'Oscar Van Kouwen',c:'Glenhuntly',t:'2:15.08'}],
+      'Men 800 Metre Run H Open':[{p:1,n:'Flynn Walker',c:'Glenhuntly',t:'2:02.55'},{p:2,n:'Lachlan Fulton',c:'Mentone',t:'2:03.94'},{p:3,n:'Ariel Friedrich',c:'Glenhuntly',t:'2:04.74'},{p:4,n:'Oliver Evans',c:'Unattached',t:'2:06.22'},{p:5,n:'Luke Mathews',c:'Keilor St Bernards',t:'2:06.97'},{p:6,n:'Alexander Zabojec',c:'Unattached',t:'2:07.46'},{p:7,n:'Willem Van Onselen',c:'Old Scotch',t:'2:07.51'},{p:8,n:'Jayawardena Yanik',c:'Glenhuntly',t:'2:09.04'},{p:9,n:'Josh Turner',c:'Unattached',t:'2:13.98'}],
+      'Women 800 Metre Run G Open':[{p:1,n:'Cassie Farley',c:'Wellington',t:'2:25.14'},{p:2,n:'Pip Harper',c:'Chilwell',t:'2:26.62'},{p:3,n:'Claire Hurley',c:'Unattached',t:'2:27.25'},{p:4,n:'Tilly Morton',c:'Knox',t:'2:28.36'},{p:5,n:'Aleasha Read',c:'Wellington',t:'2:29.20'},{p:6,n:'Sapphire Pratt',c:'Unattached',t:'2:37.66'},{p:7,n:'Kitty Wanganeen',c:'Unattached',t:'2:39.22'}],
+      'Men 800 Metre Run G Open':[{p:1,n:'Hugh Parrott',c:'Unattached',t:'1:58.37'},{p:2,n:'Fraser Lucas',c:'Glenhuntly',t:'1:58.40'},{p:3,n:'Chris Dale',c:'Unattached',t:'1:59.44'},{p:4,n:'Henry Curlewis',c:'Old Scotch',t:'1:59.71'},{p:5,n:'Ethan Haller',c:'Unattached',t:'2:00.35'},{p:6,n:'Mitchell Parks',c:'Williamstown',t:'2:00.36'},{p:7,n:'Zavier Madden',c:'Glenhuntly',t:'2:00.38'}],
+      'Women 800 Metre Run F Open':[{p:1,n:'Ellie Dyason',c:'Doncaster',t:'2:21.94'},{p:2,n:'Claudia Rowan-Tierney',c:'St Kevins',t:'2:22.60'},{p:3,n:'Indiana O\'Brien',c:'Collingwood',t:'2:24.06'},{p:4,n:'Amy Joy Duncan',c:'Mentone',t:'2:24.25'},{p:5,n:'Annabelle Denton',c:'Casey Cardinia',t:'2:25.20'},{p:6,n:'Lily Marazzato',c:'Wellington',t:'2:29.30'}],
+      'Men 800 Metre Run F Open':[{p:1,n:'Angus Baker',c:'Unattached',t:'1:59.50'},{p:2,n:'Ned Skinner',c:'Sandringham',t:'1:59.69'},{p:3,n:'Glen Imbriano',c:'Diamond Valley',t:'1:59.92'},{p:4,n:'Louay Benaoum',c:'Mentone',t:'2:00.23'},{p:5,n:'David Mathews',c:'Keilor St Bernards',t:'2:01.00'},{p:6,n:'Aric Reimers',c:'Collingwood',t:'2:01.09'},{p:7,n:'Lee Martin',c:'Unattached',t:'2:03.75'},{p:8,n:'Finley Baker',c:'Melbourne Uni',t:'2:04.40'}],
+      'Women 800 Metre Run E Open':[{p:1,n:'Maddie Tarabay',c:'Nunawading',t:'2:19.74'},{p:2,n:'Freya Brown',c:'Essendon',t:'2:20.00'},{p:3,n:'Brienna Coffey',c:'Yarra Ranges',t:'2:22.54'},{p:4,n:'Phoebe Grant',c:'Old Scotch',t:'2:25.26'},{p:5,n:'Arabella East',c:'Glenhuntly',t:'2:30.52'}],
+      'Men 800 Metre Run E Open':[{p:1,n:'Brodie Batt',c:'Diamond Valley',t:'1:56.82'},{p:2,n:'William LewisLyons-',c:'Collingwood',t:'1:58.45'},{p:3,n:'Oliver Bowden',c:'Unattached',t:'1:58.58'},{p:4,n:'Branson Botha',c:'Essendon',t:'1:59.71'},{p:5,n:'Oscar Woodhouse',c:'Wellington',t:'2:00.72'},{p:6,n:'Hamish Mclennan',c:'Doncaster',t:'2:00.97'},{p:7,n:'Caleb Hurst',c:'Keilor St Bernards',t:'2:02.12'}],
+      'Women 800 Metre Run D Open':[{p:1,n:'Amber Louw',c:'Melbourne Uni',t:'2:16.28'},{p:2,n:'Zoe Clarke',c:'Yarra Ranges',t:'2:16.75'},{p:3,n:'Stephanie Kondogonis',c:'Box Hill',t:'2:16.79'},{p:4,n:'Celestin Debargue-Tamai',c:'Mentone',t:'2:17.02'},{p:5,n:'Jerusha Jason',c:'New South Wales',t:'2:19.03'},{p:6,n:'Alessia Mcgrath',c:'Box Hill',t:'2:20.12'},{p:7,n:'Mikaela Ward',c:'Box Hill',t:'2:21.24'},{p:8,n:'Matilda De Young',c:'Sandringham',t:'2:23.59'},{p:9,n:'Sarah Hastings',c:'Mentone',t:'2:32.61'}],
+      'Men 800 Metre Run D Open':[{p:1,n:'James Taranto',c:'Box Hill',t:'1:55.19'},{p:2,n:'Alex Braine',c:'Old Xaverians',t:'1:55.41'},{p:3,n:'Jake Hilson',c:'South Bendigo',t:'1:55.72'},{p:4,n:'Joel Denny',c:'Doncaster',t:'1:56.03'},{p:5,n:'Shevin Hettiarachchi',c:'Nunawading',t:'1:56.17'},{p:6,n:'Cameron Ellis',c:'Diamond Valley',t:'1:56.23'},{p:7,n:'Alex Mccorkindale',c:'New Zealand',t:'1:56.73'},{p:8,n:'Harvey Williams',c:'Unattached',t:'1:57.64'}],
+      'Women 800 Metre Run C Open':[{p:1,n:'Isla Bradshaw',c:'Deakin',t:'2:13.97'},{p:2,n:'Ella Fallen',c:'Box Hill',t:'2:14.13'},{p:3,n:'Frankie Hyde',c:'Glenhuntly',t:'2:14.74'},{p:4,n:'Chelsea Tickell',c:'South Bendigo',t:'2:14.90'},{p:5,n:'Harper Frazer',c:'Box Hill',t:'2:15.21'},{p:6,n:'Yuki Braybrook',c:'Wellington',t:'2:15.29'},{p:7,n:'Lucy Kearney',c:'Doncaster',t:'2:15.82'},{p:8,n:'Evette Cordy',c:'Glenhuntly',t:'2:16.06'}],
+      'Men 800 Metre Run C Open':[{p:1,n:'Charles Leahy',c:'Chilwell',t:'1:51.73'},{p:2,n:'Asw Kumar',c:'Singapore',t:'1:51.83'},{p:3,n:'Flynn Smith',c:'Knox',t:'1:52.82'},{p:4,n:'Rhylee Stewart',c:'Wellington',t:'1:54.04'},{p:5,n:'Kalen Mcinnes',c:'Old Scotch',t:'1:54.26'},{p:6,n:'Ashley Ferguson',c:'Athletics So',t:'1:54.62'},{p:7,n:'Gideon Fisher',c:'Mentone',t:'1:55.86'},{p:8,n:'Henry Diggle',c:'Tasmania',t:'1:55.89'},{p:9,n:'Andrew Tat',c:'Unattached',t:'1:55.97'},{p:10,n:'Hugo Stubbs',c:'Old Scotch',t:'1:57.00'}],
+      'Men 1500 Metre Run L Open':[{p:1,n:'Nathaniel Martin',c:'Knox',t:'4:42.63'},{p:2,n:'Brodie Trounson',c:'Unattached',t:'4:45.02'},{p:3,n:'Archibald Briggs',c:'Unattached',t:'4:49.46'},{p:4,n:'Harry Eagleson',c:'Unattached',t:'4:50.26'},{p:5,n:'Thomas Holt',c:'Mornington',t:'4:50.32'},{p:6,n:'Eugene Nemesi',c:'Collingwood',t:'4:53.25'},{p:7,n:'David Vaughan',c:'Doncaster',t:'4:53.51'},{p:8,n:'Gamage Perera',c:'Yarra Ranges',t:'4:56.26'},{p:9,n:'James Chen',c:'Unattached',t:'4:57.10'},{p:10,n:'Noah Spoor',c:'Box Hill',t:'5:02.91'},{p:11,n:'Cameron Galvin-Stirling',c:'Unattached',t:'5:03.96'},{p:12,n:'Zane Solly',c:'Unattached',t:'5:19.94'},{p:13,n:'William Kerr',c:'Unattached',t:'5:40.12'}],
+      'Men 1500 Metre Run K Open':[{p:1,n:'Charlie Stone',c:'Mornington',t:'4:36.90'},{p:2,n:'Andre Faure',c:'Essendon',t:'4:37.44'},{p:3,n:'Scott Morton',c:'Knox',t:'4:38.39'},{p:4,n:'Andrew Evans',c:'Collingwood',t:'4:40.35'},{p:5,n:'Thomas Scott',c:'Williamstown',t:'4:49.71'},{p:6,n:'Huey Critchley',c:'Collingwood',t:'4:52.94'},{p:7,n:'Jordan Rudd',c:'Diamond Valley',t:'4:54.56'},{p:8,n:'Sebastia Trinder-Rothin',c:'Collingwood',t:'5:01.32'},{p:9,n:'Oliver Kerr',c:'Mornington',t:'5:01.69'},{p:10,n:'Joshua Christieson',c:'Mentone',t:'5:02.42'},{p:11,n:'Harry Lynn',c:'Williamstown',t:'5:12.42'},{p:12,n:'Henry Stott',c:'Unattached',t:'DNF'}],
+      'Women 1500 Metre Run G Open':[{p:1,n:'Hattie Waterson',c:'Unattached',t:'5:10.10'},{p:2,n:'Allegra Farina',c:'Essendon',t:'5:10.14'},{p:3,n:'Annabel Atkins',c:'Old Scotch',t:'5:15.80'},{p:4,n:'Freya Mithen',c:'South Melbourne',t:'5:22.16'},{p:5,n:'Shania Murray',c:'Diamond Valley',t:'5:24.99'},{p:6,n:'Summer Albiston',c:'Mentone',t:'5:30.69'},{p:7,n:'Eliza Griffin',c:'Box Hill',t:'5:30.97'},{p:8,n:'Millie Williams',c:'Sandringham',t:'5:39.33'},{p:9,n:'Erin Ellis',c:'Box Hill',t:'5:40.47'},{p:10,n:'Bella Davey',c:'Doncaster',t:'5:45.03'},{p:11,n:'Ella Harris',c:'Essendon',t:'5:49.06'},{p:12,n:'Christina Crocker',c:'Unattached',t:'6:00.88'},{p:13,n:'Philippa Loadman',c:'Unattached',t:'7:17.49'}],
+      'Men 1500 Metre Run J Open':[{p:1,n:'Linus Hunter',c:'Sandringham',t:'4:22.29'},{p:2,n:'Sawyer Onley',c:'Doncaster',t:'4:24.77'},{p:3,n:'Marcos Solly',c:'Unattached',t:'4:27.34'},{p:4,n:'Ciaran Hanrahan',c:'Unattached',t:'4:28.23'},{p:5,n:'Alexander Johnson',c:'Sandringham',t:'4:28.96'},{p:6,n:'Ruairi Mcdonnell',c:'Unattached',t:'4:30.08'},{p:7,n:'Owen Roach',c:'Mentone',t:'4:30.37'},{p:8,n:'Riyon Ranasinghe',c:'Ringwood',t:'4:30.45'},{p:9,n:'Joshua Terkelsen',c:'Unattached',t:'4:31.22'},{p:10,n:'Angus Alder',c:'Ringwood',t:'4:32.09'},{p:11,n:'Cooper Ille',c:'Glenhuntly',t:'4:38.40'},{p:12,n:'James Lynn',c:'Williamstown',t:'4:38.65'}],
+      'Men 1500 Metre Run I Open':[{p:1,n:'Thomas Giallo',c:'Western Athletics',t:'4:17.15'},{p:2,n:'Lucas Harris',c:'Essendon',t:'4:20.44'},{p:3,n:'Cody Levidis',c:'Keilor St Bernards',t:'4:22.49'},{p:4,n:'Asher Grodski',c:'Maccabi',t:'4:23.40'},{p:5,n:'Manolo Segado',c:'Melbourne Uni',t:'4:23.72'},{p:6,n:'Charlie Roney',c:'Knox',t:'4:24.22'},{p:7,n:'Blake Saloyedoff',c:'Yarra Ranges',t:'4:24.55'},{p:8,n:'Sebastian Tramontana',c:'South Melbourne',t:'4:25.73'},{p:9,n:'Anthony Hine',c:'Williamstown',t:'4:26.51'},{p:10,n:'Gerard Lynch',c:'Unattached',t:'4:29.81'},{p:11,n:'Yianni Seretis',c:'Sandringham',t:'4:37.54'}],
+      'Women 1500 Metre Run F Open':[{p:1,n:'Poppy Scot-Dalgleish',c:'Diamond Valley',t:'5:03.92'},{p:2,n:'Zoe Kennon',c:'Collingwood',t:'5:04.13'},{p:3,n:'Lola Becker',c:'Glenhuntly',t:'5:04.24'},{p:4,n:'Charlotte Gibbs',c:'South Melbourne',t:'5:06.53'},{p:5,n:'Erin Maloney',c:'Diamond Valley',t:'5:06.93'},{p:6,n:'Aliye Hennessy-Tetik',c:'Coburg',t:'5:08.52'},{p:7,n:'Grace Baldock',c:'Doncaster',t:'5:08.65'},{p:8,n:'Harriet Henderson',c:'Unattached',t:'5:10.05'},{p:9,n:'Isabella Simeone',c:'Frankston',t:'5:10.91'},{p:10,n:'Ellie Kays',c:'Essendon',t:'5:11.13'},{p:11,n:'Millicent Fraser',c:'Box Hill',t:'5:25.85'}],
+      'Men 1500 Metre Run H Open':[{p:1,n:'Dylan Jennings',c:'Knox',t:'4:10.32'},{p:2,n:'Andy Walz',c:'Athletics So',t:'4:10.34'},{p:3,n:'Mike Simm',c:'Old Scotch',t:'4:13.57'},{p:4,n:'Thomas Mohring',c:'Ringwood',t:'4:13.66'},{p:5,n:'Joshua Field',c:'St Kevins',t:'4:13.92'},{p:6,n:'Alex Konstantinidis',c:'Essendon',t:'4:14.16'},{p:7,n:'William Hughes',c:'Mornington',t:'4:14.68'},{p:8,n:'Travis Blok',c:'Nunawading',t:'4:15.41'},{p:9,n:'Sami Merhi',c:'Unattached',t:'4:15.99'},{p:10,n:'Jake Reed',c:'Box Hill',t:'4:18.77'},{p:11,n:'Samuel Fu',c:'Melbourne Uni',t:'4:19.04'},{p:12,n:'Aaron Houston',c:'New South Wales',t:'4:19.82'},{p:13,n:'Aiden Muscat',c:'Western Athletics',t:'4:19.97'},{p:14,n:'Kai Davenport',c:'Mornington',t:'4:24.15'}],
+      'Men 1500 Metre Run G Open':[{p:1,n:'Jesse Nankervis',c:'Ballarat Ycw',t:'4:04.34'},{p:2,n:'Thor Royal',c:'Unattached',t:'4:04.96'},{p:3,n:'Eden Morgan',c:'Knox',t:'4:06.13'},{p:4,n:'Mark Stodden',c:'Richmond',t:'4:07.01'},{p:5,n:'Bon Martin',c:'Western Athletics',t:'4:07.03'},{p:6,n:'James Hall',c:'Old Scotch',t:'4:07.32'},{p:7,n:'Jackson Wright',c:'Western Athletics',t:'4:08.20'},{p:8,n:'Joe Sexton',c:'Unattached',t:'4:09.12'},{p:9,n:'Nathan Rizk',c:'Essendon',t:'4:10.19'},{p:10,n:'Andrew Turver',c:'Mornington',t:'4:14.70'},{p:11,n:'Caleb Wegener',c:'New South Wales',t:'4:15.84'},{p:12,n:'Jordan Trevena',c:'South Melbourne',t:'4:18.35'},{p:13,n:'John Brivulis',c:'Old Scotch',t:'4:19.65'}],
+      'Women 1500 Metre Run E Open':[{p:1,n:'Stella Haig',c:'Glenhuntly',t:'4:53.23'},{p:2,n:'Monique Williams',c:'Box Hill',t:'4:56.48'},{p:3,n:'Sophie Field',c:'Doncaster',t:'4:58.03'},{p:4,n:'Isabella Johnstone',c:'Unattached',t:'4:58.66'},{p:5,n:'Matilda L\'Estrange',c:'Diamond Valley',t:'5:00.17'},{p:6,n:'Milla Malherbe',c:'Sandringham',t:'5:00.22'},{p:7,n:'Charlie Miller',c:'Unattached',t:'5:00.55'},{p:8,n:'Isabella Bisko',c:'Old Scotch',t:'5:02.94'},{p:9,n:'Jemima Lord',c:'Glenhuntly',t:'5:03.57'},{p:10,n:'Isabelle Kays',c:'Essendon',t:'5:03.70'},{p:11,n:'Hannah Tumbri',c:'Coburg',t:'5:06.31'},{p:12,n:'Rachel Paterson',c:'Ivanhoe',t:'5:16.41'}],
+      'Men 1500 Metre Run F Open':[{p:1,n:'Gus Augustine',c:'Chilwell',t:'4:00.49'},{p:2,n:'Jack Ellis',c:'Chilwell',t:'4:02.00'},{p:3,n:'Aiden Marasco',c:'Box Hill',t:'4:02.13'},{p:4,n:'Oaklee Burge',c:'Ballarat Harriers',t:'4:02.98'},{p:5,n:'Angus Thomas',c:'Williamstown',t:'4:03.19'},{p:6,n:'Riley Shillito',c:'Ballarat Ycw',t:'4:03.81'},{p:7,n:'Monty Tucker',c:'Mentone',t:'4:04.02'},{p:8,n:'Jesper Bignell',c:'Glenhuntly',t:'4:05.79'},{p:9,n:'Jack Field',c:'Ringwood',t:'4:06.75'},{p:10,n:'James Gibbs',c:'South Melbourne',t:'4:08.37'},{p:11,n:'Lenny Gray',c:'Essendon',t:'4:08.74'},{p:12,n:'Max Reeve',c:'Sandringham',t:'4:09.03'},{p:13,n:'Angus Macafee',c:'Unattached',t:'4:09.10'},{p:14,n:'Matthew Bergin',c:'Mentone',t:'4:09.48'},{p:15,n:'Jayden Padgham',c:'Unattached',t:'4:11.69'},{p:16,n:'Alfie Onley',c:'Doncaster',t:'4:12.47'},{p:17,n:'Christian Smallacombe',c:'Box Hill',t:'4:14.19'}],
+      'Women 1500 Metre Run D Open':[{p:1,n:'Aleisha Harmer',c:'Ringwood',t:'4:46.49'},{p:2,n:'Ava Macgowan',c:'Ballarat Ycw',t:'4:48.07'},{p:3,n:'Georgie Lindsay',c:'Glenhuntly',t:'4:48.84'},{p:4,n:'Isla Jennings',c:'Knox',t:'4:50.64'},{p:5,n:'Milanke Haasbroek',c:'Bendigo Harriers',t:'4:51.94'},{p:6,n:'Leila Bruce',c:'Glenhuntly',t:'4:52.58'},{p:7,n:'Tessa Davison',c:'Waverley-Malvern',t:'4:53.28'},{p:8,n:'Grace Wells',c:'Collingwood',t:'4:53.45'},{p:9,n:'Laura Tomic',c:'South Coast',t:'4:53.71'},{p:10,n:'Serena Bryant',c:'Glenhuntly',t:'4:54.08'},{p:11,n:'Emily Davies',c:'Unattached',t:'4:55.39'},{p:12,n:'Amelie Saldanha',c:'Sandringham',t:'DNF'}],
+      'Men 1500 Metre Run E Open':[{p:1,n:'Ben Mornane',c:'Eureka',t:'3:57.72'},{p:2,n:'Angus Norman',c:'Yarra Ranges',t:'3:57.73'},{p:3,n:'Max Luke',c:'Collingwood',t:'3:58.59'},{p:4,n:'Joshua Johnston',c:'Eureka',t:'3:58.78'},{p:5,n:'Jacob Cheesman',c:'Wendouree',t:'3:59.86'},{p:6,n:'Mitchell Korosec',c:'Wendouree',t:'4:00.34'},{p:7,n:'William Short',c:'Glenhuntly',t:'4:00.66'},{p:8,n:'Thomas Scott',c:'Mentone',t:'4:00.73'},{p:9,n:'Joshua Kavanagh',c:'South Australia',t:'4:00.77'},{p:10,n:'Rubin Howard',c:'Glenhuntly',t:'4:02.57'},{p:11,n:'William Davies',c:'Mornington',t:'4:03.04'},{p:12,n:'Harry Barker',c:'Sandringham',t:'4:04.72'},{p:13,n:'Archie Hewett',c:'Mornington',t:'4:17.85'},{p:14,n:'Bevan Does',c:'Frankston',t:'4:17.94'}],
+      'Men 1500 Metre Run D Open':[{p:1,n:'Jack Larner',c:'Glenhuntly',t:'3:54.59'},{p:2,n:'Willem Duncan',c:'Mentone',t:'3:55.29'},{p:3,n:'J Zuchowski',c:'Maccabi',t:'3:56.09'},{p:4,n:'Kane Hijlkema',c:'Glenhuntly',t:'3:56.55'},{p:5,n:'Callen Goldsmith',c:'Mornington',t:'3:56.84'},{p:6,n:'Luke Bodle',c:'Old Scotch',t:'3:57.12'},{p:7,n:'Jack Gospel',c:'Shepparton',t:'3:57.18'},{p:8,n:'Shaun Goh',c:'Singapore',t:'3:57.50'},{p:9,n:'Oliver Lim',c:'Singapore',t:'3:57.67'},{p:10,n:'John Portwood',c:'Doncaster',t:'3:58.13'},{p:11,n:'Brandon Muscat',c:'Western Athletics',t:'3:59.11'},{p:12,n:'Lachlan Sheen',c:'Melbourne Uni',t:'3:59.27'},{p:13,n:'Jacob Bell',c:'Unattached',t:'3:59.87'},{p:14,n:'Timothy Barnett',c:'New South Wales',t:'4:00.32'}],
+      'Women 1500 Metre Run C Open':[{p:1,n:'Paige Tuddenham',c:'Ballarat Ycw',t:'4:36.30'},{p:2,n:'Madeleine Sekias',c:'Box Hill',t:'4:39.83'},{p:3,n:'Leni Hartley',c:'Sandringham',t:'4:41.73'},{p:4,n:'Kiralee Turver',c:'Unattached',t:'4:42.53'},{p:5,n:'Isobel Rhodes',c:'Collingwood',t:'4:44.96'},{p:6,n:'Sophie Mcminimee',c:'Western Athletics',t:'4:45.73'},{p:7,n:'Lara Smyth',c:'Frankston',t:'4:47.25'},{p:8,n:'Orla Hardiman',c:'Essendon',t:'4:47.31'},{p:9,n:'Audrey Savage',c:'Essendon',t:'4:48.63'},{p:10,n:'Brigitte Rice',c:'Yarra Ranges',t:'4:49.19'},{p:11,n:'Eliza Ayres',c:'Mentone',t:'4:53.05'}],
+      'Men 1500 Metre Run C Open':[{p:1,n:'Jonathan Neethling',c:'Essendon',t:'3:50.18'},{p:2,n:'Caden Murray',c:'Diamond Valley',t:'3:50.34'},{p:3,n:'William Collins',c:'Knox',t:'3:50.70'},{p:4,n:'Sam Bunnage',c:'Mentone',t:'3:51.83'},{p:5,n:'Marlgun Wagner',c:'Melbourne Uni',t:'3:52.07'},{p:6,n:'Kamran Khan',c:'Hong Kong',t:'3:53.00'},{p:7,n:'Isaac Bonsey',c:'Tasmania',t:'3:55.14'},{p:8,n:'Tom Mcfarlane',c:'Glenhuntly',t:'3:55.63'},{p:9,n:'Finn Kane',c:'Williamstown',t:'3:56.62'},{p:10,n:'Jett Keeley',c:'Knox',t:'3:59.91'},{p:11,n:'Pradeep Somasiri',c:'Sri Lanka',t:'4:03.24'},{p:12,n:'Archie Sideridis',c:'Glenhuntly',t:'4:04.34'}],
+      'Women 1500 Metre Run B Open':[{p:1,n:'Zoe Honeybrook',c:'Australian C',t:'4:31.63'},{p:2,n:'Emily Wass',c:'South Australia',t:'4:31.66'},{p:3,n:'Annabelle Colman',c:'Old Xaverians',t:'4:34.24'},{p:4,n:'Sadie Bird',c:'Glenhuntly',t:'4:34.81'},{p:5,n:'Julie Fitt',c:'Box Hill',t:'4:36.46'},{p:6,n:'Portia Salter',c:'New South Wales',t:'4:37.82'},{p:7,n:'Chloe Grund',c:'Knox',t:'4:38.91'},{p:8,n:'Poppy Nivarovich',c:'Deakin',t:'4:40.21'},{p:9,n:'Sienna Mumme',c:'Box Hill',t:'4:41.38'},{p:10,n:'Asha Morrow',c:'Mornington',t:'4:45.05'}],
+      'Men 1500 Metre Run B Open':[{p:1,n:'Brad Mathas',c:'St Kevins',t:'3:46.77'},{p:2,n:'Jesse Hunt',c:'Western Australia',t:'3:47.58'},{p:3,n:'Evan Rowbotham',c:'New South Wales',t:'3:47.89'},{p:4,n:'Angus Hincksman',c:'South Australia',t:'3:48.23'},{p:5,n:'Benjamin Wall',c:'New Zealand',t:'3:48.52'},{p:6,n:'Zayd Al Sayd',c:'Western Athletics',t:'3:48.59'},{p:7,n:'James Heneghan',c:'Great Britain',t:'3:49.05'},{p:8,n:'Max Russell',c:'New South Wales',t:'3:49.19'},{p:9,n:'Joel Gomez',c:'Usa',t:'3:50.13'},{p:10,n:'Matthew Buckell',c:'Bendigo Uni',t:'3:50.29'},{p:11,n:'Alex Talbot',c:'New South Wales',t:'3:52.30'},{p:12,n:'Michael Roeger',c:'South Australia',t:'3:52.38'},{p:13,n:'Reece Langdon',c:'Sandringham',t:'3:52.91'},{p:14,n:'Kiran Tibballs',c:'Western Australia',t:'3:53.93'},{p:15,n:'Nicklaus Blum',c:'South Australia',t:'3:55.28'},{p:16,n:'Bradley Hall',c:'Knox',t:'3:55.32'},{p:17,n:'Harry Maddocks',c:'Doncaster',t:'3:57.02'},{p:18,n:'Patrick Matthews',c:'Keilor St Bernards',t:'3:59.01'}],
+      'Women 1500 Metre Run A Open':[{p:1,n:'Madison King',c:'Glenhuntly',t:'4:21.45'},{p:2,n:'Mia Jade Gray',c:'Glenhuntly',t:'4:21.58'},{p:3,n:'Stephanie Kelly',c:'Coburg',t:'4:23.47'},{p:4,n:'Maddison Caulfield',c:'Essendon',t:'4:24.27'},{p:5,n:'Janae Mackrell',c:'Western Athletics',t:'4:26.29'},{p:6,n:'Leanne Ellis',c:'Western Athletics',t:'4:26.76'},{p:7,n:'Chloe Baldock',c:'Doncaster',t:'4:28.10'},{p:8,n:'Sienna Rowe',c:'Essendon',t:'4:30.50'},{p:9,n:'Zoe Woods',c:'Melbourne Uni',t:'4:30.97'},{p:10,n:'Matisse Lazzari',c:'Essendon',t:'4:31.43'},{p:11,n:'Aria Violini',c:'Ballarat Ycw',t:'4:34.22'},{p:12,n:'Khushi Deol',c:'Box Hill',t:'4:34.67'}],
+      'Men 1500 Metre Run A Open':[{p:1,n:'Tiarnan Crorken',c:'Great Britain',t:'3:44.56'},{p:2,n:'Evander Scott',c:'Chilwell',t:'3:44.58'},{p:3,n:'Thomas Moorcroft',c:'Western Australia',t:'3:44.61'},{p:4,n:'Luke Shaw',c:'Collingwood',t:'3:45.32'},{p:5,n:'Will Lewis',c:'St Kevins',t:'3:45.86'},{p:6,n:'Joshua Unthank',c:'Bellarine',t:'3:47.24'},{p:7,n:'Brady Ryan',c:'Glenhuntly',t:'3:48.24'},{p:8,n:'Jackson Unthank',c:'Bellarine',t:'3:49.07'},{p:9,n:'Joshua Carlin',c:'Box Hill',t:'3:53.04'},{p:10,n:'Mitchell Thompson',c:'Wendouree',t:'3:55.09'}],
+      'Women 800 Metre Run B Open':[{p:1,n:'Catriona Bisset',c:'Collingwood',t:'2:03.19'},{p:2,n:'Caitlin Mcquilkin-Bell',c:'Box Hill',t:'2:06.40'},{p:3,n:'Ruby Madden',c:'New South Wales',t:'2:06.73'},{p:4,n:'Rachel O\'Brien',c:'Wellington',t:'2:08.13'},{p:5,n:'Sarah Baker',c:'New South Wales',t:'2:08.70'},{p:6,n:'Lucy Jones',c:'Eureka',t:'2:10.03'},{p:7,n:'Lara Sacaner',c:'Essendon',t:'2:12.93'},{p:8,n:'Lauren Tay',c:'Box Hill',t:'2:13.33'}],
+      'Men 800 Metre Run B Open':[{p:1,n:'Noam Mamu',c:'Israel',t:'1:48.35'},{p:2,n:'Lachlan Raper',c:'New South Wales',t:'1:49.57'},{p:3,n:'Harry Halleen',c:'New South Wales',t:'1:49.80'},{p:4,n:'Dilan Egodawatte',c:'Essendon',t:'1:50.16'},{p:5,n:'Matthew Gough',c:'Glenhuntly',t:'1:51.36'},{p:6,n:'Gus Tomlinson-Smith',c:'Tasmania',t:'1:51.73'},{p:7,n:'Thiruben Rajan',c:'Singapore',t:'1:54.03'},{p:8,n:'Hamish Donohue',c:'Sandringham',t:'1:54.87'}],
+      'Women 800 Metre Run A Open':[{p:1,n:'Lucy Delbridge',c:'Collingwood',t:'2:06.04'},{p:2,n:'Declyn Tanner',c:'Mornington',t:'2:07.54'},{p:3,n:'Victoria Cholsh',c:'South Australia',t:'2:07.62'},{p:4,n:'Ally Brooks',c:'Box Hill',t:'2:08.00'},{p:5,n:'Elly Fleming',c:'Wellington',t:'2:09.52'},{p:6,n:'Meg Deane',c:'Vic Cross Co',t:'2:10.02'},{p:7,n:'Karen Haidar',c:'Mentone',t:'2:11.86'},{p:8,n:'Briana Sherry',c:'Casey Cardinia',t:'2:12.42'}],
+      'Men 800 Metre Run A Open':[{p:1,n:'Bob Abdelrahim',c:'St Kevins',t:'1:46.08'},{p:2,n:'Alex Hanigan',c:'St Kevins',t:'1:47.50'},{p:3,n:'Tom Forster',c:'St Kevins',t:'1:48.49'},{p:4,n:'Luka Sideridis',c:'Glenhuntly',t:'1:49.42'},{p:5,n:'Lachlan Thomas',c:'Chilwell',t:'1:50.60'},{p:6,n:'Thomas Kemp',c:'South Australia',t:'1:52.54'},{p:7,n:'Oscar Wright',c:'Nunawading',t:'1:53.75'},{p:8,n:'William Callaghan',c:'Athletics So',t:'1:59.20'}]
+    }
+  },
+];
+
+let champData = [
+  {year:2025,w800:{name:"Lucy Delbridge",club:"Collingwood",time:"2:06.04"},m800:{name:"Bob Abdelrahim",club:"St Kevins",time:"1:46.08"},w1500:{name:"Madison King",club:"Glenhuntly",time:"4:21.45"},m1500:{name:"Tiarnan Crorken",club:"Great Britain",time:"3:44.56"}},
+  {year:2023,w800:{name:"Sophie Nguyen",club:"Box Hill Athletics",time:"2:04.3"},m800:{name:"James Reardon",club:"Melbourne Uni AC",time:"1:48.2"},w1500:{name:"Chloe Bartlett",club:"Mentone Athletics",time:"4:12.4"},m1500:{name:"Patrick Lim",club:"St. Kevin's AC",time:"3:38.7"}},
+  {year:2022,w800:{name:"Sarah Mitchell",club:"Box Hill AC",time:"2:03.8"},m800:{name:"David Lowe",club:"Knox AC",time:"1:47.9"},w1500:{name:"Emma Clarke",club:"Melbourne Uni",time:"4:09.1"},m1500:{name:"James Reardon",club:"Melbourne Uni AC",time:"3:37.2"}},
+  {year:2021,w800:{name:"Emma Clarke",club:"Melbourne Uni",time:"2:04.9"},m800:{name:"Marcus Webb",club:"Box Hill Athletics",time:"1:49.2"},w1500:{name:"Grace Thornton",club:"Glenhuntly AC",time:"4:11.5"},m1500:{name:"Tom Harbridge",club:"Glenhuntly AC",time:"3:40.1"}},
+  {year:2020,w800:{name:"Niamh O'Brien",club:"Williamstown AC",time:"2:06.3"},m800:{name:"Tom Harbridge",club:"Glenhuntly AC",time:"1:50.4"},w1500:{name:"Sophie Nguyen",club:"Box Hill Athletics",time:"4:15.2"},m1500:{name:"Patrick Lim",club:"St. Kevin's AC",time:"3:41.8"}},
+];
+
+let olympiansData = [
+  {name:"David Lowe",games:"2016 Rio Olympics",event:"1500m",club:"Knox AC"},
+  {name:"Emma Clarke",games:"2020 Tokyo Olympics",event:"1500m",club:"Melbourne Uni"},
+  {name:"Sarah Mitchell",games:"2016 Rio Olympics",event:"800m",club:"Box Hill AC"},
+  {name:"James Reardon",games:"2024 Paris Olympics",event:"1500m",club:"Melbourne Uni AC"},
+  {name:"Patrick Lim",games:"2024 Paris Olympics",event:"1500m",club:"St. Kevin's AC"},
+  {name:"Marcus Webb",games:"2020 Tokyo Olympics",event:"800m",club:"Box Hill Athletics"},
+  {name:"Sophie Nguyen",games:"2024 Paris Olympics",event:"800m",club:"Box Hill Athletics"},
+  {name:"Tom Harbridge",games:"2012 London Olympics",event:"1500m",club:"Glenhuntly AC"},
+  {name:"Grace Thornton",games:"2020 Tokyo Olympics",event:"1500m",club:"Glenhuntly AC"},
+];
+
+let photosData = [
+  {cap:"Meet 2 — Box Hill",sub:"21 December 2023",color:"135deg, #3D0008, #1A1A1A"},
+  {cap:"Women's 800m Final",sub:"Sophie Nguyen takes gold",color:"135deg, #1A0008, #2D3D28"},
+  {cap:"Men's 1500m — Meet 1",sub:"Lakeside Stadium, Nov 2023",color:"135deg, #0D1A08, #1A1A1A"},
+  {cap:"Starting Line — Meet 2",sub:"Box Hill, December 2023",color:"135deg, #1A0A00, #2D1A00"},
+  {cap:"Awards Ceremony",sub:"Season opener, 2023",color:"135deg, #3D0008, #2D0A00"},
+  {cap:"VMC Athletes",sub:"Training day, October 2023",color:"135deg, #081A1A, #1A1A1A"},
+  {cap:"Lakeside at Sunset",sub:"November 2023",color:"135deg, #1A1400, #2D1A00"},
+  {cap:"Pacemakers Brief",sub:"Pre-meet, December 2023",color:"135deg, #0D0008, #1A0A1A"},
+  {cap:"Club Championships",sub:"April 2023",color:"135deg, #3D0008, #0D0D0D"},
+  {cap:"Track Side",sub:"Glenhuntly AC members",color:"135deg, #001A0A, #1A1A1A"},
+  {cap:"Finish Line Drama",sub:"Men's 800m — Meet 1",color:"135deg, #1A0000, #2D1A00"},
+  {cap:"VMC Committee",sub:"Season launch, October 2023",color:"135deg, #1A1A0A, #0D0D0D"},
+];
+
+let igData = [
+  {cap:"Race day at Box Hill 🏃‍♀️ #VMC #800m",color:"135deg, #3D0008, #1A1A1A"},
+  {cap:"Patrick Lim takes the 1500m win! 🥇",color:"135deg, #1A1400, #2D1A00"},
+  {cap:"Entries open for Meet 3 — link in bio",color:"135deg, #081A1A, #0D1A08"},
+  {cap:"The atmosphere at Lakeside tonight 🔥",color:"135deg, #1A0000, #2D0A00"},
+  {cap:"Sophie Nguyen smashes her PB! 2:04.3",color:"135deg, #0D0818, #1A0A1A"},
+  {cap:"Club championship standings after Meet 2",color:"135deg, #1A1800, #2D1A00"},
+  {cap:"Pacemakers wanted for Meet 3 📋",color:"135deg, #001A08, #0D1A0A"},
+  {cap:"Season openers always hit different ❤️",color:"135deg, #3D0008, #2D0008"},
+  {cap:"Aberfeldie track ready for Tuesday 🌙",color:"135deg, #0A0A1A, #1A1A2D"},
+  {cap:"VMC community — best in Victoria 🏆",color:"135deg, #1A0A00, #2D1400"},
+];
+
+// ═══════════════════ GOOGLE SHEETS SYNC ═══════════════════
+async function fetchSheet(gid) {
+  try {
+    let url;
+    // Detect if using a "Published to web" ID (starts with 2PACX) or a standard Sheet ID
+    if (CONFIG.SHEET_ID.startsWith('2PACX')) {
+      url = `https://docs.google.com/spreadsheets/d/e/${CONFIG.SHEET_ID}/pub?gid=${gid}&output=csv`;
+    } else {
+      url = `https://docs.google.com/spreadsheets/d/${CONFIG.SHEET_ID}/export?format=csv&gid=${gid}`;
+    }
+    
+    const response = await fetch(url);
+    if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
+    const csvText = await response.text();
+    return parseCSV(csvText);
+  } catch (e) { console.error("Sync failed for GID:", gid, e); return []; }
+}
+
+function parseCSV(text) {
+  const lines = text.split(/\r?\n/).filter(l => l.trim());
+  if (lines.length < 2) return [];
+
+  const splitLine = (line) => {
+    const parts = [];
+    let current = '', inQuotes = false;
+    for (let char of line) {
+      if (char === '"') inQuotes = !inQuotes;
+      else if (char === ',' && !inQuotes) { parts.push(current.trim()); current = ''; }
+      else current += char;
+    }
+    parts.push(current.trim());
+    return parts;
+  };
+
+  // Find the header row (sometimes there are empty rows at the top)
+  let headerIndex = 0;
+  while (headerIndex < lines.length && !lines[headerIndex].toLowerCase().includes('time') && !lines[headerIndex].toLowerCase().includes('name') && !lines[headerIndex].toLowerCase().includes('athlete')) {
+    headerIndex++;
+  }
+  if (headerIndex >= lines.length) headerIndex = 0;
+
+  const rawHeaders = splitLine(lines[headerIndex]).map(h => h.toLowerCase().trim());
+  
+  return lines.slice(headerIndex + 1).map(line => {
+    const values = splitLine(line);
+    const row = {};
+    rawHeaders.forEach((header, i) => {
+      let val = (values[i] || '').replace(/^"|"$/g, '').trim();
+      if (!val) return;
+
+      // Map common variations to the keys expected by the site
+      if (header === 'name' || header === 'athlete' || header === 'name/club' || header.includes('athlete')) row.name = val;
+      else if (header.includes('club') || header.includes('team') || header.includes('affil')) row.club = val;
+      else if (header.includes('time')) row.time = val;
+      else if (header.includes('year') || header.includes('date') || header === 'yr') row.year = val;
+      else if (header === 'meet' || header === 'meet_n' || header === 'round') row.meet = val;
+      else if (header === 'event' || header === 'race') row.event = val;
+      else if (header === 'pos' || header === 'p' || header === 'position' || header === 'place') row.pos = val;
+      else row[header] = val;
+    });
+    return row;
+  });
+}
+
+// ═══════════════════ PAGE NAVIGATION ═══════════════════
+function toggleMenu(open) {
+  const nav = document.getElementById('navLinks');
+  const burger = document.getElementById('hamburger');
+  if (open === false) { nav.classList.remove('active'); burger.classList.remove('active'); }
+  else if (open === true) { nav.classList.add('active'); burger.classList.add('active'); }
+  else { nav.classList.toggle('active'); burger.classList.toggle('active'); }
+}
+
+function showPage(page){
+  toggleMenu(false);
+  document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
+  document.querySelectorAll('.nav-links a').forEach(a=>a.classList.remove('active'));
+  document.getElementById('page-'+page).classList.add('active');
+  const navEl=document.getElementById('nav-'+page);
+  if(navEl) navEl.classList.add('active');
+  window.scrollTo(0,0);
+}
+
+// ═══════════════════ LEADERBOARD HELPERS ═══════════════════
+function posBadge(i){
+  if(i===0) return '<div class="pos-g">1</div>';
+  if(i===1) return '<div class="pos-s">2</div>';
+  if(i===2) return '<div class="pos-b">3</div>';
+  return `<div class="pos-n">${i+1}</div>`;
+}
+
+function renderHomeLb(key){
+  document.getElementById('homeLbBody').innerHTML=lbData[key].map((r,i)=>`
+    <tr class="dt-row"><td style="text-align:center;">${posBadge(i)}</td>
+    <td><div class="td-name">${r.name}${r.cr?'<span class="cr-flag">CR</span>':''}</div></td>
+    <td><div class="td-club">${r.club}</div></td>
+    <td class="td-time">${r.sb}</td><td class="td-sm">${r.pb}</td>
+    <td class="td-pts"><span>${r.pts}</span></td></tr>`).join('');
+}
+renderHomeLb('w800');
+document.getElementById('homeLbTabs').addEventListener('click',e=>{
+  const b=e.target.closest('.tab-btn');if(!b)return;
+  document.querySelectorAll('#homeLbTabs .tab-btn').forEach(t=>t.classList.remove('active'));
+  b.classList.add('active');renderHomeLb(b.dataset.key);
+});
+
+function renderHomeRes(key){
+  document.getElementById('homeResBody').innerHTML=resultData[key].map(r=>`
+    <div style="display:grid;grid-template-columns:28px 1fr 60px;gap:6px;align-items:center;padding:8px 0;border-bottom:1px solid rgba(224,216,204,.3);">
+      <div style="font-family:'Bebas Neue',sans-serif;font-size:16px;color:${r.pos<=3?'var(--red)':'#C4B090'};text-align:center;">${r.pos}</div>
+      <div><div class="td-name">${r.name}</div><div class="td-club">${r.club}</div></div>
+      <div class="td-time">${r.time}</div>
+    </div>`).join('');
+}
+renderHomeRes('rw800');
+document.getElementById('homeResTabs').addEventListener('click',e=>{
+  const b=e.target.closest('.tab-btn');if(!b)return;
+  document.querySelectorAll('#homeResTabs .tab-btn').forEach(t=>t.classList.remove('active'));
+  b.classList.add('active');renderHomeRes(b.dataset.key);
+});
+
+// Club board
+function renderClubBoard(containerId,dark=false){
+  const max=clubData[0].pts;
+  document.getElementById(containerId).innerHTML=clubData.map((c,i)=>`
+    <div style="display:grid;grid-template-columns:22px 1fr 48px;gap:6px;align-items:center;padding:7px 0;border-bottom:1px solid ${dark?'rgba(201,168,76,.08)':'rgba(224,216,204,.3)'};">
+      <div style="font-family:'Bebas Neue',sans-serif;font-size:14px;color:${dark?'rgba(201,168,76,.35)':'#C4B090'};text-align:center;">${i+1}</div>
+      <div>
+        <div style="font-size:11px;font-weight:500;color:${dark?'var(--text)':'var(--dark)'};">${c.name}</div>
+        <div style="background:${dark?'rgba(255,255,255,.07)':'var(--border)'};height:3px;border-radius:2px;margin-top:3px;overflow:hidden;"><div style="height:3px;background:var(--red);border-radius:2px;width:${Math.round(c.pts/max*100)}%;"></div></div>
+      </div>
+      <div style="font-family:'Bebas Neue',sans-serif;font-size:14px;color:${dark?'var(--text)':'var(--dark)'};text-align:right;">${c.pts}</div>
+    </div>`).join('');
+}
+renderClubBoard('homeClubBoard');
+renderClubBoard('sideClub',true);
+
+// ═══════════════════ CALENDAR ═══════════════════
+const ctaMap={results:'st-results',enter:'st-enter',closed:'st-closed'};
+const ctaLbl={results:'Results ↗',enter:'Enter Now',closed:'Entries Closed'};
+const ctaBtnMap={results:'cta-results',enter:'cta-enter',closed:'cta-closed'};
+const ctaBtnLbl={results:'View Results',enter:'Enter Now',closed:'Closed'};
+
+// Strip
+function renderCalStrip() {
+  document.getElementById('calStrip').innerHTML=meetsData.filter(m=>m.year==='2025').map(m=>`
+    <div class="cal-meet-pill">
+      <div class="cmp-num"><div class="cmp-n-lbl">Meet</div><div class="cmp-n-val">${m.n}</div></div>
+      <div class="cmp-info">
+        <div class="cmp-date">${m.date}</div>
+        <div class="cmp-venue">${m.venue} · ${m.time}</div>
+        <span class="cmp-status ${ctaMap[m.status]}">${ctaLbl[m.status]}</span>
+      </div>
+    </div>`).join('');
+}
+renderCalStrip();
+
+function renderCalSidebar(containerId,dark=false){
+  const curr=meetsData.filter(m=>m.year==='2025');
+  document.getElementById(containerId).innerHTML=curr.map(m=>`
+    <div class="meet-card" style="margin-bottom:8px;background:${dark?'rgba(255,255,255,.03)':'#fff'};border-color:${dark?'rgba(201,168,76,.12)':'var(--border)'};">
+      <div style="display:grid;grid-template-columns:40px 1fr auto;align-items:stretch;">
+        <div style="background:var(--red);display:flex;flex-direction:column;align-items:center;justify-content:center;padding:10px 6px;">
+          <div style="font-size:7px;letter-spacing:2px;text-transform:uppercase;color:rgba(255,255,255,.5);">Meet</div>
+          <div style="font-family:'Bebas Neue',sans-serif;font-size:20px;color:#fff;line-height:1;">${m.n}</div>
+        </div>
+        <div style="padding:9px 12px;">
+          <div style="font-size:11px;font-weight:500;color:${dark?'var(--text)':'var(--dark)'};margin-bottom:2px;">${m.date}</div>
+          <div style="font-size:10px;color:${dark?'var(--muted)':'#8A7052'};font-weight:300;">${m.venue}</div>
+        </div>
+        <div style="padding:9px 10px;display:flex;align-items:center;">
+          <div style="font-family:'Bebas Neue',sans-serif;font-size:15px;color:var(--gold);">${m.time}</div>
+        </div>
+      </div>
+      <div style="border-top:1px solid ${dark?'rgba(201,168,76,.08)':'var(--border)'};padding:7px 12px;display:flex;align-items:center;justify-content:space-between;gap:8px;">
+        <div>
+          <div style="font-size:8px;letter-spacing:2px;text-transform:uppercase;color:var(--gold);margin-bottom:2px;">Events</div>
+          <div style="font-size:11px;color:${dark?'var(--text)':'var(--dark)'};">${m.events}</div>
+        </div>
+        <button class="ec-cta ${ctaBtnMap[m.status]}" ${m.entryLink ? `onclick="window.open('${m.entryLink}', '_blank')"` : ''}>${ctaBtnLbl[m.status]}</button>
+      </div>
+    </div>`).join('');
+}
+renderCalSidebar('homeCalSidebar',true);
+
+// ═══════════════════ EVENTS PAGE ═══════════════════
+function renderEvents(filter='all'){
+  let filtered=meetsData;
+  if(filter==='upcoming') filtered=meetsData.filter(e=>e.status==='enter');
+  else if(filter==='completed') filtered=meetsData.filter(e=>e.status==='results');
+  else if(filter==='2025') filtered=meetsData.filter(e=>e.year==='2025');
+  else if(filter==='2023') filtered=meetsData.filter(e=>e.year==='2023');
+  else if(filter==='2022') filtered=meetsData.filter(e=>e.year==='2022');
+  document.getElementById('eventsGrid').innerHTML=filtered.map(e=>{
+    const hasRes=e.status==='results'&&e.results;
+    const resCols=hasRes?Object.entries(e.results).map(([ev,rows])=>`
+      <div class="res-ev-col"><h4>${ev}</h4>${rows.map(r=>`<div class="res-row"><div class="res-pos">${r.p}</div><div class="res-name">${r.n}</div><div class="res-time">${r.t}</div></div>`).join('')}</div>`).join(''):'';
+    return`<div class="event-card">
+      <div class="ec-header">
+        <div class="ec-num"><div class="ec-num-lbl">Meet</div><div class="ec-num-n">${e.n}</div><div class="ec-num-yr">${e.year}</div></div>
+        <div class="ec-info">
+          <div class="ec-date">${e.date}</div>
+          <div class="ec-venue">📍 ${e.venue}</div>
+          <div class="ec-events-tag">Events: ${e.events}</div>
+        </div>
+        <div class="ec-meta">
+          <div class="ec-time-v">${e.time}</div>
+          <button class="ec-cta ${ctaBtnMap[e.status]}" ${e.entryLink ? `onclick="window.open('${e.entryLink}', '_blank')"` : ''}>${ctaBtnLbl[e.status]}</button>
+        </div>
+      </div>
+      <div class="ec-body">
+        <div class="ec-close">Closes: <strong>${e.close}</strong></div>
+        <div class="ec-links">
+          ${e.status==='enter'?'<button class="ec-link-btn">Pacer Application</button>':''}
+          ${hasRes?`<button class="toggle-btn" onclick="toggleRes('er-${e.year}-${e.n}',this)">▶ Show Results</button>`:''}
+        </div>
+      </div>
+      ${hasRes?`<div class="res-expand" id="er-${e.year}-${e.n}"><div class="res-expand-grid">${resCols}</div></div>`:''}</div>`;
+  }).join('');
+}
+renderEvents();
+function filterEvents(f,el){
+  document.querySelectorAll('.efil').forEach(b=>b.classList.remove('active'));
+  el.classList.add('active');renderEvents(f);
+}
+function toggleRes(id,btn){
+  const el=document.getElementById(id);
+  if(el.classList.contains('open')){el.classList.remove('open');btn.textContent='▶ Show Results';}
+  else{el.classList.add('open');btn.textContent='▼ Hide Results';}
+}
+
+// ═══════════════════ STANDINGS PAGE ═══════════════════
+function renderStandings(key){
+  document.getElementById('standingsBody').innerHTML=lbData[key].map((r,i)=>`
+    <tr class="dt-row"><td style="text-align:center;">${posBadge(i)}</td>
+    <td><div class="td-name">${r.name}${r.cr?'<span class="cr-flag">CR</span>':''}</div></td>
+    <td><div class="td-club">${r.club}</div></td>
+    <td><div style="font-size:10px;color:#8A7052;">${r.nat}</div></td>
+    <td class="td-time">${r.sb}</td><td class="td-sm">${r.pb}</td>
+    <td class="td-sm">${r.m1}</td><td class="td-sm">${r.m2}</td>
+    <td class="td-pts"><span>${r.pts}</span></td></tr>`).join('');
+}
+renderStandings('w800');
+document.getElementById('standingsTabs').addEventListener('click',e=>{
+  const b=e.target.closest('.tab-btn');if(!b)return;
+  document.querySelectorAll('#standingsTabs .tab-btn').forEach(t=>t.classList.remove('active'));
+  b.classList.add('active');renderStandings(b.dataset.key);
+});
+
+// ═══════════════════ HISTORY PAGE ═══════════════════
+function showHist(section,btn){
+  document.querySelectorAll('.hist-section').forEach(s=>s.classList.remove('active'));
+  document.querySelectorAll('.hn-item').forEach(b=>b.classList.remove('active'));
+  document.getElementById('hist-'+section).classList.add('active');
+  btn.classList.add('active');
+}
+
+// Champions
+document.getElementById('championsHistory').innerHTML=champData.map(y=>`
+  <div class="champ-year-block"><div class="cy-title">${y.year}–${String(y.year+1).slice(2)} Season</div>
+  <div class="cy-grid">
+    ${[['W 800m',y.w800],['M 800m',y.m800],['W 1500m',y.w1500],['M 1500m',y.m1500]].map(([ev,d])=>`
+      <div class="cy-cell"><div class="cy-event">${ev}</div><div class="cy-name">${d.name}</div><div class="cy-club">${d.club}</div><div class="cy-time">${d.time}</div></div>`).join('')}
+  </div></div>`).join('');
+
+// Olympians
+document.getElementById('olympiansGrid').innerHTML=olympiansData.map(o=>`
+  <div class="ol-card"><div class="ol-name">${o.name}</div><div class="ol-games">${o.games}</div><div class="ol-club">${o.club}</div><div class="ol-ev">${o.event}</div></div>`).join('');
+
+// Top Lists
+const toplistMap={w800:toplist_w800,m800:toplist_m800,w1500:toplist_w1500,m1500:toplist_m1500};
+function renderToplist(key){
+  if (!toplistMap[key] || toplistMap[key].length === 0) {
+    document.getElementById('toplistBody').innerHTML = '<div style="padding:32px;text-align:center;font-size:11px;color:#8A7052;font-weight:300;">Syncing with Google Sheets...</div>';
+    return;
+  }
+  document.getElementById('toplistBody').innerHTML=toplistMap[key].map((a,i)=>`
+    <div class="tl-row">
+      <div class="tl-pos ${i===0?'gold':''}">${i+1}</div>
+      <div><div class="tl-name">${a.name}</div><div class="tl-club">${a.club}</div></div>
+      <div class="tl-time">${a.time}</div>
+      <div class="tl-year">${a.year}</div>
+    </div>`).join('');
+}
+renderToplist('w800');
+document.getElementById('toplistTabs').addEventListener('click',e=>{
+  const b=e.target.closest('.tab-btn');if(!b)return;
+  document.querySelectorAll('#toplistTabs .tab-btn').forEach(t=>t.classList.remove('active'));
+  b.classList.add('active');renderToplist(b.dataset.tl);
+});
+
+// Most wins
+document.getElementById('mostWinsBody').innerHTML=[
+  {name:"James Reardon",club:"Melbourne Uni AC",wins:18,seasons:4},
+  {name:"Patrick Lim",club:"St. Kevin's AC",wins:15,seasons:4},
+  {name:"Sophie Nguyen",club:"Box Hill Athletics",wins:14,seasons:3},
+  {name:"Sarah Mitchell",club:"Box Hill AC",wins:12,seasons:5},
+  {name:"Tom Harbridge",club:"Glenhuntly AC",wins:11,seasons:6},
+  {name:"Emma Clarke",club:"Melbourne Uni",wins:10,seasons:3},
+  {name:"David Lowe",club:"Knox AC",wins:9,seasons:4},
+  {name:"Chloe Bartlett",club:"Mentone Athletics",wins:8,seasons:3},
+].map(r=>`<tr class="wins-row"><td><div style="font-size:12px;font-weight:500;">${r.name}</div><div class="wins-bar"><div class="wins-bar-fill" style="width:${Math.round(r.wins/18*100)}%"></div></div></td><td style="font-size:10px;color:#8A7052;">${r.club}</td><td style="text-align:right;font-family:'Bebas Neue',sans-serif;font-size:20px;color:var(--red);">${r.wins}</td><td style="text-align:right;font-size:11px;color:#8A7052;">${r.seasons} seasons</td></tr>`).join('');
+
+// Club champs
+document.getElementById('clubChampsBody').innerHTML=[
+  {season:'2023–24',club:'Melbourne Uni AC',pts:312,athletes:42},
+  {season:'2022–23',club:'Box Hill Athletics',pts:298,athletes:38},
+  {season:'2021–22',club:'Glenhuntly AC',pts:274,athletes:35},
+  {season:'2020–21',club:'Melbourne Uni AC',pts:261,athletes:40},
+  {season:'2019–20',club:"St. Kevin's AC",pts:247,athletes:29},
+].map(r=>`<tr class="wins-row"><td style="font-size:12px;font-weight:600;">${r.season}</td><td style="font-size:12px;">${r.club}</td><td style="text-align:right;font-family:'Bebas Neue',sans-serif;font-size:18px;color:var(--red);">${r.pts}</td><td style="text-align:right;font-size:11px;color:#8A7052;">${r.athletes} athletes</td></tr>`).join('');
+
+// ═══════════════════ PHOTO SLIDER ═══════════════════
+document.getElementById('photoReel').innerHTML=photosData.map((p,i)=>`
+  <div class="photo-card">
+    <div class="photo-img">
+      <div class="photo-img-placeholder" style="background:linear-gradient(${p.color});">
+        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="rgba(201,168,76,0.3)" stroke-width="1.5"><rect x="3" y="5" width="18" height="14" rx="2"/><circle cx="12" cy="12" r="3"/></svg>
+        <div style="font-size:8px;letter-spacing:2px;text-transform:uppercase;color:rgba(201,168,76,0.18);">Photo ${i+1}</div>
+      </div>
+    </div>
+    <div class="photo-caption"><div class="photo-cap-title">${p.cap}</div><div class="photo-cap-sub">${p.sub}</div></div>
+  </div>`).join('');
+
+const photoReel=document.getElementById('photoReel');
+const photoDots=document.getElementById('photoDots');
+let photoOffset=0;
+const photoVisible=4,photoCardW=224;
+const photoMax=photosData.length-photoVisible;
+const photoTotalDots=Math.ceil(photosData.length/photoVisible);
+photoDots.innerHTML=Array.from({length:photoTotalDots},(_,i)=>`<div class="pdot ${i===0?'active':''}" data-i="${i}"></div>`).join('');
+function updatePhotoReel(){
+  photoReel.style.transform=`translateX(-${photoOffset*photoCardW}px)`;
+  document.querySelectorAll('.pdot').forEach((d,i)=>d.classList.toggle('active',i===Math.floor(photoOffset/photoVisible)));
+}
+document.getElementById('photoNext').addEventListener('click',()=>{if(photoOffset<photoMax){photoOffset=Math.min(photoOffset+photoVisible,photoMax);updatePhotoReel();}});
+document.getElementById('photoPrev').addEventListener('click',()=>{if(photoOffset>0){photoOffset=Math.max(photoOffset-photoVisible,0);updatePhotoReel();}});
+photoDots.addEventListener('click',e=>{const d=e.target.closest('.pdot');if(!d)return;photoOffset=Math.min(parseInt(d.dataset.i)*photoVisible,photoMax);updatePhotoReel();});
+
+// ═══════════════════ INSTAGRAM STRIP ═══════════════════
+document.getElementById('igReel').innerHTML=igData.map((p,i)=>`
+  <div class="ig-card">
+    <div class="ig-card-bg" style="background:linear-gradient(${p.color});">
+      <div class="ig-icon">📸</div>
+      <div class="ig-num">${i+1}</div>
+    </div>
+    <div class="ig-overlay"><div class="ig-cap">${p.cap}</div></div>
+  </div>`).join('');
+
+const igReel=document.getElementById('igReel');
+const igDots=document.getElementById('igDots');
+let igOffset=0;
+const igVisible=6,igCardW=172;
+const igMax=igData.length-igVisible;
+const igTotalDots=Math.ceil(igData.length/igVisible);
+igDots.innerHTML=Array.from({length:igTotalDots},(_,i)=>`<div class="ig-dot ${i===0?'active':''}" data-i="${i}"></div>`).join('');
+function updateIgReel(){
+  igReel.style.transform=`translateX(-${igOffset*igCardW}px)`;
+  document.querySelectorAll('.ig-dot').forEach((d,i)=>d.classList.toggle('active',i===Math.floor(igOffset/igVisible)));
+}
+
+// ═══════════════════ INITIALIZATION ═══════════════════
+async function initApp() {
+  // If a Sheet ID is provided, fetch the live data
+  if (CONFIG.SHEET_ID && CONFIG.SHEET_ID !== '') { // Check if SHEET_ID is set
+    console.log('VMC Sync: Starting fetch from', CONFIG.SHEET_ID);
+
+    // If your Women's 800m Toplist has a specific GID, update TL_W800 in the CONFIG at the top.
+    // Otherwise, we try to fetch it.
+    const w800Data = await fetchSheet(CONFIG.GIDS.TL_W800);
+    if (w800Data && w800Data.length > 0) {
+      toplistMap.w800 = w800Data;
+      console.log('VMC Sync: Women\'s 800m loaded', w800Data.length, 'rows');
+    } else {
+      console.warn('VMC Sync: No data found for Women\'s 800m. Check GID and Headers.');
+    }
+
+    // Fetch and Sync Results
+    if (CONFIG.GIDS.RESULTS && !CONFIG.GIDS.RESULTS.includes('987')) {
+      const liveResults = await fetchSheet(CONFIG.GIDS.RESULTS);
+      if (liveResults.length > 0) {
+        liveResults.forEach(r => {
+          const mNum = parseInt(r.meet);
+          const meet = meetsData.find(m => m.n === mNum && m.year === '2025');
+          if (meet) {
+            if (!meet.results) meet.results = {};
+            if (!meet.results[r.event]) meet.results[r.event] = [];
+            // Avoid adding duplicates
+            if (!meet.results[r.event].some(exists => exists.n === r.name)) {
+              meet.results[r.event].push({ p: parseInt(r.pos), n: r.name, t: r.time, c: r.club });
+              meet.status = 'results';
+            }
+          }
+        });
+
+        // Update Latest Results block to use the newest meet found
+        const latestWithRes = [...meetsData].filter(m => m.results).sort((a, b) => b.n - a.n)[0];
+        if (latestWithRes) {
+          const hasAHeats = Object.keys(latestWithRes.results).some(k => k.match(/\bA\b/));
+          Object.entries(latestWithRes.results).forEach(([ev, entries]) => {
+            let key = null;
+            if (hasAHeats ? ev.match(/\bA\b/) : true) {
+              const lowerEv = ev.toLowerCase();
+              if (lowerEv.includes('women') || lowerEv.includes('w ')) {
+                if (lowerEv.includes('800')) key = 'rw800';
+                else if (lowerEv.includes('1500')) key = 'rw1500';
+              } else if (lowerEv.includes('men') || lowerEv.includes('m ')) {
+                if (lowerEv.includes('800')) key = 'rm800';
+                else if (lowerEv.includes('1500')) key = 'rm1500';
+              }
+            }
+            if (key) {
+              resultData[key] = entries.map(e => ({ pos: e.p, name: e.n, club: e.c || '', time: e.t })).sort((a, b) => a.pos - b.pos).slice(0, 8);
+            }
+          });
+        }
+      }
+    }
+
+    // Fetch Toplists for all 4 events
+    const eventKeys = ['m800', 'w1500', 'm1500']; // We already did w800 above
+    for (const key of eventKeys) {
+      const gid = CONFIG.GIDS[`TL_${key.toUpperCase()}`];
+      if (gid && !gid.includes('ADD_YOUR')) {
+        const data = await fetchSheet(gid);
+        if (data.length > 0) {
+          toplistMap[key] = data;
+          console.log(`${key.toUpperCase()} Toplist loaded:`, data.length, 'entries');
+        }
+      }
+    }
+  }
+  
+  // Re-run all render functions after potential data update
+  renderHomeLb('w800');
+  renderHomeRes('rw800');
+  renderClubBoard('homeClubBoard');
+  renderCalStrip();
+  renderCalSidebar('homeCalSidebar', true);
+  renderLatestWinnersSidebar();
+  renderStandings('w800');
+  renderToplist('w800');
+  // ... other render calls
+}
+
+function renderLatestWinnersSidebar(){
+  const container = document.getElementById('latestWinnersSidebar');
+  if(!container) return;
+  const currentMeets = meetsData.filter(m => m.year === '2025' && m.results).sort((a,b)=>b.n - a.n);
+  if (currentMeets.length === 0) return;
+  
+  container.innerHTML = `
+    <div class="sec-eyebrow-gold">Season Winners</div>
+    ` + currentMeets.map(m => {
+    // If a meet has explicit 'A' heats, we only want to show those winners.
+    // Otherwise (like Meets 1, 3, 4, 5), we show all listed event winners.
+    const hasAHeats = Object.keys(m.results).some(k => k.match(/\bA\b/));
+    const meetAWinners = [];
+
+    for (const eventName in m.results) {
+      const isTarget = hasAHeats ? eventName.match(/\bA\b/) : true;
+      if (isTarget) {
+        const winner = m.results[eventName].find(x => x.p === 1);
+        if (winner) {
+          let cleanEv = eventName
+            .replace(/Men/gi, 'M')
+            .replace(/Women|Wom/gi, 'W')
+            .replace(/Metre Run/gi, 'm')
+            .replace(/Open/gi, '')
+            .replace(/\bA\b/g, '')
+            .replace(/\s+/g, ' ')
+            .trim()
+            .replace(/(\d+)\s*m/i, '$1M');
+
+          meetAWinners.push({
+            ev: cleanEv,
+            name: winner.n,
+            time: winner.t
+          });
+        }
+      }
+    }
+
+    if (meetAWinners.length === 0) return ''; // If no 'A Open' winners found for this meet, skip
+
+    return `
+      <div class="sec-title-light" style="font-size:15px; margin-top:16px; margin-bottom:12px;">Meet ${m.n} Champions</div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;">
+        ${meetAWinners.map(w => `<div style="background:rgba(201,168,76,.07);border:1px solid rgba(201,168,76,.18);padding:12px;">
+          <div style="font-size:8px;letter-spacing:2px;text-transform:uppercase;color:var(--gold);margin-bottom:5px;">${w.ev}</div>
+          <div style="font-size:12px;font-weight:500;color:var(--text);">${w.name}</div>
+          <div style="font-family:'Bebas Neue',sans-serif;font-size:20px;color:var(--text);letter-spacing:.5px;">${w.time}</div>
+        </div>`).join('')}
+      </div>`;
+  }).join('');
+}
+
+window.addEventListener('DOMContentLoaded', initApp);
+
+</script>
+</body>
+</html>
