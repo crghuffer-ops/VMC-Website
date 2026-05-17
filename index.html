@@ -45,7 +45,7 @@ body{font-family:'Inter',sans-serif;background:var(--cream);color:var(--dark);ov
 .pos-s{display:inline-flex;align-items:center;justify-content:center;width:24px;height:24px;border-radius:50%;border:1.5px solid #909090;font-family:'Bebas Neue',sans-serif;font-size:11px;color:#707070;}
 .pos-b{display:inline-flex;align-items:center;justify-content:center;width:24px;height:24px;border-radius:50%;border:1.5px solid #A0723A;font-family:'Bebas Neue',sans-serif;font-size:11px;color:#A0723A;}
 .pos-n{text-align:center;font-family:'Bebas Neue',sans-serif;font-size:13px;color:#C4B090;}
-.cr-flag{display:inline-block;font-size:7px;letter-spacing:1px;text-transform:uppercase;background:var(--gold-pale);color:#6B5010;border:1px solid var(--gold);padding:2px 5px;margin-left:5px;font-weight:600;vertical-align:middle;}
+.champ-badge{display:inline-block;font-size:7px;letter-spacing:1px;text-transform:uppercase;background:var(--gold-pale);color:#6B5010;border:1px solid var(--gold);padding:2px 5px;margin-left:5px;font-weight:600;vertical-align:middle;}
 .btn-red{background:var(--red);color:#fff;border:none;padding:12px 28px;font-family:'Inter',sans-serif;font-size:10px;font-weight:600;letter-spacing:2px;text-transform:uppercase;cursor:pointer;}
 .btn-red:hover{background:var(--red-dark);}
 .btn-ghost-light{background:transparent;color:#8A7052;border:1px solid var(--border);padding:12px 28px;font-family:'Inter',sans-serif;font-size:10px;font-weight:500;letter-spacing:2px;text-transform:uppercase;cursor:pointer;}
@@ -841,6 +841,7 @@ body{font-family:'Inter',sans-serif;background:var(--cream);color:var(--dark);ov
       <button class="hn-item active" onclick="showAbout('who',this)">Who We Are</button>
       <button class="hn-item" onclick="showAbout('mission',this)">Our Mission</button>
       <button class="hn-item" onclick="showAbout('rules',this)">Rules & Regs</button>
+      <button class="hn-item" onclick="showAbout('pacemaking',this)">Pacemaking</button>
       <button class="hn-item" onclick="showAbout('leadership',this)">Leadership</button>
       <button class="hn-item" onclick="showAbout('prizes',this)">Prize Money</button>
       <button class="hn-item" onclick="showAbout('partners',this)">Partners</button>
@@ -875,6 +876,17 @@ body{font-family:'Inter',sans-serif;background:var(--cream);color:var(--dark);ov
           <div class="rule-item"><div class="rule-num">04</div><div class="rule-text">Season points are awarded to the top 8 finishers in each heat. Best 4 results from 6 meets count toward final standings.</div></div>
           <div class="rule-item"><div class="rule-num">05</div><div class="rule-text">Club championship points are aggregated from all members' individual points.</div></div>
           <div class="rule-item"><div class="rule-num">06</div><div class="rule-text">All decisions by the VMC committee regarding results and points are final.</div></div>
+        </div>
+      </div>
+      <div class="hist-section" id="about-pacemaking">
+        <div class="sec-eyebrow">Race Support</div>
+        <div class="sec-title">Pacemaking</div>
+        <div class="about-rule"></div>
+        <div class="about-body">
+          <p>Pacemaking is a specialist role at VMC meets. Experienced runners are selected to set target paces for the top-grade races and must be able to deliver consistent splits while helping the field run fast and even.</p>
+          <p>Pacemakers are not entered as regular competitors. They must apply separately through the VMC pacemaker application process and receive committee approval before a meet.</p>
+          <p>Once assigned, pacemakers are required to follow the designated pace plan and to step off the track before the final bell lap if still leading the race. This ensures a fair and competitive finish for all athletes.</p>
+          <p>For more information or to express interest in pacemaking, please contact our events team at <span style="color:var(--red);font-weight:600;">events@vicmilers.com</span> or visit the entry page for pacemaker applications.</p>
         </div>
       </div>
       <div class="hist-section" id="about-leadership">
@@ -994,7 +1006,7 @@ const CONFIG = {
 
 let lbData = {
   w800:[
-    {name:"Sophie Nguyen",club:"Box Hill Athletics",nat:"AUS",sb:"2:04.3",pb:"2:03.1",m1:"-",m2:12,pts:118,cr:true},
+    {name:"Sophie Nguyen",club:"Box Hill Athletics",nat:"AUS",sb:"2:04.3",pb:"2:03.1",m1:"-",m2:12,pts:118,prevChamp:true},
     {name:"Ella Mackenzie",club:"St. Kevin's AC",nat:"AUS",sb:"2:06.1",pb:"2:05.8",m1:"-",m2:11,pts:109},
     {name:"Chloe Bartlett",club:"Mentone Athletics",nat:"AUS",sb:"2:07.4",pb:"2:06.2",m1:"-",m2:10,pts:101},
     {name:"Amara Diallo",club:"Melbourne Uni AC",nat:"AUS",sb:"2:08.9",pb:"2:07.5",m1:"-",m2:9,pts:94},
@@ -1015,7 +1027,7 @@ let lbData = {
     {name:"Charlotte Lee",club:"Richmond Harriers",nat:"AUS",sb:"2:25.5",pb:"2:24.8",m1:3,m2:1,pts:21}
   ],
   m800:[
-    {name:"James Reardon",club:"Melbourne Uni AC",nat:"AUS",sb:"1:48.2",pb:"1:47.4",m1:"-",m2:12,pts:122,cr:true},
+    {name:"James Reardon",club:"Melbourne Uni AC",nat:"AUS",sb:"1:48.2",pb:"1:47.4",m1:"-",m2:12,pts:122,prevChamp:true},
     {name:"Tom Harbridge",club:"Glenhuntly AC",nat:"AUS",sb:"1:49.8",pb:"1:49.1",m1:"-",m2:11,pts:114},
     {name:"Daniel Osei",club:"Knox AC",nat:"GHA",sb:"1:51.3",pb:"1:50.2",m1:"-",m2:10,pts:106},
     {name:"Marcus Webb",club:"Box Hill Athletics",nat:"AUS",sb:"1:52.0",pb:"1:51.4",m1:"-",m2:9,pts:98},
@@ -1036,7 +1048,7 @@ let lbData = {
     {name:"Xavier Black",club:"Wellington AC",nat:"AUS",sb:"1:59.4",pb:"1:58.7",m1:"-",m2:3,pts:28}
   ],
   w1500:[
-    {name:"Chloe Bartlett",club:"Mentone Athletics",nat:"AUS",sb:"4:12.4",pb:"4:10.8",m1:"-",m2:12,pts:120,cr:true},
+    {name:"Chloe Bartlett",club:"Mentone Athletics",nat:"AUS",sb:"4:12.4",pb:"4:10.8",m1:"-",m2:12,pts:120,prevChamp:true},
     {name:"Sophie Nguyen",club:"Box Hill Athletics",nat:"AUS",sb:"4:14.1",pb:"4:13.2",m1:"-",m2:11,pts:111},
     {name:"Grace Thornton",club:"Glenhuntly AC",nat:"AUS",sb:"4:16.7",pb:"4:15.0",m1:"-",m2:10,pts:103},
     {name:"Amara Diallo",club:"Melbourne Uni AC",nat:"AUS",sb:"4:18.3",pb:"4:17.1",m1:"-",m2:9,pts:95},
@@ -1057,7 +1069,7 @@ let lbData = {
     {name:"Chloe Sutherland",club:"Wellington AC",nat:"AUS",sb:"4:51.2",pb:"4:49.8",m1:"-",m2:2,pts:25}
   ],
   m1500:[
-    {name:"Patrick Lim",club:"St. Kevin's AC",nat:"AUS",sb:"3:38.7",pb:"3:37.2",m1:"-",m2:12,pts:119,cr:true},
+    {name:"Patrick Lim",club:"St. Kevin's AC",nat:"AUS",sb:"3:38.7",pb:"3:37.2",m1:"-",m2:12,pts:119,prevChamp:true},
     {name:"James Reardon",club:"Melbourne Uni AC",nat:"AUS",sb:"3:40.1",pb:"3:39.4",m1:"-",m2:11,pts:112},
     {name:"Tom Harbridge",club:"Glenhuntly AC",nat:"AUS",sb:"3:41.8",pb:"3:40.9",m1:"-",m2:10,pts:104},
     {name:"Daniel Osei",club:"Knox AC",nat:"GHA",sb:"3:43.2",pb:"3:42.0",m1:"-",m2:9,pts:96},
@@ -1443,7 +1455,7 @@ function renderHomeLb(key){
     .sort((a, b) => b.pts - a.pts)
     .map((r,i)=>`
     <tr class="dt-row"><td style="text-align:center;">${posBadge(i)}</td>
-    <td><div class="td-name">${r.name}${r.cr?'<span class="cr-flag">CR</span>':''}</div></td>
+    <td><div class="td-name">${r.name}${r.prevChamp?'<span class="champ-badge">Prev Champ</span>':''}</div></td>
     <td><div class="td-club">${r.club}</div></td>
     <td class="td-time">${r.sb}</td>
     <td class="td-pts"><span>${r.pts}</span></td></tr>`).join('');
@@ -1607,7 +1619,7 @@ function renderStandings(key){
     .sort((a, b) => b.pts - a.pts)
     .map((r,i)=>`
     <tr class="dt-row"><td style="text-align:center;">${posBadge(i)}</td>
-    <td><div class="td-name">${r.name}${r.cr?'<span class="cr-flag">CR</span>':''}</div></td>
+    <td><div class="td-name">${r.name}${r.prevChamp?'<span class="champ-badge">Prev Champ</span>':''}</div></td>
     <td><div class="td-club">${r.club}</div></td>
     <td class="td-time">${r.sb}</td>
     <td class="td-sm">${r.m1 || '-'}</td>
