@@ -24,7 +24,7 @@ body{font-family:'Inter',sans-serif;background:var(--cream);color:var(--dark);ov
 .logo-badge span{font-family:'Bebas Neue',sans-serif;font-size:20px;color:#fff;}
 .logo-text-main{font-family:'Playfair Display',serif;font-size:12px;letter-spacing:3px;text-transform:uppercase;color:var(--text);font-weight:700;}
 .logo-text-sub{font-size:9px;letter-spacing:2px;text-transform:uppercase;color:var(--gold);font-weight:400;margin-top:2px;}
-.nav-links{display:flex;list-style:none;}
+.nav-links{display:flex;list-style:none;position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);z-index:10;}
 .nav-links a{display:block;padding:20px 15px;font-size:10px;letter-spacing:2px;text-transform:uppercase;text-decoration:none;color:rgba(245,240,232,.5);font-weight:500;border-bottom:2px solid transparent;transition:color .2s,border-color .2s;cursor:pointer;}
 .nav-links a:hover,.nav-links a.active{color:var(--gold);border-bottom-color:var(--gold);}
 .nav-right{display:flex;align-items:center;gap:12px;}
@@ -403,6 +403,7 @@ body{font-family:'Inter',sans-serif;background:var(--cream);color:var(--dark);ov
   .records-band, .stats-band, .champs-strip, .cy-grid, .board-grid {
     grid-template-columns: 1fr;
   }
+  .records-band{display:none;}
   .rec-cell { border-right: none; border-bottom: 1px solid rgba(255,255,255,0.1); }
 }
 </style>
@@ -425,16 +426,15 @@ body{font-family:'Inter',sans-serif;background:var(--cream);color:var(--dark);ov
     <li><a onclick="showPage('history')" id="nav-history">History</a></li>
     <li><a onclick="showPage('about')" id="nav-about">About</a></li>
   </ul>
-  <div class="nav-right">
+    <div class="nav-right">
     <div class="nav-social">
-      <a href="#" title="Instagram">
+      <a href="https://www.instagram.com/vicmilersclub/" title="Instagram" target="_blank" rel="noopener">
         <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/></svg>
       </a>
-      <a href="#" title="Facebook">
+      <a href="https://www.facebook.com/vicmilers" title="Facebook" target="_blank" rel="noopener">
         <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 2h-3a5 5 0 00-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 011-1h3z"/></svg>
       </a>
     </div>
-    <button class="nav-cta">Enter Now</button>
     <div class="hamburger" id="hamburger" onclick="toggleMenu()">
       <span></span>
       <span></span>
@@ -525,7 +525,7 @@ body{font-family:'Inter',sans-serif;background:var(--cream);color:var(--dark);ov
       
       <div class="divider"></div>
       <div class="sec-eyebrow">After Meet 5</div>
-      <div class="sec-title">Club Leaderboard</div>
+      <div class="sec-title">TOP 16 CLUBS</div>
       <div id="homeClubBoard" class="club-board-scroll" style="margin-top:16px;"></div>
 
       <div class="divider"></div>
@@ -591,7 +591,7 @@ body{font-family:'Inter',sans-serif;background:var(--cream);color:var(--dark);ov
         <div class="sec-eyebrow-gold">Social</div>
         <div class="sec-title-light">Latest from Instagram</div>
       </div>
-      <a href="https://instagram.com/vicmilers" class="ig-link">@vicmilers ↗</a>
+      <a href="https://www.instagram.com/vicmilersclub/" class="ig-link" target="_blank" rel="noopener">@vicmilersclub ↗</a>
     </div>
     <div class="ig-track"><div class="ig-reel" id="igReel"></div></div>
     <div class="ig-dots" id="igDots"></div>
@@ -706,11 +706,13 @@ body{font-family:'Inter',sans-serif;background:var(--cream);color:var(--dark);ov
       <div class="hn-label">Navigate</div>
       <button class="hn-item active" onclick="showHist('story',this)">Our Story</button>
       <button class="hn-item" onclick="showHist('champions',this)">Season Champions</button>
-      <button class="hn-item" onclick="showHist('olympians',this)">Olympians</button>
+      <button class="hn-item" onclick="showHist('clubchamps',this)">Club Champions</button>
+      <button class="hn-item" onclick="showHist('mile',this)">Victorian Mile Champs</button>
       <button class="hn-item" onclick="showHist('toplist',this)">Top 200 Lists</button>
       <button class="hn-item" onclick="showHist('mostwins',this)">Most A-Race Wins</button>
       <button class="hn-item" onclick="showHist('mostpoints',this)">Most Points</button>
-      <button class="hn-item" onclick="showHist('clubchamps',this)">Club Champions</button>
+      <button class="hn-item" onclick="showHist('mostchamps',this)">Most Championships</button>
+      <button class="hn-item" onclick="showHist('olympians',this)">Olympians</button>
     </div>
     <div class="hist-content">
 
@@ -719,9 +721,7 @@ body{font-family:'Inter',sans-serif;background:var(--cream);color:var(--dark);ov
         <div class="sec-title">How VMC Began</div>
         <div class="about-rule"></div>
         <div class="about-body">
-          <p>The Victorian Milers Club was founded by a small group of middle-distance enthusiasts who believed that the mile — and its metric equivalents — deserved a dedicated competitive home in Victoria. What began as informal time trials at local tracks grew into one of Australia's most respected graded middle-distance series.</p>
-          <p>The club introduced a unique graded racing format that allowed club athletes to compete alongside elite performers, creating a culture of competition and improvement that has attracted Olympians, Commonwealth Games representatives, and national champions to the start line alongside local weekend runners chasing their first sub-5 minute mile.</p>
-          <p>Over the decades, VMC has produced some of Australia's finest middle-distance talent. The club's commitment to authentic competition — real times, real pacers, real racing — has kept it at the centre of Victorian athletics through every generation.</p>
+          <p>Established in 2005, The Victorian Milers Club aims to foster and promote middle distance running amongst the Victorian athletics community.</p>
         </div>
         <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:28px;">
           <div style="background:#fff;border:1px solid var(--border);padding:18px;text-align:center;">
@@ -788,13 +788,35 @@ body{font-family:'Inter',sans-serif;background:var(--cream);color:var(--dark);ov
       <div class="hist-section" id="hist-mostwins">
         <div class="sec-eyebrow">All-Time</div>
         <div class="sec-title" style="margin-bottom:24px;">A-Race Win Leaders</div>
-        <div style="font-size:10px;letter-spacing:2px;text-transform:uppercase;color:var(--red);font-weight:600;margin-bottom:8px;">Most A-Race Male Wins</div>
+
+        <div style="font-size:11px;font-weight:700;letter-spacing:1px;margin-top:6px;margin-bottom:8px;">MOST OVERALL A-RACE MALE WINS</div>
         <div class="table-scroll">
-          <table class="wins-table"><thead><tr><th>Athlete</th><th>Club</th><th class="r">Wins</th><th class="r">Seasons</th></tr></thead><tbody id="mostWinsMaleBody"></tbody></table>
+          <table class="wins-table"><thead><tr><th>Athlete</th><th>Club</th><th class="r">Wins</th></tr></thead><tbody id="mostWinsMaleBody"></tbody></table>
         </div>
-        <div style="font-size:10px;letter-spacing:2px;text-transform:uppercase;color:var(--red);font-weight:600;margin-top:32px;margin-bottom:8px;">Most A-Race Female Wins</div>
+
+        <div style="font-size:11px;font-weight:700;letter-spacing:1px;margin-top:24px;margin-bottom:8px;">MOST OVERALL A-RACE FEMALE WINS</div>
         <div class="table-scroll">
-          <table class="wins-table"><thead><tr><th>Athlete</th><th>Club</th><th class="r">Wins</th><th class="r">Seasons</th></tr></thead><tbody id="mostWinsFemaleBody"></tbody></table>
+          <table class="wins-table"><thead><tr><th>Athlete</th><th>Club</th><th class="r">Wins</th></tr></thead><tbody id="mostWinsFemaleBody"></tbody></table>
+        </div>
+
+        <div style="font-size:11px;font-weight:700;letter-spacing:1px;margin-top:24px;margin-bottom:8px;">MOST A-RACE MALE 800m WINS</div>
+        <div class="table-scroll">
+          <table class="wins-table"><thead><tr><th>Athlete</th><th>Club</th><th class="r">Wins</th></tr></thead><tbody id="mostWinsMale800Body"></tbody></table>
+        </div>
+
+        <div style="font-size:11px;font-weight:700;letter-spacing:1px;margin-top:24px;margin-bottom:8px;">MOST A-RACE FEMALE 800m WINS</div>
+        <div class="table-scroll">
+          <table class="wins-table"><thead><tr><th>Athlete</th><th>Club</th><th class="r">Wins</th></tr></thead><tbody id="mostWinsFemale800Body"></tbody></table>
+        </div>
+
+        <div style="font-size:11px;font-weight:700;letter-spacing:1px;margin-top:24px;margin-bottom:8px;">MOST A-RACE MALE 1500m WINS</div>
+        <div class="table-scroll">
+          <table class="wins-table"><thead><tr><th>Athlete</th><th>Club</th><th class="r">Wins</th></tr></thead><tbody id="mostWinsMale1500Body"></tbody></table>
+        </div>
+
+        <div style="font-size:11px;font-weight:700;letter-spacing:1px;margin-top:24px;margin-bottom:8px;">MOST A-RACE FEMALE 1500m WINS</div>
+        <div class="table-scroll">
+          <table class="wins-table"><thead><tr><th>Athlete</th><th>Club</th><th class="r">Wins</th></tr></thead><tbody id="mostWinsFemale1500Body"></tbody></table>
         </div>
       </div>
 
@@ -803,11 +825,59 @@ body{font-family:'Inter',sans-serif;background:var(--cream);color:var(--dark);ov
         <div class="sec-title" style="margin-bottom:24px;">Most Points Leaders</div>
         <div style="font-size:10px;letter-spacing:2px;text-transform:uppercase;color:var(--red);font-weight:600;margin-bottom:8px;">Most Male Points</div>
         <div class="table-scroll">
-          <table class="wins-table"><thead><tr><th>Athlete</th><th>Club</th><th class="r">Points</th><th class="r">Seasons</th></tr></thead><tbody id="mostPointsMaleBody"></tbody></table>
+          <table class="wins-table"><thead><tr><th>Athlete</th><th>Club</th><th class="r">Points</th></tr></thead><tbody id="mostPointsMaleBody"></tbody></table>
         </div>
         <div style="font-size:10px;letter-spacing:2px;text-transform:uppercase;color:var(--red);font-weight:600;margin-top:32px;margin-bottom:8px;">Most Female Points</div>
         <div class="table-scroll">
-          <table class="wins-table"><thead><tr><th>Athlete</th><th>Club</th><th class="r">Points</th><th class="r">Seasons</th></tr></thead><tbody id="mostPointsFemaleBody"></tbody></table>
+          <table class="wins-table"><thead><tr><th>Athlete</th><th>Club</th><th class="r">Points</th></tr></thead><tbody id="mostPointsFemaleBody"></tbody></table>
+        </div>
+      </div>
+
+      <div class="hist-section" id="hist-mostchamps">
+        <div class="sec-eyebrow">All-Time</div>
+        <div class="sec-title" style="margin-bottom:24px;">Most Championships</div>
+
+        <div style="font-size:11px;font-weight:700;letter-spacing:1px;margin-top:6px;margin-bottom:8px;">MOST MALE OVERALL CHAMPIONSHIPS</div>
+        <div class="table-scroll">
+          <table class="wins-table"><thead><tr><th>Athlete</th><th>Club</th><th class="r">Championships</th></tr></thead><tbody id="mostChampsMaleBody"></tbody></table>
+        </div>
+
+        <div style="font-size:11px;font-weight:700;letter-spacing:1px;margin-top:24px;margin-bottom:8px;">MOST FEMALE OVERALL CHAMPIONSHIPS</div>
+        <div class="table-scroll">
+          <table class="wins-table"><thead><tr><th>Athlete</th><th>Club</th><th class="r">Championships</th></tr></thead><tbody id="mostChampsFemaleBody"></tbody></table>
+        </div>
+
+        <div style="font-size:11px;font-weight:700;letter-spacing:1px;margin-top:24px;margin-bottom:8px;">MOST MALE 800m CHAMPIONSHIPS</div>
+        <div class="table-scroll">
+          <table class="wins-table"><thead><tr><th>Athlete</th><th>Club</th><th class="r">Championships</th></tr></thead><tbody id="mostChampsMale800Body"></tbody></table>
+        </div>
+
+        <div style="font-size:11px;font-weight:700;letter-spacing:1px;margin-top:24px;margin-bottom:8px;">MOST FEMALE 800m CHAMPIONSHIPS</div>
+        <div class="table-scroll">
+          <table class="wins-table"><thead><tr><th>Athlete</th><th>Club</th><th class="r">Championships</th></tr></thead><tbody id="mostChampsFemale800Body"></tbody></table>
+        </div>
+
+        <div style="font-size:11px;font-weight:700;letter-spacing:1px;margin-top:24px;margin-bottom:8px;">MOST MALE 1500m CHAMPIONSHIPS</div>
+        <div class="table-scroll">
+          <table class="wins-table"><thead><tr><th>Athlete</th><th>Club</th><th class="r">Championships</th></tr></thead><tbody id="mostChampsMale1500Body"></tbody></table>
+        </div>
+
+        <div style="font-size:11px;font-weight:700;letter-spacing:1px;margin-top:24px;margin-bottom:8px;">MOST FEMALE 1500m CHAMPIONSHIPS</div>
+        <div class="table-scroll">
+          <table class="wins-table"><thead><tr><th>Athlete</th><th>Club</th><th class="r">Championships</th></tr></thead><tbody id="mostChampsFemale1500Body"></tbody></table>
+        </div>
+
+        <div style="font-size:11px;font-weight:700;letter-spacing:1px;margin-top:24px;margin-bottom:8px;">MOST CLUB CHAMPIONSHIPS</div>
+        <div class="table-scroll">
+          <table class="wins-table"><thead><tr><th style="text-align:left;width:48px;">Rank</th><th>Club</th><th class="r">Championships</th></tr></thead><tbody id="mostChampsClubBody"></tbody></table>
+        </div>
+      </div>
+
+      <div class="hist-section" id="hist-mile">
+        <div class="sec-eyebrow">Distance Honour</div>
+        <div class="sec-title" style="margin-bottom:14px;">Victorian Mile Champions</div>
+        <div class="table-scroll">
+          <table class="wins-table"><thead><tr><th>Season</th><th>Men's Champion</th><th>Women's Champion</th></tr></thead><tbody id="mileChampsCombinedBody"></tbody></table>
         </div>
       </div>
 
@@ -815,7 +885,7 @@ body{font-family:'Inter',sans-serif;background:var(--cream);color:var(--dark);ov
         <div class="sec-eyebrow">Team Award</div>
         <div class="sec-title" style="margin-bottom:14px;">Club Championship Winners</div>
         <div class="table-scroll">
-          <table class="wins-table"><thead><tr><th>Season</th><th>Club</th><th class="r">Points</th><th class="r">Athletes</th></tr></thead><tbody id="clubChampsBody"></tbody></table>
+          <table class="wins-table"><thead><tr><th>Season</th><th>Club</th><th class="r">Points</th></tr></thead><tbody id="clubChampsBody"></tbody></table>
         </div>
       </div>
     </div>
@@ -861,8 +931,8 @@ body{font-family:'Inter',sans-serif;background:var(--cream);color:var(--dark);ov
         <div class="sec-eyebrow">Purpose</div>
         <div class="sec-title">Mission Statement</div>
         <div class="about-rule"></div>
-        <div style="background:var(--dark);padding:32px 36px;border-left:4px solid var(--red);">
-          <p style="font-family:'Playfair Display',serif;font-size:20px;color:var(--text);font-style:italic;line-height:1.6;">"To provide the highest quality middle-distance racing in Victoria — accessible to all abilities, honouring the tradition of the mile, and fostering a community built on authentic competition."</p>
+        <div style="padding:32px 36px;border-left:4px solid var(--red);">
+          <p style="font-family:'Playfair Display',serif;font-size:20px;color:#000;font-style:italic;line-height:1.6;">"To provide the highest quality middle-distance racing in Victoria — accessible to all abilities, honouring the tradition of the mile, and fostering a community built on authentic competition."</p>
         </div>
       </div>
       <div class="hist-section" id="about-rules">
@@ -940,8 +1010,8 @@ body{font-family:'Inter',sans-serif;background:var(--cream);color:var(--dark);ov
           <p>General Enquiries: <span style="color:var(--red);font-weight:600;">info@vicmilers.com</span></p>
           <p>Sponsorship: <span style="color:var(--red);font-weight:600;">sponsors@vicmilers.com</span></p>
           <div class="footer-social" style="margin-top:20px;">
-            <a href="#" class="footer-social-btn" style="border-color:var(--border);color:var(--dark);" title="Instagram"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/></svg></a>
-            <a href="#" class="footer-social-btn" style="border-color:var(--border);color:var(--dark);" title="Facebook"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 2h-3a5 5 0 00-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 011-1h3z"/></svg></a>
+            <a href="https://www.instagram.com/vicmilersclub/" class="footer-social-btn" style="border-color:var(--border);color:var(--dark);" title="Instagram" target="_blank" rel="noopener"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/></svg></a>
+              <a href="https://www.facebook.com/vicmilers" class="footer-social-btn" style="border-color:var(--border);color:var(--dark);" title="Facebook" target="_blank" rel="noopener"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 2h-3a5 5 0 00-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 011-1h3z"/></svg></a>
           </div>
         </div>
       </div>
@@ -959,10 +1029,10 @@ body{font-family:'Inter',sans-serif;background:var(--cream);color:var(--dark);ov
       </div>
       <div style="font-size:11px;color:var(--muted);font-weight:300;line-height:1.7;max-width:240px;">Victoria's premier middle-distance racing series, dedicated to the 800m, 1500m, and Mile.</div>
       <div class="footer-social" style="margin-top:14px;">
-        <a href="#" class="footer-social-btn" title="Instagram">
+        <a href="https://www.instagram.com/vicmilersclub/" class="footer-social-btn" title="Instagram" target="_blank" rel="noopener">
           <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/></svg>
         </a>
-        <a href="#" class="footer-social-btn" title="Facebook">
+        <a href="https://www.facebook.com/vicmilers" class="footer-social-btn" title="Facebook" target="_blank" rel="noopener">
           <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 2h-3a5 5 0 00-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 011-1h3z"/></svg>
         </a>
       </div>
@@ -982,8 +1052,7 @@ body{font-family:'Inter',sans-serif;background:var(--cream);color:var(--dark);ov
       <div style="font-size:11px;color:var(--muted);font-weight:300;line-height:1.9;">
         info@vicmilers.com<br>
         sponsors@vicmilers.com<br>
-        Melbourne, Victoria<br>
-        Athletics Australia Affiliated
+        Melbourne, Victoria
       </div>
     </div>
   </div>
@@ -1504,8 +1573,10 @@ function renderClubBoard(containerId,dark=false){
   const container = document.getElementById(containerId);
   if (!container || scoringClubs.length === 0) return;
 
-  const max = scoringClubs[0].pts;
-  container.innerHTML = scoringClubs.map((c, i) => `
+  const clubsToShow = containerId === 'homeClubBoard' ? scoringClubs.slice(0, 16) : scoringClubs;
+
+  const max = clubsToShow[0].pts;
+  container.innerHTML = clubsToShow.map((c, i) => `
     <div style="display:grid;grid-template-columns:22px 1fr 48px;gap:6px;align-items:center;padding:7px 0;border-bottom:1px solid ${dark?'rgba(201,168,76,.08)':'rgba(224,216,204,.3)'};">
       <div style="font-family:'Bebas Neue',sans-serif;font-size:14px;color:${dark?'rgba(201,168,76,.35)':'#C4B090'};text-align:center;">${i+1}</div>
       <div>
@@ -1527,7 +1598,7 @@ const ctaBtnLbl={results:'View Results',enter:'Enter Now',closed:'Closed'};
 // Strip
 function renderCalStrip() {
   document.getElementById('calStrip').innerHTML=meetsData.filter(m=>m.year==='2025').map(m=>`
-    <div class="cal-meet-pill">
+    <div class="cal-meet-pill" onclick="showPage('events')" role="button" tabindex="0">
       <div class="cmp-num"><div class="cmp-n-lbl">Meet</div><div class="cmp-n-val">${m.n}</div></div>
       <div class="cmp-info">
         <div class="cmp-date">${m.date}</div>
@@ -1541,7 +1612,7 @@ renderCalStrip();
 function renderCalSidebar(containerId,dark=false){
   const curr=meetsData.filter(m=>m.year==='2025');
   document.getElementById(containerId).innerHTML=curr.map(m=>`
-    <div class="meet-card" style="margin-bottom:8px;background:${dark?'rgba(255,255,255,.03)':'#fff'};border-color:${dark?'rgba(201,168,76,.12)':'var(--border)'};">
+    <div class="meet-card" onclick="showPage('events')" role="button" tabindex="0" style="margin-bottom:8px;background:${dark?'rgba(255,255,255,.03)':'#fff'};border-color:${dark?'rgba(201,168,76,.12)':'var(--border)'};cursor:pointer;">
       <div style="display:grid;grid-template-columns:40px 1fr auto;align-items:stretch;">
         <div style="background:var(--red);display:flex;flex-direction:column;align-items:center;justify-content:center;padding:10px 6px;">
           <div style="font-size:7px;letter-spacing:2px;text-transform:uppercase;color:rgba(255,255,255,.5);">Meet</div>
@@ -1567,6 +1638,15 @@ function renderCalSidebar(containerId,dark=false){
 renderCalSidebar('homeCalSidebar',true);
 
 // ═══════════════════ EVENTS PAGE ═══════════════════
+function scoreEventPriority(eventName) {
+  const match = String(eventName).trim().match(/\b([A-Z])$/);
+  const grade = match ? match[1] : 'Z';
+  const order = {A:0, B:1, C:2, D:3, E:4, F:5, G:6, H:7, I:8, J:9, K:10, L:11, Z:12};
+  return order[grade] ?? 12;
+}
+function eventSortKey(name) {
+  return String(name).replace(/\s*[A-Z]$/,'').trim();
+}
 function renderEvents(filter='all'){
   let filtered=meetsData;
   if(filter==='upcoming') filtered=meetsData.filter(e=>e.status==='enter');
@@ -1576,7 +1656,12 @@ function renderEvents(filter='all'){
   else if(filter==='2022') filtered=meetsData.filter(e=>e.year==='2022');
   document.getElementById('eventsGrid').innerHTML=filtered.map(e=>{
     const hasRes=e.status==='results'&&e.results;
-    const resCols=hasRes?Object.entries(e.results).map(([ev,rows])=>`
+    const resCols=hasRes?Object.entries(e.results).sort(([a],[b])=>{
+      const pa=scoreEventPriority(a);
+      const pb=scoreEventPriority(b);
+      if(pa!==pb) return pa-pb;
+      return eventSortKey(a).localeCompare(eventSortKey(b));
+    }).map(([ev,rows])=>`
       <div class="res-ev-col"><h4>${ev}</h4>${rows.map(r=>`<div class="res-row"><div class="res-pos">${r.p}</div><div class="res-name">${r.n}</div><div class="res-time">${r.t}</div></div>`).join('')}</div>`).join(''):'';
     return`<div class="event-card">
       <div class="ec-header">
@@ -1696,7 +1781,7 @@ document.getElementById('toplistTabs').addEventListener('click',e=>{
 });
 
 // Most wins
-// Most A-Race Male Wins
+// Most OVERALL A-Race Male Wins
 const maleWinsData = [
   {name:"James Reardon",club:"Melbourne Uni AC",wins:18,seasons:4},
   {name:"Patrick Lim",club:"St. Kevin's AC",wins:15,seasons:4},
@@ -1704,9 +1789,9 @@ const maleWinsData = [
   {name:"David Lowe",club:"Knox AC",wins:9,seasons:4},
 ];
 document.getElementById('mostWinsMaleBody').innerHTML = maleWinsData.map(r=>`
-  <tr class="wins-row"><td><div style="font-size:12px;font-weight:500;">${r.name}</div><div class="wins-bar"><div class="wins-bar-fill" style="width:${Math.round(r.wins/maleWinsData[0].wins*100)}%"></div></div></td><td style="font-size:10px;color:#8A7052;">${r.club}</td><td style="text-align:right;font-family:'Bebas Neue',sans-serif;font-size:20px;color:var(--red);">${r.wins}</td><td style="text-align:right;font-size:11px;color:#8A7052;">${r.seasons} seasons</td></tr>`).join('');
+  <tr class="wins-row"><td><div style="font-size:12px;font-weight:500;">${r.name}</div><div class="wins-bar"><div class="wins-bar-fill" style="width:${Math.round(r.wins/maleWinsData[0].wins*100)}%"></div></div></td><td style="font-size:10px;color:#8A7052;">${r.club}</td><td style="text-align:right;font-family:'Bebas Neue',sans-serif;font-size:20px;color:var(--red);">${r.wins}</td></tr>`).join('');
 
-// Most A-Race Female Wins
+// Most OVERALL A-Race Female Wins
 const femaleWinsData = [
   {name:"Sophie Nguyen",club:"Box Hill Athletics",wins:14,seasons:3},
   {name:"Sarah Mitchell",club:"Box Hill AC",wins:12,seasons:5},
@@ -1714,7 +1799,43 @@ const femaleWinsData = [
   {name:"Chloe Bartlett",club:"Mentone Athletics",wins:8,seasons:3},
 ];
 document.getElementById('mostWinsFemaleBody').innerHTML = femaleWinsData.map(r=>`
-  <tr class="wins-row"><td><div style="font-size:12px;font-weight:500;">${r.name}</div><div class="wins-bar"><div class="wins-bar-fill" style="width:${Math.round(r.wins/femaleWinsData[0].wins*100)}%"></div></div></td><td style="font-size:10px;color:#8A7052;">${r.club}</td><td style="text-align:right;font-family:'Bebas Neue',sans-serif;font-size:20px;color:var(--red);">${r.wins}</td><td style="text-align:right;font-size:11px;color:#8A7052;">${r.seasons} seasons</td></tr>`).join('');
+  <tr class="wins-row"><td><div style="font-size:12px;font-weight:500;">${r.name}</div><div class="wins-bar"><div class="wins-bar-fill" style="width:${Math.round(r.wins/femaleWinsData[0].wins*100)}%"></div></div></td><td style="font-size:10px;color:#8A7052;">${r.club}</td><td style="text-align:right;font-family:'Bebas Neue',sans-serif;font-size:20px;color:var(--red);">${r.wins}</td></tr>`).join('');
+
+// Most A-Race 800m Wins (male)
+const maleWins800Data = [
+  {name:"James Reardon",club:"Melbourne Uni AC",wins:10,seasons:4},
+  {name:"Tom Harbridge",club:"Glenhuntly AC",wins:7,seasons:6},
+  {name:"David Lowe",club:"Knox AC",wins:5,seasons:4},
+];
+document.getElementById('mostWinsMale800Body').innerHTML = maleWins800Data.map(r=>`
+  <tr class="wins-row"><td><div style="font-size:12px;font-weight:500;">${r.name}</div><div class="wins-bar"><div class="wins-bar-fill" style="width:${Math.round(r.wins/maleWins800Data[0].wins*100)}%"></div></div></td><td style="font-size:10px;color:#8A7052;">${r.club}</td><td style="text-align:right;font-family:'Bebas Neue',sans-serif;font-size:20px;color:var(--red);">${r.wins}</td></tr>`).join('');
+
+// Most A-Race 800m Wins (female)
+const femaleWins800Data = [
+  {name:"Sophie Nguyen",club:"Box Hill Athletics",wins:8,seasons:3},
+  {name:"Sarah Mitchell",club:"Box Hill AC",wins:7,seasons:5},
+  {name:"Emma Clarke",club:"Melbourne Uni",wins:6,seasons:3},
+];
+document.getElementById('mostWinsFemale800Body').innerHTML = femaleWins800Data.map(r=>`
+  <tr class="wins-row"><td><div style="font-size:12px;font-weight:500;">${r.name}</div><div class="wins-bar"><div class="wins-bar-fill" style="width:${Math.round(r.wins/femaleWins800Data[0].wins*100)}%"></div></div></td><td style="font-size:10px;color:#8A7052;">${r.club}</td><td style="text-align:right;font-family:'Bebas Neue',sans-serif;font-size:20px;color:var(--red);">${r.wins}</td></tr>`).join('');
+
+// Most A-Race 1500m Wins (male)
+const maleWins1500Data = [
+  {name:"Patrick Lim",club:"St. Kevin's AC",wins:9,seasons:4},
+  {name:"James Reardon",club:"Melbourne Uni AC",wins:8,seasons:4},
+  {name:"Tom Harbridge",club:"Glenhuntly AC",wins:6,seasons:6},
+];
+document.getElementById('mostWinsMale1500Body').innerHTML = maleWins1500Data.map(r=>`
+  <tr class="wins-row"><td><div style="font-size:12px;font-weight:500;">${r.name}</div><div class="wins-bar"><div class="wins-bar-fill" style="width:${Math.round(r.wins/maleWins1500Data[0].wins*100)}%"></div></div></td><td style="font-size:10px;color:#8A7052;">${r.club}</td><td style="text-align:right;font-family:'Bebas Neue',sans-serif;font-size:20px;color:var(--red);">${r.wins}</td></tr>`).join('');
+
+// Most A-Race 1500m Wins (female)
+const femaleWins1500Data = [
+  {name:"Chloe Bartlett",club:"Mentone Athletics",wins:9,seasons:3},
+  {name:"Sophie Nguyen",club:"Box Hill Athletics",wins:7,seasons:3},
+  {name:"Emma Clarke",club:"Melbourne Uni",wins:5,seasons:3},
+];
+document.getElementById('mostWinsFemale1500Body').innerHTML = femaleWins1500Data.map(r=>`
+  <tr class="wins-row"><td><div style="font-size:12px;font-weight:500;">${r.name}</div><div class="wins-bar"><div class="wins-bar-fill" style="width:${Math.round(r.wins/femaleWins1500Data[0].wins*100)}%"></div></div></td><td style="font-size:10px;color:#8A7052;">${r.club}</td><td style="text-align:right;font-family:'Bebas Neue',sans-serif;font-size:20px;color:var(--red);">${r.wins}</td></tr>`).join('');
 
 // Most Points Leaders
 const malePointsData = [
@@ -1723,7 +1844,7 @@ const malePointsData = [
   {name:"James Reardon",club:"Melbourne Uni AC",pts:412,seasons:5},
   {name:"David Lowe",club:"Knox AC",pts:388,seasons:7},
 ];
-document.getElementById('mostPointsMaleBody').innerHTML = malePointsData.map(r=>`<tr class="wins-row"><td><div style="font-size:12px;font-weight:500;">${r.name}</div><div class="wins-bar"><div class="wins-bar-fill" style="width:${Math.round(r.pts/malePointsData[0].pts*100)}%"></div></div></td><td style="font-size:10px;color:#8A7052;">${r.club}</td><td style="text-align:right;font-family:'Bebas Neue',sans-serif;font-size:20px;color:var(--red);">${r.pts}</td><td style="text-align:right;font-size:11px;color:#8A7052;">${r.seasons} seasons</td></tr>`).join('');
+document.getElementById('mostPointsMaleBody').innerHTML = malePointsData.map(r=>`<tr class="wins-row"><td><div style="font-size:12px;font-weight:500;">${r.name}</div><div class="wins-bar"><div class="wins-bar-fill" style="width:${Math.round(r.pts/malePointsData[0].pts*100)}%"></div></div></td><td style="font-size:10px;color:#8A7052;">${r.club}</td><td style="text-align:right;font-family:'Bebas Neue',sans-serif;font-size:20px;color:var(--red);">${r.pts}</td></tr>`).join('');
 
 const femalePointsData = [
   {name:"Sarah Mitchell",club:"Box Hill AC",pts:512,seasons:9},
@@ -1731,16 +1852,106 @@ const femalePointsData = [
   {name:"Emma Clarke",club:"Melbourne Uni",pts:434,seasons:6},
   {name:"Grace Thornton",club:"Glenhuntly AC",pts:391,seasons:7},
 ];
-document.getElementById('mostPointsFemaleBody').innerHTML = femalePointsData.map(r=>`<tr class="wins-row"><td><div style="font-size:12px;font-weight:500;">${r.name}</div><div class="wins-bar"><div class="wins-bar-fill" style="width:${Math.round(r.pts/femalePointsData[0].pts*100)}%"></div></div></td><td style="font-size:10px;color:#8A7052;">${r.club}</td><td style="text-align:right;font-family:'Bebas Neue',sans-serif;font-size:20px;color:var(--red);">${r.pts}</td><td style="text-align:right;font-size:11px;color:#8A7052;">${r.seasons} seasons</td></tr>`).join('');
+document.getElementById('mostPointsFemaleBody').innerHTML = femalePointsData.map(r=>`<tr class="wins-row"><td><div style="font-size:12px;font-weight:500;">${r.name}</div><div class="wins-bar"><div class="wins-bar-fill" style="width:${Math.round(r.pts/femalePointsData[0].pts*100)}%"></div></div></td><td style="font-size:10px;color:#8A7052;">${r.club}</td><td style="text-align:right;font-family:'Bebas Neue',sans-serif;font-size:20px;color:var(--red);">${r.pts}</td></tr>`).join('');
 
 // Club champs
-document.getElementById('clubChampsBody').innerHTML=[
-  {season:'2023–24',club:'Melbourne Uni AC',pts:312,athletes:42},
-  {season:'2022–23',club:'Box Hill Athletics',pts:298,athletes:38},
-  {season:'2021–22',club:'Glenhuntly AC',pts:274,athletes:35},
-  {season:'2020–21',club:'Melbourne Uni AC',pts:261,athletes:40},
-  {season:'2019–20',club:"St. Kevin's AC",pts:247,athletes:29},
-].map(r=>`<tr class="wins-row"><td style="font-size:12px;font-weight:600;">${r.season}</td><td style="font-size:12px;">${r.club}</td><td style="text-align:right;font-family:'Bebas Neue',sans-serif;font-size:18px;color:var(--red);">${r.pts}</td><td style="text-align:right;font-size:11px;color:#8A7052;">${r.athletes} athletes</td></tr>`).join('');
+const clubChampionsBySeason = [
+  {season:'2023–24',club:'Melbourne Uni AC',pts:312},
+  {season:'2022–23',club:'Box Hill Athletics',pts:298},
+  {season:'2021–22',club:'Glenhuntly AC',pts:274},
+  {season:'2020–21',club:'Melbourne Uni AC',pts:261},
+  {season:'2019–20',club:"St. Kevin's AC",pts:247},
+];
+document.getElementById('clubChampsBody').innerHTML=clubChampionsBySeason.map(r=>`<tr class="wins-row"><td style="font-size:12px;font-weight:600;">${r.season}</td><td style="font-size:12px;">${r.club}</td><td style="text-align:right;font-family:'Bebas Neue',sans-serif;font-size:18px;color:var(--red);">${r.pts}</td></tr>`).join('');
+
+const mostChampionships = Object.entries(clubChampionsBySeason.reduce((acc,r)=>{
+  acc[r.club] = (acc[r.club] || 0) + 1;
+  return acc;
+}, {})).map(([club,count]) => ({ club, count }))
+  .sort((a,b)=>b.count - a.count || a.club.localeCompare(b.club));
+
+const maleChampsData = [
+  {name:"Bob Abdelrahim",club:"St. Kevin's AC",champs:6},
+  {name:"Patrick Lim",club:"St. Kevin's AC",champs:5},
+  {name:"James Reardon",club:"Melbourne Uni AC",champs:4},
+];
+const femaleChampsData = [
+  {name:"Lucy Delbridge",club:"Collingwood Harriers",champs:5},
+  {name:"Sophie Nguyen",club:"Box Hill Athletics",champs:4},
+  {name:"Emma Clarke",club:"Melbourne Uni",champs:3},
+];
+const maleChamps800Data = [
+  {name:"Bob Abdelrahim",club:"St. Kevin's AC",champs:4},
+  {name:"Tom Harbridge",club:"Glenhuntly AC",champs:3},
+  {name:"David Lowe",club:"Knox AC",champs:2},
+];
+const femaleChamps800Data = [
+  {name:"Lucy Delbridge",club:"Collingwood Harriers",champs:4},
+  {name:"Sophie Nguyen",club:"Box Hill Athletics",champs:3},
+  {name:"Chloe Bartlett",club:"Mentone Athletics",champs:2},
+];
+const maleChamps1500Data = [
+  {name:"Patrick Lim",club:"St. Kevin's AC",champs:3},
+  {name:"James Reardon",club:"Melbourne Uni AC",champs:3},
+  {name:"Tom Harbridge",club:"Glenhuntly AC",champs:2},
+];
+const femaleChamps1500Data = [
+  {name:"Emma Clarke",club:"Melbourne Uni",champs:3},
+  {name:"Lucy Delbridge",club:"Collingwood Harriers",champs:2},
+  {name:"Sophie Nguyen",club:"Box Hill Athletics",champs:2},
+];
+
+document.getElementById('mostChampsMaleBody').innerHTML = maleChampsData.map(r=>`
+  <tr class="wins-row"><td><div style="font-size:12px;font-weight:500;">${r.name}</div><div class="wins-bar"><div class="wins-bar-fill" style="width:${Math.round(r.champs/maleChampsData[0].champs*100)}%"></div></div></td><td style="font-size:10px;color:#8A7052;">${r.club}</td><td style="text-align:right;font-family:'Bebas Neue',sans-serif;font-size:20px;color:var(--red);">${r.champs}</td></tr>`).join('');
+document.getElementById('mostChampsFemaleBody').innerHTML = femaleChampsData.map(r=>`
+  <tr class="wins-row"><td><div style="font-size:12px;font-weight:500;">${r.name}</div><div class="wins-bar"><div class="wins-bar-fill" style="width:${Math.round(r.champs/femaleChampsData[0].champs*100)}%"></div></div></td><td style="font-size:10px;color:#8A7052;">${r.club}</td><td style="text-align:right;font-family:'Bebas Neue',sans-serif;font-size:20px;color:var(--red);">${r.champs}</td></tr>`).join('');
+document.getElementById('mostChampsMale800Body').innerHTML = maleChamps800Data.map(r=>`
+  <tr class="wins-row"><td><div style="font-size:12px;font-weight:500;">${r.name}</div><div class="wins-bar"><div class="wins-bar-fill" style="width:${Math.round(r.champs/maleChamps800Data[0].champs*100)}%"></div></div></td><td style="font-size:10px;color:#8A7052;">${r.club}</td><td style="text-align:right;font-family:'Bebas Neue',sans-serif;font-size:20px;color:var(--red);">${r.champs}</td></tr>`).join('');
+document.getElementById('mostChampsFemale800Body').innerHTML = femaleChamps800Data.map(r=>`
+  <tr class="wins-row"><td><div style="font-size:12px;font-weight:500;">${r.name}</div><div class="wins-bar"><div class="wins-bar-fill" style="width:${Math.round(r.champs/femaleChamps800Data[0].champs*100)}%"></div></div></td><td style="font-size:10px;color:#8A7052;">${r.club}</td><td style="text-align:right;font-family:'Bebas Neue',sans-serif;font-size:20px;color:var(--red);">${r.champs}</td></tr>`).join('');
+document.getElementById('mostChampsMale1500Body').innerHTML = maleChamps1500Data.map(r=>`
+  <tr class="wins-row"><td><div style="font-size:12px;font-weight:500;">${r.name}</div><div class="wins-bar"><div class="wins-bar-fill" style="width:${Math.round(r.champs/maleChamps1500Data[0].champs*100)}%"></div></div></td><td style="font-size:10px;color:#8A7052;">${r.club}</td><td style="text-align:right;font-family:'Bebas Neue',sans-serif;font-size:20px;color:var(--red);">${r.champs}</td></tr>`).join('');
+document.getElementById('mostChampsFemale1500Body').innerHTML = femaleChamps1500Data.map(r=>`
+  <tr class="wins-row"><td><div style="font-size:12px;font-weight:500;">${r.name}</div><div class="wins-bar"><div class="wins-bar-fill" style="width:${Math.round(r.champs/femaleChamps1500Data[0].champs*100)}%"></div></div></td><td style="font-size:10px;color:#8A7052;">${r.club}</td><td style="text-align:right;font-family:'Bebas Neue',sans-serif;font-size:20px;color:var(--red);">${r.champs}</td></tr>`).join('');
+const clubWinsWithYears = Object.entries(clubChampionsBySeason.reduce((acc,r)=>{
+  if(!acc[r.club]) acc[r.club] = { count:0, years:[] };
+  acc[r.club].count++;
+  acc[r.club].years.push(r.season);
+  return acc;
+}, {})).map(([club,info])=>({ club, count: info.count, years: info.years }))
+  .sort((a,b)=>b.count - a.count || a.club.localeCompare(b.club));
+document.getElementById('mostChampsClubBody').innerHTML = clubWinsWithYears.map((r,i)=>`<tr class="wins-row"><td style="width:48px;font-family:'Bebas Neue',sans-serif;font-size:14px;color:#C4B090;text-align:left;padding-right:8px;">${i+1}</td><td style="font-size:12px;"><div style="font-weight:600;">${r.club}</div><div style="font-size:11px;color:#8A7052;margin-top:4px;">${r.years.join(', ')}</div></td><td style="text-align:right;font-family:'Bebas Neue',sans-serif;font-size:18px;color:var(--red);">${r.count}</td></tr>`).join('');
+
+// Victorian Mile Champions (Men & Women) — combined table
+const maleMileChamps = [
+  {season:'2025–26',name:'Sam Ray',club:'Unattached',time:'4:14.41'},
+  {season:'2023–24',name:'Harry Eagleson',club:'Unattached',time:'4:12.90'},
+  {season:'2022–23',name:'Larry Cen',club:'Great Britain',time:'4:14.56'},
+  {season:'2021–22',name:'Alex Cameron',club:'Western Athletics',time:'3:41.71'},
+];
+const femaleMileChamps = [
+  {season:'2025–26',name:'Olivia Twining',club:'Yarra Ranges',time:'5:02.94'},
+  {season:'2023–24',name:'Madi Smith',club:'Glenhuntly',time:'4:21.45'},
+  {season:'2022–23',name:'Olivia Twining',club:'Yarra Ranges',time:'5:03.50'},
+  {season:'2021–22',name:'Mia Kennedy',club:'Wellington',time:'5:02.27'},
+];
+
+// Build combined rows by season (union of seasons from both lists)
+const seasonsSet = new Set([...maleMileChamps.map(s=>s.season), ...femaleMileChamps.map(s=>s.season)]);
+const seasons = Array.from(seasonsSet).sort((a,b)=>{
+  const ay = parseInt(a.split('–')[0],10) || 0;
+  const by = parseInt(b.split('–')[0],10) || 0;
+  return by - ay; // descending
+});
+
+const mileRows = seasons.map(season => {
+  const m = maleMileChamps.find(x=>x.season===season) || {};
+  const f = femaleMileChamps.find(x=>x.season===season) || {};
+  const menHtml = m.name ? `${m.name}, <span style="color:#8A7052;font-size:11px;">${m.club}</span>, <span style="font-family:'Bebas Neue',sans-serif;color:var(--red);">${m.time}</span>` : '-';
+  const womenHtml = f.name ? `${f.name}, <span style="color:#8A7052;font-size:11px;">${f.club}</span>, <span style="font-family:'Bebas Neue',sans-serif;color:var(--red);">${f.time}</span>` : '-';
+  return `<tr class="wins-row"><td style="font-size:12px;font-weight:600;">${season}</td><td style="font-size:12px;">${menHtml}</td><td style="font-size:12px;">${womenHtml}</td></tr>`;
+});
+document.getElementById('mileChampsCombinedBody').innerHTML = mileRows.join('');
 
 // ═══════════════════ PHOTO SLIDER ═══════════════════
 document.getElementById('photoReel').innerHTML=photosData.map((p,i)=>`
