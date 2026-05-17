@@ -293,18 +293,17 @@ body{font-family:'Inter',sans-serif;background:var(--cream);color:var(--dark);ov
 .ol-games{font-size:9px;color:var(--red);font-weight:600;letter-spacing:1px;text-transform:uppercase;margin-bottom:3px;}
 .ol-club{font-size:10px;color:#8A7052;font-weight:300;}
 .ol-ev{display:inline-block;font-size:8px;letter-spacing:1px;text-transform:uppercase;background:var(--gold-pale);color:#6B5010;border:1px solid rgba(201,168,76,.4);padding:2px 7px;margin-top:5px;font-weight:600;}
-.toplist-wrap{max-height:600px;overflow-y:auto;border:1px solid var(--border);}
+.toplist-wrap{max-height:600px;overflow-y:auto;overflow-x:auto;border:1px solid var(--border);background:#fff;}
 .toplist-wrap::-webkit-scrollbar{width:4px;}
 .toplist-wrap::-webkit-scrollbar-thumb{background:rgba(192,0,26,.3);border-radius:2px;}
-.tl-row{display:grid;grid-template-columns:36px 1fr 70px 44px;gap:8px;align-items:center;padding:8px 14px;border-bottom:1px solid rgba(224,216,204,.3);}
-.tl-row:last-child{border-bottom:none;}
-.tl-row:hover{background:#F5EFE4;}
-.tl-pos{font-family:'Bebas Neue',sans-serif;font-size:15px;color:rgba(192,0,26,.35);text-align:center;}
-.tl-pos.gold{color:var(--gold);font-size:18px;}
-.tl-name{font-size:11px;font-weight:500;color:var(--dark);}
-.tl-club{font-size:9px;color:#8A7052;font-weight:300;}
-.tl-time{font-family:'Bebas Neue',sans-serif;font-size:14px;color:var(--dark);text-align:right;}
-.tl-year{font-size:9px;color:#8A7052;text-align:right;}
+
+/* Data table specific overrides for alignment */
+.data-table th.c, .data-table td.c { text-align: center; }
+.data-table th.r, .data-table td.r { text-align: right; }
+
+@media (max-width: 840px) {
+  .td-hide-sm { display: none; }
+}
 .wins-table{width:100%;border-collapse:collapse;}
 .wins-table th{font-size:8px;letter-spacing:2px;text-transform:uppercase;color:#8A7052;font-weight:600;padding:9px 12px;border-bottom:1px solid var(--border);background:#F0EBE0;text-align:left;}
 .wins-table th.r{text-align:right;}
@@ -643,7 +642,7 @@ body{font-family:'Inter',sans-serif;background:var(--cream);color:var(--dark);ov
     <div class="ph-content">
       <div class="ph-eyebrow">2025–26 Season</div>
       <h1 class="ph-title">Season <em>Standings</em></h1>
-      <p class="ph-sub">Full season rankings. Points accumulated across all meets. Updated after every race. Powered by Google Sheets.</p>
+      <p class="ph-sub">Full season rankings. Points accumulated across all meets. Updated after every race.</p>
     </div>
   </div>
   <div class="standings-layout">
@@ -663,7 +662,7 @@ body{font-family:'Inter',sans-serif;background:var(--cream);color:var(--dark);ov
       </div>
       <div class="table-scroll">
         <table class="data-table">
-          <thead><tr><th>Pos</th><th>Athlete</th><th>Club</th><th>Nat</th><th class="r">Season Best</th><th class="r">PB</th><th class="r">M1</th><th class="r">M2</th><th class="r">Total</th></tr></thead>
+          <thead><tr><th>Pos</th><th>Athlete</th><th>Club</th><th class="r">VMC SB</th><th class="r">M1</th><th class="r">M2</th><th class="r">M3</th><th class="r">M4</th><th class="r">M5</th><th class="r">Total</th></tr></thead>
           <tbody id="standingsBody"></tbody>
         </table>
       </div>
@@ -679,9 +678,6 @@ body{font-family:'Inter',sans-serif;background:var(--cream);color:var(--dark);ov
         Points: <span style="color:var(--gold);font-weight:600;">Best 4 of 6</span><br>
         Athletes: <span style="color:var(--gold);font-weight:600;">247</span><br>
         PBs set: <span style="color:var(--gold);font-weight:600;">74</span>
-      </div>
-      <div style="margin-top:16px;" class="gsheet-badge">
-        <span>📊 <strong>Google Sheets</strong> powered — update one file, site updates instantly.</span>
       </div>
     </div>
   </div>
@@ -740,7 +736,6 @@ body{font-family:'Inter',sans-serif;background:var(--cream);color:var(--dark);ov
       <div class="hist-section" id="hist-champions">
         <div class="sec-eyebrow">Roll of Honour</div>
         <div class="sec-title" style="margin-bottom:4px;">Season Champions</div>
-        <p style="font-size:11px;color:#8A7052;margin-bottom:20px;font-weight:300;">← Powered by Google Sheets — update the spreadsheet to update this list.</p>
         <div id="championsHistory"></div>
       </div>
 
@@ -753,24 +748,34 @@ body{font-family:'Inter',sans-serif;background:var(--cream);color:var(--dark);ov
       <div class="hist-section" id="hist-toplist">
         <div class="sec-eyebrow">All-Time Performance</div>
         <div class="sec-title" style="margin-bottom:4px;">VMC Top 200 Lists</div>
-        <p style="font-size:11px;color:#8A7052;margin-bottom:0;font-weight:300;">Scrollable — 200 athletes per event. Powered by Google Sheets.</p>
+        <p style="font-size:11px;color:#8A7052;margin-bottom:0;font-weight:300;">Scrollable — 200 athletes per event.</p>
         <div class="tab-row" id="toplistTabs" style="border-color:var(--border);">
-          <button class="tab-btn active" data-tl="w800">Women's 800m</button>
-          <button class="tab-btn" data-tl="m800">Men's 800m</button>
-          <button class="tab-btn" data-tl="w1500">Women's 1500m</button>
-          <button class="tab-btn" data-tl="m1500">Men's 1500m</button>
+          <button class="tab-btn active" data-tl="w800">W 800m</button>
+          <button class="tab-btn" data-tl="m800">M 800m</button>
+          <button class="tab-btn" data-tl="w1500">W 1500m</button>
+          <button class="tab-btn" data-tl="m1500">M 1500m</button>
+          <button class="tab-btn" data-tl="wmile">W Mile</button>
+          <button class="tab-btn" data-tl="mmile">M Mile</button>
+          <button class="tab-btn" data-tl="w3000">W 3000m</button>
+          <button class="tab-btn" data-tl="m3000">M 3000m</button>
         </div>
-        <div style="margin-top:0;">
-          <div style="background:#F0EBE0;display:grid;grid-template-columns:36px 1fr 70px 44px;gap:8px;padding:8px 14px;border:1px solid var(--border);border-bottom:none;">
-            <div style="font-size:8px;letter-spacing:2px;text-transform:uppercase;color:#8A7052;font-weight:600;text-align:center;">Pos</div>
-            <div style="font-size:8px;letter-spacing:2px;text-transform:uppercase;color:#8A7052;font-weight:600;">Athlete / Club</div>
-            <div style="font-size:8px;letter-spacing:2px;text-transform:uppercase;color:#8A7052;font-weight:600;text-align:right;">Time</div>
-            <div style="font-size:8px;letter-spacing:2px;text-transform:uppercase;color:#8A7052;font-weight:600;text-align:right;">Year</div>
+        <div style="margin-top:14px;">
+          <div class="toplist-wrap">
+            <table class="data-table">
+              <thead style="position:sticky; top:0; z-index:10;">
+                <tr>
+                  <th class="c">Pos</th>
+                  <th>Athlete</th>
+                  <th>Club</th>
+                  <th>Date</th>
+                  <th>Season</th>
+                  <th>Venue</th>
+                  <th class="r">Time</th>
+                </tr>
+              </thead>
+              <tbody id="toplistBody"></tbody>
+            </table>
           </div>
-          <div class="toplist-wrap" id="toplistBody"></div>
-        </div>
-        <div class="gsheet-badge" style="margin-top:12px;">
-          <span>📊 <strong>Google Sheets powered</strong> — paste athlete times into the sheet and this list updates automatically.</span>
         </div>
       </div>
 
@@ -806,9 +811,19 @@ body{font-family:'Inter',sans-serif;background:var(--cream);color:var(--dark);ov
       <p class="ph-sub">Our mission, our people, our rules — and the sponsors who make it all possible.</p>
     </div>
   </div>
-  <div class="about-layout">
-    <div class="about-main">
-      <div class="about-section">
+  <div class="history-layout">
+    <div class="hist-nav">
+      <div class="hn-label">Navigate</div>
+      <button class="hn-item active" onclick="showAbout('who',this)">Who We Are</button>
+      <button class="hn-item" onclick="showAbout('mission',this)">Our Mission</button>
+      <button class="hn-item" onclick="showAbout('rules',this)">Rules & Regs</button>
+      <button class="hn-item" onclick="showAbout('leadership',this)">Leadership</button>
+      <button class="hn-item" onclick="showAbout('prizes',this)">Prize Money</button>
+      <button class="hn-item" onclick="showAbout('partners',this)">Partners</button>
+    </div>
+    <div class="hist-content">
+
+      <div class="hist-section active" id="about-who">
         <div class="sec-eyebrow">Who We Are</div>
         <div class="sec-title">About VMC</div>
         <div class="about-rule"></div>
@@ -817,31 +832,28 @@ body{font-family:'Inter',sans-serif;background:var(--cream);color:var(--dark);ov
           <p>VMC meets are held across Melbourne throughout the season at Lakeside Stadium, Box Hill, Aberfeldie, and Doncaster. Each meet features multiple grades so every athlete competes at their level.</p>
         </div>
       </div>
-      <div class="divider"></div>
-      <div class="about-section">
+      <div class="hist-section" id="about-mission">
         <div class="sec-eyebrow">Purpose</div>
         <div class="sec-title">Mission Statement</div>
         <div class="about-rule"></div>
-        <div style="background:var(--dark);padding:24px 28px;border-left:3px solid var(--red);">
-          <p style="font-family:'Playfair Display',serif;font-size:17px;color:var(--text);font-style:italic;line-height:1.6;">"To provide the highest quality middle-distance racing in Victoria — accessible to all abilities, honouring the tradition of the mile, and fostering a community built on authentic competition."</p>
+        <div style="background:var(--dark);padding:32px 36px;border-left:4px solid var(--red);">
+          <p style="font-family:'Playfair Display',serif;font-size:20px;color:var(--text);font-style:italic;line-height:1.6;">"To provide the highest quality middle-distance racing in Victoria — accessible to all abilities, honouring the tradition of the mile, and fostering a community built on authentic competition."</p>
         </div>
       </div>
-      <div class="divider"></div>
-      <div class="about-section">
+      <div class="hist-section" id="about-rules">
         <div class="sec-eyebrow">Competition</div>
         <div class="sec-title">Rules & Regulations</div>
         <div class="about-rule"></div>
         <div>
           <div class="rule-item"><div class="rule-num">01</div><div class="rule-text">All athletes must be registered with Athletics Australia or an affiliated international body. Entry closes the Monday prior to each meet at 12pm.</div></div>
-          <div class="rule-item"><div class="rule-num">02</div><div class="rule-text">Graded heats are assigned based on submitted estimated times. Athletes are responsible for providing accurate estimates — misrepresentation may result in disqualification.</div></div>
+          <div class="rule-item"><div class="rule-num">02</div><div class="rule-text">Graded heats are assigned based on submitted estimated times. Athletes are responsible for providing accurate estimates.</div></div>
           <div class="rule-item"><div class="rule-num">03</div><div class="rule-text">Pacemakers must apply separately and are subject to committee approval. Pacers must withdraw before the bell lap if still leading.</div></div>
-          <div class="rule-item"><div class="rule-num">04</div><div class="rule-text">Season points are awarded to the top 8 finishers in each heat. Best 4 results from 6 meets count toward the final standings.</div></div>
-          <div class="rule-item"><div class="rule-num">05</div><div class="rule-text">Club championship points are aggregated from all members' individual points. The leading club after the final meet is declared Club Champion.</div></div>
-          <div class="rule-item"><div class="rule-num">06</div><div class="rule-text">All decisions by the VMC committee regarding results, disqualifications, and points are final.</div></div>
+          <div class="rule-item"><div class="rule-num">04</div><div class="rule-text">Season points are awarded to the top 8 finishers in each heat. Best 4 results from 6 meets count toward final standings.</div></div>
+          <div class="rule-item"><div class="rule-num">05</div><div class="rule-text">Club championship points are aggregated from all members' individual points.</div></div>
+          <div class="rule-item"><div class="rule-num">06</div><div class="rule-text">All decisions by the VMC committee regarding results and points are final.</div></div>
         </div>
       </div>
-      <div class="divider"></div>
-      <div class="about-section">
+      <div class="hist-section" id="about-leadership">
         <div class="sec-eyebrow">Leadership</div>
         <div class="sec-title">Board Members</div>
         <div class="about-rule"></div>
@@ -854,8 +866,7 @@ body{font-family:'Inter',sans-serif;background:var(--cream);color:var(--dark);ov
           <div class="bc"><div class="bc-name">Emma Walsh</div><div class="bc-role">Events Coordinator</div></div>
         </div>
       </div>
-      <div class="divider"></div>
-      <div class="about-section">
+      <div class="hist-section" id="about-prizes">
         <div class="sec-eyebrow">Prize Money</div>
         <div class="sec-title">Season Prizes</div>
         <div class="about-rule"></div>
@@ -873,39 +884,34 @@ body{font-family:'Inter',sans-serif;background:var(--cream);color:var(--dark);ov
           </table>
         </div>
       </div>
-    </div>
-    <div class="about-sidebar">
-      <div class="sec-eyebrow-gold" style="margin-bottom:8px;">Our Partners</div>
-      <div class="sec-title-light" style="font-size:17px;margin-bottom:14px;">Sponsors</div>
-      <div style="display:flex;flex-direction:column;gap:8px;">
-        <div style="background:rgba(255,255,255,.04);border:1px solid rgba(201,168,76,.15);padding:14px;text-align:center;">
-          <div style="font-size:8px;letter-spacing:2px;text-transform:uppercase;color:var(--gold);margin-bottom:8px;">Principal Sponsor</div>
-          <div style="height:34px;background:rgba(255,255,255,.05);display:flex;align-items:center;justify-content:center;font-size:9px;letter-spacing:2px;text-transform:uppercase;color:rgba(245,240,232,.2);">Your Logo Here</div>
+      <div class="hist-section" id="about-partners">
+        <div class="sec-eyebrow">Our Partners</div>
+        <div class="sec-title">Sponsors</div>
+        <div class="about-rule"></div>
+        <div class="board-grid" style="grid-template-columns: repeat(2, 1fr);">
+          <div style="background:rgba(201,168,76,.04);border:1px solid rgba(201,168,76,.15);padding:24px;text-align:center;">
+            <div style="font-size:9px;letter-spacing:2px;text-transform:uppercase;color:var(--gold);margin-bottom:12px;">Principal Sponsor</div>
+            <div style="height:40px;background:rgba(0,0,0,0.05);display:flex;align-items:center;justify-content:center;font-size:10px;color:rgba(0,0,0,0.2);letter-spacing:2px;">LOGO HERE</div>
+          </div>
+          <div style="background:rgba(201,168,76,.04);border:1px solid rgba(201,168,76,.15);padding:24px;text-align:center;">
+            <div style="font-size:9px;letter-spacing:2px;text-transform:uppercase;color:var(--gold);margin-bottom:12px;">Gold Sponsor</div>
+            <div style="height:40px;background:rgba(0,0,0,0.05);display:flex;align-items:center;justify-content:center;font-size:10px;color:rgba(0,0,0,0.2);letter-spacing:2px;">LOGO HERE</div>
+          </div>
         </div>
-        <div style="background:rgba(255,255,255,.03);border:1px solid rgba(201,168,76,.1);padding:12px;text-align:center;">
-          <div style="font-size:8px;letter-spacing:2px;text-transform:uppercase;color:rgba(201,168,76,.6);margin-bottom:6px;">Gold Sponsor</div>
-          <div style="height:28px;background:rgba(255,255,255,.04);display:flex;align-items:center;justify-content:center;font-size:9px;letter-spacing:2px;text-transform:uppercase;color:rgba(245,240,232,.15);">Logo</div>
-        </div>
-        <div style="background:rgba(255,255,255,.03);border:1px solid rgba(201,168,76,.1);padding:12px;text-align:center;">
-          <div style="font-size:8px;letter-spacing:2px;text-transform:uppercase;color:rgba(201,168,76,.6);margin-bottom:6px;">Silver Sponsor</div>
-          <div style="height:28px;background:rgba(255,255,255,.04);display:flex;align-items:center;justify-content:center;font-size:9px;letter-spacing:2px;text-transform:uppercase;color:rgba(245,240,232,.15);">Logo</div>
+        <div class="divider"></div>
+        <div class="sec-eyebrow">Contact & Social</div>
+        <div class="about-body" style="margin-top:12px;">
+          <p>General Enquiries: <span style="color:var(--red);font-weight:600;">info@vicmilers.com</span></p>
+          <p>Sponsorship: <span style="color:var(--red);font-weight:600;">sponsors@vicmilers.com</span></p>
+          <div class="footer-social" style="margin-top:20px;">
+            <a href="#" class="footer-social-btn" style="border-color:var(--border);color:var(--dark);" title="Instagram"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/></svg></a>
+            <a href="#" class="footer-social-btn" style="border-color:var(--border);color:var(--dark);" title="Facebook"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 2h-3a5 5 0 00-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 011-1h3z"/></svg></a>
+          </div>
         </div>
       </div>
-      <div class="divider-gold"></div>
-      <div style="font-size:10px;color:var(--muted);line-height:1.7;font-weight:300;">Sponsorship enquiries:<br><span style="color:var(--gold);">sponsors@vicmilers.com</span></div>
-      <div class="divider-gold"></div>
-      <div class="sec-eyebrow-gold" style="margin-bottom:10px;">Follow Us</div>
-      <div class="footer-social">
-        <a href="#" class="footer-social-btn" title="Instagram">
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/></svg>
-        </a>
-        <a href="#" class="footer-social-btn" title="Facebook">
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 2h-3a5 5 0 00-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 011-1h3z"/></svg>
-        </a>
-      </div>
-    </div>
-  </div>
-</div>
+    </div> <!-- Closes hist-content -->
+  </div> <!-- Closes history-layout -->
+</div> <!-- Closes page-about -->
 
 <!-- FOOTER -->
 <footer class="site-footer">
@@ -947,7 +953,6 @@ body{font-family:'Inter',sans-serif;background:var(--cream);color:var(--dark);ov
   </div>
   <div class="footer-bottom">
     <div class="footer-copy">© 2024 Victorian Milers Club. All rights reserved.</div>
-    <div class="gsheet-badge"><span>📊 Data <strong>powered by Google Sheets</strong></span></div>
   </div>
 </footer>
 
@@ -955,19 +960,14 @@ body{font-family:'Inter',sans-serif;background:var(--cream);color:var(--dark);ov
 // ═══════════════════ DATA ═══════════════════
 const CONFIG = {
   // This is the main Google Sheet ID. All GIDs below refer to tabs within this sheet.
-  SHEET_ID: '2PACX-1vS333fIm5YAKqvOLj31o925Qi-K8qb3Ucx_rWBdRvVqPg95AYZsw3422SOnEBkLuUu93P2fgs_CAIpf',
+  SHEET_ID: '13ZKyN6v_dFObQX2MA378KKGjWnXu190TL9PeQlwG8RQ',
   GIDS: {
-    LB_W800: '0', // GID for Women's 800m Leaderboard tab
-    LB_M800: '123456789', // GID for Men's 800m Leaderboard tab
-    RESULTS: '987654321', // GID for Results tab
-    TL_W800: '0', // GID for the Women's 800m Toplist tab (usually '0' for the first sheet)
-    TL_M800: 'ADD_YOUR_MEN_800_GID_HERE', // GID for the Men's 800m Toplist tab
-    TL_W1500: 'ADD_YOUR_WOMEN_1500_GID_HERE',
-    TL_M1500: 'ADD_YOUR_MEN_1500_GID_HERE'
+    TOPLIST: '745186675',
+    RESULTS: '987654321',
+    LB_W800: '0'
   }
 };
 
-let toplist_w800 = [], toplist_m800 = [], toplist_w1500 = [], toplist_m1500 = [];
 let lbData = {
   w800:[
     {name:"Sophie Nguyen",club:"Box Hill Athletics",nat:"AUS",sb:"2:04.3",pb:"2:03.1",m1:"-",m2:12,pts:118,cr:true},
@@ -1179,12 +1179,10 @@ let meetsData = [
       'Men 1500 Metre Run B Open':[{p:1,n:'Brad Mathas',c:'St Kevins',t:'3:46.77'},{p:2,n:'Jesse Hunt',c:'Western Australia',t:'3:47.58'},{p:3,n:'Evan Rowbotham',c:'New South Wales',t:'3:47.89'},{p:4,n:'Angus Hincksman',c:'South Australia',t:'3:48.23'},{p:5,n:'Benjamin Wall',c:'New Zealand',t:'3:48.52'},{p:6,n:'Zayd Al Sayd',c:'Western Athletics',t:'3:48.59'},{p:7,n:'James Heneghan',c:'Great Britain',t:'3:49.05'},{p:8,n:'Max Russell',c:'New South Wales',t:'3:49.19'},{p:9,n:'Joel Gomez',c:'Usa',t:'3:50.13'},{p:10,n:'Matthew Buckell',c:'Bendigo Uni',t:'3:50.29'},{p:11,n:'Alex Talbot',c:'New South Wales',t:'3:52.30'},{p:12,n:'Michael Roeger',c:'South Australia',t:'3:52.38'},{p:13,n:'Reece Langdon',c:'Sandringham',t:'3:52.91'},{p:14,n:'Kiran Tibballs',c:'Western Australia',t:'3:53.93'},{p:15,n:'Nicklaus Blum',c:'South Australia',t:'3:55.28'},{p:16,n:'Bradley Hall',c:'Knox',t:'3:55.32'},{p:17,n:'Harry Maddocks',c:'Doncaster',t:'3:57.02'},{p:18,n:'Patrick Matthews',c:'Keilor St Bernards',t:'3:59.01'}],
       'Women 1500 Metre Run A Open':[{p:1,n:'Madison King',c:'Glenhuntly',t:'4:21.45'},{p:2,n:'Mia Jade Gray',c:'Glenhuntly',t:'4:21.58'},{p:3,n:'Stephanie Kelly',c:'Coburg',t:'4:23.47'},{p:4,n:'Maddison Caulfield',c:'Essendon',t:'4:24.27'},{p:5,n:'Janae Mackrell',c:'Western Athletics',t:'4:26.29'},{p:6,n:'Leanne Ellis',c:'Western Athletics',t:'4:26.76'},{p:7,n:'Chloe Baldock',c:'Doncaster',t:'4:28.10'},{p:8,n:'Sienna Rowe',c:'Essendon',t:'4:30.50'},{p:9,n:'Zoe Woods',c:'Melbourne Uni',t:'4:30.97'},{p:10,n:'Matisse Lazzari',c:'Essendon',t:'4:31.43'},{p:11,n:'Aria Violini',c:'Ballarat Ycw',t:'4:34.22'},{p:12,n:'Khushi Deol',c:'Box Hill',t:'4:34.67'}],
       'Men 1500 Metre Run A Open':[{p:1,n:'Tiarnan Crorken',c:'Great Britain',t:'3:44.56'},{p:2,n:'Evander Scott',c:'Chilwell',t:'3:44.58'},{p:3,n:'Thomas Moorcroft',c:'Western Australia',t:'3:44.61'},{p:4,n:'Luke Shaw',c:'Collingwood',t:'3:45.32'},{p:5,n:'Will Lewis',c:'St Kevins',t:'3:45.86'},{p:6,n:'Joshua Unthank',c:'Bellarine',t:'3:47.24'},{p:7,n:'Brady Ryan',c:'Glenhuntly',t:'3:48.24'},{p:8,n:'Jackson Unthank',c:'Bellarine',t:'3:49.07'},{p:9,n:'Joshua Carlin',c:'Box Hill',t:'3:53.04'},{p:10,n:'Mitchell Thompson',c:'Wendouree',t:'3:55.09'}],
-      'Women 800 Metre Run B Open':[{p:1,n:'Catriona Bisset',c:'Collingwood',t:'2:03.19'},{p:2,n:'Caitlin Mcquilkin-Bell',c:'Box Hill',t:'2:06.40'},{p:3,n:'Ruby Madden',c:'New South Wales',t:'2:06.73'},{p:4,n:'Rachel O\'Brien',c:'Wellington',t:'2:08.13'},{p:5,n:'Sarah Baker',c:'New South Wales',t:'2:08.70'},{p:6,n:'Lucy Jones',c:'Eureka',t:'2:10.03'},{p:7,n:'Lara Sacaner',c:'Essendon',t:'2:12.93'},{p:8,n:'Lauren Tay',c:'Box Hill',t:'2:13.33'}],
-      'Men 800 Metre Run B Open':[{p:1,n:'Noam Mamu',c:'Israel',t:'1:48.35'},{p:2,n:'Lachlan Raper',c:'New South Wales',t:'1:49.57'},{p:3,n:'Harry Halleen',c:'New South Wales',t:'1:49.80'},{p:4,n:'Dilan Egodawatte',c:'Essendon',t:'1:50.16'},{p:5,n:'Matthew Gough',c:'Glenhuntly',t:'1:51.36'},{p:6,n:'Gus Tomlinson-Smith',c:'Tasmania',t:'1:51.73'},{p:7,n:'Thiruben Rajan',c:'Singapore',t:'1:54.03'},{p:8,n:'Hamish Donohue',c:'Sandringham',t:'1:54.87'}],
-      'Women 800 Metre Run A Open':[{p:1,n:'Lucy Delbridge',c:'Collingwood',t:'2:06.04'},{p:2,n:'Declyn Tanner',c:'Mornington',t:'2:07.54'},{p:3,n:'Victoria Cholsh',c:'South Australia',t:'2:07.62'},{p:4,n:'Ally Brooks',c:'Box Hill',t:'2:08.00'},{p:5,n:'Elly Fleming',c:'Wellington',t:'2:09.52'},{p:6,n:'Meg Deane',c:'Vic Cross Co',t:'2:10.02'},{p:7,n:'Karen Haidar',c:'Mentone',t:'2:11.86'},{p:8,n:'Briana Sherry',c:'Casey Cardinia',t:'2:12.42'}],
-      'Men 800 Metre Run A Open':[{p:1,n:'Bob Abdelrahim',c:'St Kevins',t:'1:46.08'},{p:2,n:'Alex Hanigan',c:'St Kevins',t:'1:47.50'},{p:3,n:'Tom Forster',c:'St Kevins',t:'1:48.49'},{p:4,n:'Luka Sideridis',c:'Glenhuntly',t:'1:49.42'},{p:5,n:'Lachlan Thomas',c:'Chilwell',t:'1:50.60'},{p:6,n:'Thomas Kemp',c:'South Australia',t:'1:52.54'},{p:7,n:'Oscar Wright',c:'Nunawading',t:'1:53.75'},{p:8,n:'William Callaghan',c:'Athletics So',t:'1:59.20'}]
+      'W 800m A':[{p:1,n:'Lucy Delbridge',c:'Collingwood',t:'2:06.04'},{p:2,n:'Declyn Tanner',c:'Mornington',t:'2:07.54'},{p:3,n:'Victoria Cholsh',c:'South Australia',t:'2:07.62'},{p:4,n:'Ally Brooks',c:'Box Hill',t:'2:08.00'},{p:5,n:'Elly Fleming',c:'Wellington',t:'2:09.52'},{p:6,n:'Meg Deane',c:'Vic Cross Co',t:'2:10.02'},{p:7,n:'Karen Haidar',c:'Mentone',t:'2:11.86'},{p:8,n:'Briana Sherry',c:'Casey Cardinia',t:'2:12.42'}],
+      'M 800m A':[{p:1,n:'Bob Abdelrahim',c:'St Kevins',t:'1:46.08'},{p:2,n:'Alex Hanigan',c:'St Kevins',t:'1:47.50'},{p:3,n:'Tom Forster',c:'St Kevins',t:'1:48.49'},{p:4,n:'Luka Sideridis',c:'Glenhuntly',t:'1:49.42'},{p:5,n:'Lachlan Thomas',c:'Chilwell',t:'1:50.60'},{p:6,n:'Thomas Kemp',c:'South Australia',t:'1:52.54'},{p:7,n:'Oscar Wright',c:'Nunawading',t:'1:53.75'},{p:8,n:'William Callaghan',c:'Athletics So',t:'1:59.20'}]
     }
-  },
+  }
 ];
 
 let champData = [
@@ -1241,12 +1239,12 @@ async function fetchSheet(gid) {
     let url;
     // Detect if using a "Published to web" ID (starts with 2PACX) or a standard Sheet ID
     if (CONFIG.SHEET_ID.startsWith('2PACX')) {
-      url = `https://docs.google.com/spreadsheets/d/e/${CONFIG.SHEET_ID}/pub?gid=${gid}&output=csv`;
+      url = `https://docs.google.com/spreadsheets/d/e/${CONFIG.SHEET_ID}/pub?gid=${gid}&output=csv&t=${Date.now()}`;
     } else {
-      url = `https://docs.google.com/spreadsheets/d/${CONFIG.SHEET_ID}/export?format=csv&gid=${gid}`;
+      url = `https://docs.google.com/spreadsheets/d/${CONFIG.SHEET_ID}/export?format=csv&gid=${gid}&t=${Date.now()}`;
     }
     
-    const response = await fetch(url);
+    const response = await fetch(url, { cache: "no-store" });
     if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
     const csvText = await response.text();
     return parseCSV(csvText);
@@ -1299,17 +1297,88 @@ function parseCSV(text) {
   });
 }
 
+function parseHorizontalToplist(text) {
+  const lines = text.split(/\r?\n/).filter(l => l.trim());
+  if (lines.length < 2) return {};
+  
+  const splitLine = (line) => {
+    const parts = [];
+    let current = '', inQuotes = false;
+    for (let char of line) {
+      if (char === '"') inQuotes = !inQuotes;
+      else if (char === ',' && !inQuotes) { parts.push(current.trim()); current = ''; }
+      else current += char;
+    }
+    parts.push(current.trim());
+    return parts;
+  };
+
+  // Find header row: skip titles/empty rows until we find a row with BOTH event and athlete markers
+  let hIdx = -1;
+  for (let i = 0; i < lines.length; i++) {
+    const l = lines[i].toLowerCase();
+    if ((l.includes('800') || l.includes('1500') || l.includes('mile') || l.includes('3000')) && 
+        (l.includes('name') || l.includes('athlete'))) {
+      hIdx = i;
+      break;
+    }
+  }
+  if (hIdx === -1) return {};
+
+  const headers = splitLine(lines[hIdx]).map(h => h.toLowerCase());
+  const results = { w800:[], m800:[], w1500:[], m1500:[], wmile:[], mmile:[], w3000:[], m3000:[] };
+  const mapping = [];
+  
+  headers.forEach((h, i) => {
+    if (!h) return;
+    let eventKey = null;
+    const isW = /\bw\b|women|w800|w1500|wmile/i.test(h);
+    const isM = /\bm\b|men|m800|m1500|mmile/i.test(h);
+
+    if (h.includes('800')) eventKey = isW ? 'w800' : (isM ? 'm800' : null);
+    else if (h.includes('1500')) eventKey = isW ? 'w1500' : (isM ? 'm1500' : null);
+    else if (h.includes('mile')) eventKey = isW ? 'wmile' : (isM ? 'mmile' : null);
+    else if (h.includes('3000')) eventKey = isW ? 'w3000' : (isM ? 'm3000' : null);
+
+    if (eventKey) {
+      let field = null;
+      if (h.includes('name') || h.includes('athlete')) field = 'name';
+      else if (h.includes('club') || h.includes('team')) field = 'club';
+      else if (h.includes('time') || h.includes('mark') || h.includes('perf')) field = 'time';
+      else if (h.includes('year') || h.includes('date') || h.includes('yr')) field = 'year';
+      else if (h.includes('locat') || h.includes('venue')) field = 'location';
+      if (field) mapping.push({ index: i, event: eventKey, field: field });
+    }
+  });
+
+  if (mapping.length === 0) return {};
+
+  lines.slice(hIdx + 1).forEach(line => {
+    const values = splitLine(line);
+    const rowObjs = {};
+    mapping.forEach(m => {
+      if (!rowObjs[m.event]) rowObjs[m.event] = {};
+      rowObjs[m.event][m.field] = (values[m.index] || '').replace(/^"|"$/g, '').trim();
+    });
+    Object.keys(rowObjs).forEach(ek => {
+      if (rowObjs[ek].name && rowObjs[ek].time) results[ek].push(rowObjs[ek]);
+    });
+  });
+  return results;
+}
+
 // ═══════════════════ PAGE NAVIGATION ═══════════════════
-function toggleMenu(open) {
+function toggleMenu() {
   const nav = document.getElementById('navLinks');
   const burger = document.getElementById('hamburger');
-  if (open === false) { nav.classList.remove('active'); burger.classList.remove('active'); }
-  else if (open === true) { nav.classList.add('active'); burger.classList.add('active'); }
-  else { nav.classList.toggle('active'); burger.classList.toggle('active'); }
+  nav.classList.toggle('active');
+  burger.classList.toggle('active');
 }
 
 function showPage(page){
-  toggleMenu(false);
+  console.log("Navigating display context stack wrapper viewport layout to view:", page);
+  document.getElementById('navLinks').classList.remove('active');
+  document.getElementById('hamburger').classList.remove('active');
   document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
   document.querySelectorAll('.nav-links a').forEach(a=>a.classList.remove('active'));
   document.getElementById('page-'+page).classList.add('active');
@@ -1472,9 +1541,12 @@ function renderStandings(key){
     <tr class="dt-row"><td style="text-align:center;">${posBadge(i)}</td>
     <td><div class="td-name">${r.name}${r.cr?'<span class="cr-flag">CR</span>':''}</div></td>
     <td><div class="td-club">${r.club}</div></td>
-    <td><div style="font-size:10px;color:#8A7052;">${r.nat}</div></td>
-    <td class="td-time">${r.sb}</td><td class="td-sm">${r.pb}</td>
-    <td class="td-sm">${r.m1}</td><td class="td-sm">${r.m2}</td>
+    <td class="td-time">${r.sb}</td>
+    <td class="td-sm">${r.m1 || '-'}</td>
+    <td class="td-sm">${r.m2 || '-'}</td>
+    <td class="td-sm">${r.m3 || '-'}</td>
+    <td class="td-sm">${r.m4 || '-'}</td>
+    <td class="td-sm">${r.m5 || '-'}</td>
     <td class="td-pts"><span>${r.pts}</span></td></tr>`).join('');
 }
 renderStandings('w800');
@@ -1492,6 +1564,14 @@ function showHist(section,btn){
   btn.classList.add('active');
 }
 
+function showAbout(section,btn){
+  const page = document.getElementById('page-about');
+  page.querySelectorAll('.hist-section').forEach(s=>s.classList.remove('active'));
+  page.querySelectorAll('.hn-item').forEach(b=>b.classList.remove('active'));
+  document.getElementById('about-'+section).classList.add('active');
+  btn.classList.add('active');
+}
+
 // Champions
 document.getElementById('championsHistory').innerHTML=champData.map(y=>`
   <div class="champ-year-block"><div class="cy-title">${y.year}–${String(y.year+1).slice(2)} Season</div>
@@ -1505,19 +1585,28 @@ document.getElementById('olympiansGrid').innerHTML=olympiansData.map(o=>`
   <div class="ol-card"><div class="ol-name">${o.name}</div><div class="ol-games">${o.games}</div><div class="ol-club">${o.club}</div><div class="ol-ev">${o.event}</div></div>`).join('');
 
 // Top Lists
-const toplistMap={w800:toplist_w800,m800:toplist_m800,w1500:toplist_w1500,m1500:toplist_m1500};
+const toplistMap = {
+  w800: [], m800: [], w1500: [], m1500: [],
+  wmile: [], mmile: [], w3000: [], m3000: []
+};
 function renderToplist(key){
+  const container = document.getElementById('toplistBody');
+  if (!container) return;
+  
   if (!toplistMap[key] || toplistMap[key].length === 0) {
-    document.getElementById('toplistBody').innerHTML = '<div style="padding:32px;text-align:center;font-size:11px;color:#8A7052;font-weight:300;">Syncing with Google Sheets...</div>';
+    container.innerHTML = '<tr><td colspan="7" style="padding:32px;text-align:center;font-size:11px;color:#8A7052;font-weight:300;">Syncing rankings...</td></tr>';
     return;
   }
-  document.getElementById('toplistBody').innerHTML=toplistMap[key].map((a,i)=>`
-    <div class="tl-row">
-      <div class="tl-pos ${i===0?'gold':''}">${i+1}</div>
-      <div><div class="tl-name">${a.name}</div><div class="tl-club">${a.club}</div></div>
-      <div class="tl-time">${a.time}</div>
-      <div class="tl-year">${a.year}</div>
-    </div>`).join('');
+  container.innerHTML=toplistMap[key].map((a,i)=>`
+    <tr class="dt-row">
+      <td class="c">${posBadge(i)}</td>
+      <td><div class="td-name">${a.name}</div></td>
+      <td><div class="td-club">${a.club}</div></td>
+      <td class="td-sm" style="text-align:left;">${a.date || ''}</td>
+      <td class="td-sm" style="text-align:left;">${a.season || ''}</td>
+      <td class="td-sm" style="text-align:left;">${a.location || ''}</td>
+      <td class="td-time" class="r">${a.time}</td>
+    </tr>`).join('');
 }
 renderToplist('w800');
 document.getElementById('toplistTabs').addEventListener('click',e=>{
@@ -1598,27 +1687,84 @@ function updateIgReel(){
 
 // ═══════════════════ INITIALIZATION ═══════════════════
 async function initApp() {
-  // If a Sheet ID is provided, fetch the live data
-  if (CONFIG.SHEET_ID && CONFIG.SHEET_ID !== '') { // Check if SHEET_ID is set
-    console.log('VMC Sync: Starting fetch from', CONFIG.SHEET_ID);
+  if (CONFIG.SHEET_ID && CONFIG.SHEET_ID !== '' && !CONFIG.SHEET_ID.includes('YOUR_PUBLISHED')) {
+    console.log('VMC Sync: Connecting to Google Sheets...');
 
-    // If your Women's 800m Toplist has a specific GID, update TL_W800 in the CONFIG at the top.
-    // Otherwise, we try to fetch it.
-    const w800Data = await fetchSheet(CONFIG.GIDS.TL_W800);
-    if (w800Data && w800Data.length > 0) {
-      toplistMap.w800 = w800Data;
-      console.log('VMC Sync: Women\'s 800m loaded', w800Data.length, 'rows');
-    } else {
-      console.warn('VMC Sync: No data found for Women\'s 800m. Check GID and Headers.');
+    // 1. Sync Horizontal Toplists
+    try {
+      const url = `https://docs.google.com/spreadsheets/d/${CONFIG.SHEET_ID}/gviz/tq?tqx=out:json&gid=${CONFIG.GIDS.TOPLIST}&headers=0&range=A1:BZ205`;
+      const response = await fetch(url, { cache: "no-store" });
+      if (!response.ok) throw new Error(`Google Sheets responded with status: ${response.status}`);
+      
+      const rawText = await response.text();
+      const start = rawText.indexOf('{');
+      const end = rawText.lastIndexOf('}');
+      if (start === -1 || end === -1) throw new Error("Invalid response format from Google");
+      
+      const data = JSON.parse(rawText.substring(start, end + 1));
+      const rows = data.table.rows;
+
+      if (rows && rows.length >= 3) {
+        const row1 = rows[0].c;
+        let eventColumns = [];
+        for (let i = 0; i < row1.length; i++) {
+          if (row1[i] && (row1[i].v || row1[i].f)) {
+            const title = (row1[i].v || row1[i].f).toString().trim().toLowerCase();
+            let key = null;
+            const isW = /women|\bw\b/i.test(title);
+            const isM = /men|\bm\b/i.test(title);
+            if (title.includes('800')) key = isW ? 'w800' : (isM ? 'm800' : null);
+            else if (title.includes('1500')) key = isW ? 'w1500' : (isM ? 'm1500' : null);
+            else if (title.includes('mile')) key = isW ? 'wmile' : (isM ? 'mmile' : null);
+            else if (title.includes('3000')) key = isW ? 'w3000' : (isM ? 'm3000' : null);
+
+            if (key) {
+              eventColumns.push({ key, index: i });
+              toplistMap[key] = [];
+            }
+          }
+        }
+
+        for (let r = 2; r < rows.length; r++) {
+          const currentRow = rows[r].c;
+          if (!currentRow) continue;
+          eventColumns.forEach(event => {
+            const cell = currentRow[event.index];
+            if (cell && (cell.v || cell.f)) {
+              toplistMap[event.key].push({
+                name: cell.v || cell.f || "",
+                club: currentRow[event.index + 5]?.v || currentRow[event.index + 5]?.f || "",
+                time: (currentRow[event.index + 1]?.v || currentRow[event.index + 1]?.f || "").toString(),
+                season: (currentRow[event.index + 2]?.v || currentRow[event.index + 2]?.f || "").toString(),
+                date: (currentRow[event.index + 3]?.f || currentRow[event.index + 3]?.v || "").toString(),
+                location: currentRow[event.index + 4]?.v || currentRow[event.index + 4]?.f || ""
+              });
+            }
+          });
+        }
+        renderToplist('w800');
+        console.log("VMC Sync: Toplists loaded via JSON API");
+      }
+    } catch (e) { 
+      console.error("Toplist sync failed", e); 
+    document.getElementById('toplistBody').innerHTML = `<tr><td colspan="7" style="padding:32px;text-align:center;color:var(--red);font-size:11px;font-weight:400;">⚠️ Sync Failed: ${e.message}<br><span style="color:#8A7052;font-size:9px;">Check that the Google Sheet is shared as "Anyone with the link can view"</span></td></tr>`;
     }
 
-    // Fetch and Sync Results
-    if (CONFIG.GIDS.RESULTS && !CONFIG.GIDS.RESULTS.includes('987')) {
+    // 2. Sync Results
+    if (CONFIG.GIDS.RESULTS && CONFIG.GIDS.RESULTS !== '') {
       const liveResults = await fetchSheet(CONFIG.GIDS.RESULTS);
       if (liveResults.length > 0) {
         liveResults.forEach(r => {
-          const mNum = parseInt(r.meet);
-          const meet = meetsData.find(m => m.n === mNum && m.year === '2025');
+          const mNum = parseInt(r.meet || 0);
+          const mYear = r.year || '2025';
+          
+          // Find existing meet or create a new one dynamically
+          let meet = meetsData.find(m => m.n === mNum && m.year === mYear);
+          if (!meet && mNum > 0) {
+            meet = { n: mNum, year: mYear, status: 'results', results: {} };
+            meetsData.push(meet);
+          }
+
           if (meet) {
             if (!meet.results) meet.results = {};
             if (!meet.results[r.event]) meet.results[r.event] = [];
@@ -1631,12 +1777,27 @@ async function initApp() {
         });
 
         // Update Latest Results block to use the newest meet found
-        const latestWithRes = [...meetsData].filter(m => m.results).sort((a, b) => b.n - a.n)[0];
+        const latestWithRes = [...meetsData]
+          .filter(m => m.results && Object.keys(m.results).length > 0)
+          .sort((a, b) => (b.year || "").localeCompare(a.year || "") || (b.n || 0) - (a.n || 0))[0];
+
         if (latestWithRes) {
-          const hasAHeats = Object.keys(latestWithRes.results).some(k => k.match(/\bA\b/));
+          // Update Homepage Results Labels
+          const eyebrows = document.querySelectorAll('.hm-col .sec-eyebrow');
+          const resEyebrow = Array.from(eyebrows).find(el => el.textContent.includes('Latest Results'));
+          if (resEyebrow) resEyebrow.textContent = `Latest Results — Meet ${latestWithRes.n}`;
+          
+          const resTitle = document.querySelector('.hm-col .sec-title[style*="margin-bottom:0"]');
+          if (resTitle) {
+            const datePart = latestWithRes.date || '';
+            const venuePart = latestWithRes.venue ? `, ${latestWithRes.venue}` : '';
+            resTitle.textContent = `${datePart}${venuePart}`;
+          }
+
+          const hasAHeats = Object.keys(latestWithRes.results).some(k => String(k).match(/\bA\b/));
           Object.entries(latestWithRes.results).forEach(([ev, entries]) => {
             let key = null;
-            if (hasAHeats ? ev.match(/\bA\b/) : true) {
+            if (hasAHeats ? String(ev).match(/\bA\b/) : true) {
               const lowerEv = ev.toLowerCase();
               if (lowerEv.includes('women') || lowerEv.includes('w ')) {
                 if (lowerEv.includes('800')) key = 'rw800';
@@ -1653,22 +1814,9 @@ async function initApp() {
         }
       }
     }
-
-    // Fetch Toplists for all 4 events
-    const eventKeys = ['m800', 'w1500', 'm1500']; // We already did w800 above
-    for (const key of eventKeys) {
-      const gid = CONFIG.GIDS[`TL_${key.toUpperCase()}`];
-      if (gid && !gid.includes('ADD_YOUR')) {
-        const data = await fetchSheet(gid);
-        if (data.length > 0) {
-          toplistMap[key] = data;
-          console.log(`${key.toUpperCase()} Toplist loaded:`, data.length, 'entries');
-        }
-      }
-    }
   }
   
-  // Re-run all render functions after potential data update
+  // ALWAYS render the UI, using either live or fallback data
   renderHomeLb('w800');
   renderHomeRes('rw800');
   renderClubBoard('homeClubBoard');
@@ -1677,59 +1825,62 @@ async function initApp() {
   renderLatestWinnersSidebar();
   renderStandings('w800');
   renderToplist('w800');
-  // ... other render calls
+  renderEvents();
 }
 
 function renderLatestWinnersSidebar(){
   const container = document.getElementById('latestWinnersSidebar');
   if(!container) return;
-  const currentMeets = meetsData.filter(m => m.year === '2025' && m.results).sort((a,b)=>b.n - a.n);
-  if (currentMeets.length === 0) return;
-  
-  container.innerHTML = `
-    <div class="sec-eyebrow-gold">Season Winners</div>
-    ` + currentMeets.map(m => {
-    // If a meet has explicit 'A' heats, we only want to show those winners.
-    // Otherwise (like Meets 1, 3, 4, 5), we show all listed event winners.
-    const hasAHeats = Object.keys(m.results).some(k => k.match(/\bA\b/));
-    const meetAWinners = [];
 
-    for (const eventName in m.results) {
-      const isTarget = hasAHeats ? eventName.match(/\bA\b/) : true;
-      if (isTarget) {
-        const winner = m.results[eventName].find(x => x.p === 1);
+  // Filter for meets that have results and sort them by year then meet number (descending)
+  const meetsWithResults = [...meetsData]
+    .filter(m => m.results && Object.keys(m.results).length > 0)
+    .sort((a, b) => (b.year || "").localeCompare(a.year || "") || (b.n || 0) - (a.n || 0));
+
+  if (!meetsWithResults || meetsWithResults.length === 0) { // Check if there are any meets with results
+    container.innerHTML = '';
+    return;
+  }
+
+  let allMeetsWinnersHtml = '';
+
+  meetsWithResults.forEach((meet, index) => { // Iterate over all meets with results
+    const hasAHeats = Object.keys(meet.results).some(k => /\bA\b/i.test(k));
+    const winners = [];
+
+    for (const eventName in meet.results) {
+      const isPremier = hasAHeats ? /\bA\b/i.test(eventName) : true;
+      if (isPremier) {
+        const winner = meet.results[eventName].find(x => x.p === 1 || x.pos === 1);
         if (winner) {
-          let cleanEv = eventName
-            .replace(/Men/gi, 'M')
-            .replace(/Women|Wom/gi, 'W')
-            .replace(/Metre Run/gi, 'm')
-            .replace(/Open/gi, '')
-            .replace(/\bA\b/g, '')
-            .replace(/\s+/g, ' ')
-            .trim()
+          let evLabel = eventName
+            .replace(/Men/gi, 'M').replace(/Women|Wom/gi, 'W')
+            .replace(/Metre Run/gi, 'm').replace(/Open/gi, '')
+            .replace(/\bA\b/g, '').replace(/\s+/g, ' ').trim()
             .replace(/(\d+)\s*m/i, '$1M');
 
-          meetAWinners.push({
-            ev: cleanEv,
-            name: winner.n,
-            time: winner.t
-          });
+          winners.push({ ev: evLabel, name: winner.n || winner.name, time: winner.t || winner.time });
         }
       }
     }
 
-    if (meetAWinners.length === 0) return ''; // If no 'A Open' winners found for this meet, skip
+    if (winners.length > 0) {
+      allMeetsWinnersHtml += `
+        <div class="sec-title-light" style="font-size:15px; margin-top:16px; margin-bottom:12px;">Meet ${meet.n} Champions</div>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;">
+          ${winners.map(w => `
+            <div style="background:rgba(201,168,76,.07);border:1px solid rgba(201,168,76,.18);padding:12px;">
+              <div style="font-size:8px;letter-spacing:2px;text-transform:uppercase;color:var(--gold);margin-bottom:5px;">${w.ev}</div>
+              <div style="font-size:12px;font-weight:500;color:var(--text);">${w.name}</div>
+              <div style="font-family:'Bebas Neue',sans-serif;font-size:20px;color:var(--text);letter-spacing:.5px;">${w.time}</div>
+            </div>`).join('')}
+        </div>
+        ${index < meetsWithResults.length - 1 ? '<div class="divider-gold"></div>' : ''} <!-- Add divider between meets -->
+      `;
+    }
+  });
 
-    return `
-      <div class="sec-title-light" style="font-size:15px; margin-top:16px; margin-bottom:12px;">Meet ${m.n} Champions</div>
-      <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;">
-        ${meetAWinners.map(w => `<div style="background:rgba(201,168,76,.07);border:1px solid rgba(201,168,76,.18);padding:12px;">
-          <div style="font-size:8px;letter-spacing:2px;text-transform:uppercase;color:var(--gold);margin-bottom:5px;">${w.ev}</div>
-          <div style="font-size:12px;font-weight:500;color:var(--text);">${w.name}</div>
-          <div style="font-family:'Bebas Neue',sans-serif;font-size:20px;color:var(--text);letter-spacing:.5px;">${w.time}</div>
-        </div>`).join('')}
-      </div>`;
-  }).join('');
+  container.innerHTML = `<div class="sec-eyebrow-gold">2025–26 Season</div>${allMeetsWinnersHtml}`;
 }
 
 window.addEventListener('DOMContentLoaded', initApp);
