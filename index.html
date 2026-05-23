@@ -79,6 +79,9 @@ body{font-family:'Inter',sans-serif;background:var(--cream);color:var(--dark);ov
 .dt-row td{padding:9px 10px;border-bottom:1px solid rgba(224,216,204,.35);vertical-align:middle;}
 .dt-row:last-child td{border-bottom:none;}
 .td-name{font-size:12px;font-weight:500;color:var(--dark);}
+.move-up{color:#1FA34A;font-size:11px;margin-left:8px;font-weight:700;}
+.move-down{color:#D33A2B;font-size:11px;margin-left:8px;font-weight:700;}
+.new-flame{color:var(--red);margin-left:8px;font-size:13px;vertical-align:middle;}
 .td-club{font-size:10px;color:#8A7052;font-weight:300;margin-top:1px;}
 .td-time{text-align:right;font-family:'Bebas Neue',sans-serif;font-size:15px;color:var(--dark);}
 .td-pts{text-align:right;font-size:11px;color:#8A7052;}
@@ -912,7 +915,9 @@ body{font-family:'Inter',sans-serif;background:var(--cream);color:var(--dark);ov
       <button class="hn-item active" onclick="showAbout('who',this)">Who We Are</button>
       <button class="hn-item" onclick="showAbout('mission',this)">Our Mission</button>
       <button class="hn-item" onclick="showAbout('rules',this)">Rules & Regs</button>
+      <button class="hn-item" onclick="showAbout('points',this)">Points System</button>
       <button class="hn-item" onclick="showAbout('pacemaking',this)">Pacemaking</button>
+      <button class="hn-item" onclick="showAbout('photography',this)">Photography</button>
       <button class="hn-item" onclick="showAbout('leadership',this)">Leadership</button>
       <button class="hn-item" onclick="showAbout('prizes',this)">Prize Money</button>
       <button class="hn-item" onclick="showAbout('partners',this)">Partners</button>
@@ -944,9 +949,47 @@ body{font-family:'Inter',sans-serif;background:var(--cream);color:var(--dark);ov
           <div class="rule-item"><div class="rule-num">01</div><div class="rule-text">All athletes must be registered with Athletics Australia or an affiliated international body. Entry closes the Monday prior to each meet at 12pm.</div></div>
           <div class="rule-item"><div class="rule-num">02</div><div class="rule-text">Graded heats are assigned based on submitted estimated times. Athletes are responsible for providing accurate estimates.</div></div>
           <div class="rule-item"><div class="rule-num">03</div><div class="rule-text">Pacemakers must apply separately and are subject to committee approval. Pacers must withdraw before the bell lap if still leading.</div></div>
-          <div class="rule-item"><div class="rule-num">04</div><div class="rule-text">Season points are awarded to the top 8 finishers in each heat. Best 4 results from 6 meets count toward final standings.</div></div>
+          <div class="rule-item"><div class="rule-num">04</div><div class="rule-text">Season points are awarded based on finishing position in each heat. See the Points System section for the full breakdown.</div></div>
           <div class="rule-item"><div class="rule-num">05</div><div class="rule-text">Club championship points are aggregated from all members' individual points.</div></div>
           <div class="rule-item"><div class="rule-num">06</div><div class="rule-text">All decisions by the VMC committee regarding results and points are final.</div></div>
+        </div>
+      </div>
+      <div class="hist-section" id="about-points">
+        <div class="sec-eyebrow">Season Rankings</div>
+        <div class="sec-title">Points System</div>
+        <div class="about-rule"></div>
+        <div class="about-body">
+          <p>The Victorian Milers Club utilizes a weighted points system to determine season rankings and club champions. Points are awarded based on finishing position in every graded heat.</p>
+          <div class="table-scroll">
+            <table class="prize-table" style="max-width: 240px;">
+              <thead><tr><th>Pos</th><th class="r">Pts</th></tr></thead>
+              <tbody>
+                <tr><td>1st</td><td class="prize-amt">50</td></tr>
+                <tr><td>2nd</td><td class="prize-amt">40</td></tr>
+                <tr><td>3rd</td><td class="prize-amt">30</td></tr>
+                <tr><td>4th</td><td class="prize-amt">25</td></tr>
+                <tr><td>5th</td><td class="prize-amt">20</td></tr>
+                <tr><td>6th</td><td class="prize-amt">18</td></tr>
+                <tr><td>7th</td><td class="prize-amt">16</td></tr>
+                <tr><td>8th</td><td class="prize-amt">14</td></tr>
+                <tr><td>9th</td><td class="prize-amt">12</td></tr>
+                <tr><td>10th</td><td class="prize-amt">10</td></tr>
+                <tr><td>11th</td><td class="prize-amt">9</td></tr>
+                <tr><td>12th</td><td class="prize-amt">8</td></tr>
+                <tr><td>13th</td><td class="prize-amt">7</td></tr>
+                <tr><td>14th</td><td class="prize-amt">6</td></tr>
+                <tr><td>15th</td><td class="prize-amt">5</td></tr>
+                <tr><td>16th</td><td class="prize-amt">4</td></tr>
+                <tr><td>17th</td><td class="prize-amt">3</td></tr>
+                <tr><td>18th</td><td class="prize-amt">2</td></tr>
+                <tr><td>19th</td><td class="prize-amt">1</td></tr>
+                <tr><td>20th</td><td class="prize-amt">1</td></tr>
+              </tbody>
+            </table>
+          </div>
+          <p style="margin-top:20px;"><strong>Championship Rounds:</strong> For designated championship meets, all points awarded are <strong>doubled</strong>.</p>
+          <p><strong>Tie-Breaker:</strong> If points are equal at the end of the season, the athlete with the <strong>faster season best (SB)</strong> recorded at a VMC meet wins out.</p>
+          <p><strong>Team Championship:</strong> Club points are calculated by aggregating individual scores. However, a <strong>maximum of 3 point scores per club, per event</strong> contribute to the team total.</p>
         </div>
       </div>
       <div class="hist-section" id="about-pacemaking">
@@ -958,6 +1001,18 @@ body{font-family:'Inter',sans-serif;background:var(--cream);color:var(--dark);ov
           <p>Pacemakers are not entered as regular competitors. They must apply separately through the VMC pacemaker application process and receive committee approval before a meet.</p>
           <p>Once assigned, pacemakers are required to follow the designated pace plan and to step off the track before the final bell lap if still leading the race. This ensures a fair and competitive finish for all athletes.</p>
           <p>For more information or to express interest in pacemaking, please contact our events team at <span style="color:var(--red);font-weight:600;">events@vicmilers.com</span> or visit the entry page for pacemaker applications.</p>
+        </div>
+      </div>
+      <div class="hist-section" id="about-photography">
+        <div class="sec-eyebrow">Media</div>
+        <div class="sec-title">Photography & Videography</div>
+        <div class="about-rule"></div>
+        <div class="about-body">
+          <p>To ensure the safety and privacy of our athletes, all photographers and videographers at Victorian Milers Club meets must be officially accredited by the committee. Unauthorised professional media equipment is not permitted inside the competition perimeter.</p>
+          <p>Accredited media must provide proof of a valid **Working with Children Check (WWCC)** and hold appropriate Public Liability Insurance. Certification must be presented to the Meet Director upon arrival.</p>
+          <p><strong>Rules & Regulations:</strong></p>
+          <p>• Media personnel must remain outside the track rail at all times unless specifically escorted by a VMC official.<br>• Flash photography is strictly prohibited during race starts and as athletes approach the finish line.<br>• Do not obstruct the line of sight for the photo-finish equipment or meet officials.<br>• All captured content remains subject to Athletics Victoria and VMC media usage policies.</p>
+          <p>To apply for media accreditation for the upcoming season, please contact <span style="color:var(--red);font-weight:600;">media@vicmilers.com</span>.</p>
         </div>
       </div>
       <div class="hist-section" id="about-leadership">
@@ -1077,8 +1132,8 @@ const CONFIG = {
 let lbData = {
   w800:[
     {name:"Sophie Nguyen",club:"Box Hill Athletics",nat:"AUS",sb:"2:04.3",pb:"2:03.1",m1:"-",m2:12,pts:118,prevChamp:true},
-    {name:"Ella Mackenzie",club:"St. Kevin's AC",nat:"AUS",sb:"2:06.1",pb:"2:05.8",m1:"-",m2:11,pts:109},
-    {name:"Chloe Bartlett",club:"Mentone Athletics",nat:"AUS",sb:"2:07.4",pb:"2:06.2",m1:"-",m2:10,pts:101},
+    {name:"Ella Mackenzie",club:"St. Kevin's AC",nat:"AUS",sb:"2:06.1",pb:"2:05.8",m1:"-",m2:11,pts:109,delta:1},
+    {name:"Chloe Bartlett",club:"Mentone Athletics",nat:"AUS",sb:"2:07.4",pb:"2:06.2",m1:"-",m2:10,pts:101,delta:-1},
     {name:"Amara Diallo",club:"Melbourne Uni AC",nat:"AUS",sb:"2:08.9",pb:"2:07.5",m1:"-",m2:9,pts:94},
     {name:"Grace Thornton",club:"Glenhuntly AC",nat:"AUS",sb:"2:09.2",pb:"2:08.1",m1:"-",m2:8,pts:87},
     {name:"Priya Sharma",club:"Knox AC",nat:"AUS",sb:"2:10.0",pb:"2:09.4",m1:"-",m2:7,pts:79},
@@ -1088,7 +1143,7 @@ let lbData = {
     {name:"Hannah Wu",club:"St. Kevin's AC",nat:"AUS",sb:"2:14.1",pb:"2:13.5",m1:"-",m2:3,pts:46},
     {name:"Freya Andersen",club:"Mentone Athletics",nat:"DEN",sb:"2:15.0",pb:"2:14.2",m1:"-",m2:2,pts:37},
     {name:"Sienna Brooks",club:"Knox AC",nat:"AUS",sb:"2:16.3",pb:"2:15.8",m1:"-",m2:1,pts:28},
-    {name:"Mia Russo",club:"Coburg Harriers",nat:"AUS",sb:"2:17.1",pb:"2:16.4",m1:"-",m2:"-",pts:19},
+    {name:"Mia Russo",club:"Coburg Harriers",nat:"AUS",sb:"2:17.1",pb:"2:16.4",m1:"-",m2:"-",pts:19,isNew:true},
     {name:"Olivia Grant",club:"Williamstown AC",nat:"AUS",sb:"2:18.0",pb:"2:17.3",m1:"-",m2:"-",pts:11},
     {name:"Jade Tran",club:"Box Hill Athletics",nat:"AUS",sb:"2:19.2",pb:"2:18.5",m1:"-",m2:"-",pts:4},
     {name:"Maya Thompson",club:"Bendigo Harriers",nat:"AUS",sb:"2:21.4",pb:"2:20.1",m1:5,m2:3,pts:45},
@@ -1317,6 +1372,26 @@ let champData = [
   {year:2020,w800:{name:"Niamh O'Brien",club:"Williamstown AC",time:"2:06.3"},m800:{name:"Tom Harbridge",club:"Glenhuntly AC",time:"1:50.4"},w1500:{name:"Sophie Nguyen",club:"Box Hill Athletics",time:"4:15.2"},m1500:{name:"Patrick Lim",club:"St. Kevin's AC",time:"3:41.8"}},
 ];
 
+// Build a lookup of athlete -> season strings they were champion (e.g. '24/25')
+const champSeasonsMap = {};
+champData.forEach(y=>{
+  const season = `${String(y.year).slice(2)}/${String(y.year+1).slice(2)}`;
+  ['w800','m800','w1500','m1500'].forEach(ev=>{
+    if(y[ev] && y[ev].name){
+      const n = y[ev].name;
+      champSeasonsMap[n] = champSeasonsMap[n] || [];
+      if(!champSeasonsMap[n].includes(season)) champSeasonsMap[n].push(season);
+    }
+  });
+});
+
+function champBadgeFor(name, row){
+  const seasons = champSeasonsMap[name];
+  if(seasons && seasons.length) return `<span class="champ-badge">${seasons.join(', ')}</span>`;
+  if(row && row.prevChamp) return `<span class="champ-badge">Prev Champ</span>`;
+  return '';
+}
+
 let olympiansData = [
   {name:"David Lowe",games:"2016 Rio Olympics",event:"1500m",club:"Knox AC"},
   {name:"Emma Clarke",games:"2020 Tokyo Olympics",event:"1500m",club:"Melbourne Uni"},
@@ -1523,12 +1598,16 @@ function renderHomeLb(key){
   document.getElementById('homeLbBody').innerHTML=lbData[key]
     .slice()
     .sort((a, b) => b.pts - a.pts)
-    .map((r,i)=>`
+    .map((r,i)=>{
+      const move = typeof r.delta === 'number' ? (r.delta>0?`<span class="move-up">▲${r.delta}</span>`:(r.delta<0?`<span class="move-down">▼${Math.abs(r.delta)}</span>`:'')) : '';
+      const flame = r.isNew ? `<span class="new-flame" title="New">🔥</span>` : '';
+      return `
     <tr class="dt-row"><td style="text-align:center;">${posBadge(i)}</td>
-    <td><div class="td-name">${r.name}${r.prevChamp?'<span class="champ-badge">Prev Champ</span>':''}</div></td>
+    <td><div class="td-name">${r.name}${champBadgeFor(r.name,r)}${move}${flame}</div></td>
     <td><div class="td-club">${r.club}</div></td>
     <td class="td-time">${r.sb}</td>
-    <td class="td-pts"><span>${r.pts}</span></td></tr>`).join('');
+    <td class="td-pts"><span>${r.pts}</span></td></tr>`;
+    }).join('');
 }
 renderHomeLb('w800');
 document.getElementById('homeLbTabs').addEventListener('click',e=>{
@@ -1703,9 +1782,12 @@ function renderStandings(key){
   document.getElementById('standingsBody').innerHTML=lbData[key]
     .slice()
     .sort((a, b) => b.pts - a.pts)
-    .map((r,i)=>`
+    .map((r,i)=>{
+      const move = typeof r.delta === 'number' ? (r.delta>0?`<span class="move-up">▲${r.delta}</span>`:(r.delta<0?`<span class="move-down">▼${Math.abs(r.delta)}</span>`:'')) : '';
+      const flame = r.isNew ? `<span class="new-flame" title="New">🔥</span>` : '';
+      return `
     <tr class="dt-row"><td style="text-align:center;">${posBadge(i)}</td>
-    <td><div class="td-name">${r.name}${r.prevChamp?'<span class="champ-badge">Prev Champ</span>':''}</div></td>
+    <td><div class="td-name">${r.name}${champBadgeFor(r.name,r)}${move}${flame}</div></td>
     <td><div class="td-club">${r.club}</div></td>
     <td class="td-time">${r.sb}</td>
     <td class="td-sm">${r.m1 || '-'}</td>
@@ -1713,7 +1795,8 @@ function renderStandings(key){
     <td class="td-sm">${r.m3 || '-'}</td>
     <td class="td-sm">${r.m4 || '-'}</td>
     <td class="td-sm">${r.m5 || '-'}</td>
-    <td class="td-pts"><span>${r.pts}</span></td></tr>`).join('');
+    <td class="td-pts"><span>${r.pts}</span></td></tr>`;
+    }).join('');
 }
 renderStandings('w800');
 document.getElementById('standingsTabs').addEventListener('click',e=>{
@@ -1763,16 +1846,20 @@ function renderToplist(key){
     container.innerHTML = '<tr><td colspan="7" style="padding:32px;text-align:center;font-size:11px;color:#8A7052;font-weight:300;">Syncing rankings...</td></tr>';
     return;
   }
-  container.innerHTML=toplistMap[key].map((a,i)=>`
+  container.innerHTML=toplistMap[key].map((a,i)=>{
+    const move = typeof a.delta === 'number' ? (a.delta>0?`<span class="move-up">▲${a.delta}</span>`:(a.delta<0?`<span class="move-down">▼${Math.abs(a.delta)}</span>`:'')) : '';
+    const flame = a.isNew ? `<span class="new-flame" title="New">🔥</span>` : '';
+    return `
     <tr class="dt-row">
       <td class="c">${posBadge(i)}</td>
-      <td><div class="td-name">${a.name}</div></td>
+      <td><div class="td-name">${a.name}${move}${flame}</div></td>
       <td><div class="td-club">${a.club}</div></td>
       <td class="td-sm" style="text-align:left;">${a.date || ''}</td>
       <td class="td-sm" style="text-align:left;">${a.season || ''}</td>
       <td class="td-sm" style="text-align:left;">${a.location || ''}</td>
       <td class="td-time" class="r">${a.time}</td>
-    </tr>`).join('');
+    </tr>`;
+  }).join('');
 }
 renderToplist('w800');
 document.getElementById('toplistTabs').addEventListener('click',e=>{
