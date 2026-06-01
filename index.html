@@ -110,7 +110,7 @@ body{font-family:'Inter',sans-serif;background:var(--cream);color:var(--dark);ov
 ════════════════════════════════════ */
 /* CALENDAR HORIZONTAL STRIP */
 .cal-strip{background:var(--dark2);border-bottom:1px solid rgba(201,168,76,.15);overflow-x:auto;}
-.cal-strip-inner{display:flex;width:100%;padding:0;}
+.cal-strip-inner{display:flex;min-width:100%;padding:0;}
 .cal-meet-pill{flex:1;display:flex;align-items:center;gap:0;border-right:1px solid rgba(201,168,76,.1);min-width:180px;transition:background .15s;cursor:pointer;}
 .cal-meet-pill:last-child{border-right:none;}
 .cal-meet-pill:hover{background:rgba(201,168,76,.06);}
@@ -2294,13 +2294,3 @@ window.addEventListener('DOMContentLoaded', initApp);
 </script>
 </body>
 </html>
---- a/Users/craighuffer/VMC-Website/index.html
-+++ b/Users/craighuffer/VMC-Website/index.html
-@@ -101,4 +101,5 @@
- .cal-strip{background:var(--dark2);border-bottom:1px solid rgba(201,168,76,.15);overflow-x:auto;}
--.cal-strip-inner{display:flex;min-width:max-content;padding:0;}
--.cal-meet-pill{display:flex;align-items:center;gap:0;border-right:1px solid rgba(201,168,76,.1);min-width:180px;transition:background .15s;cursor:pointer;}
-+.cal-strip-inner{display:flex;min-width:100%;padding:0;}
-+.cal-meet-pill{flex:1;display:flex;align-items:center;gap:0;border-right:1px solid rgba(201,168,76,.1);min-width:180px;transition:background .15s;cursor:pointer;}
-+.cal-meet-pill:last-child{border-right:none;}
- .cmp-num{background:var(--red);padding:14px 12px;display:flex;flex-direction:column;align-items:center;justify-content:center;min-width:44px;}
