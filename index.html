@@ -631,10 +631,7 @@ body{font-family:'Inter',sans-serif;background:var(--cream);color:var(--dark);ov
     </div>
   </div>
   <div class="events-filter">
-    <button class="efil active" onclick="filterEvents('all',this)">All Meets</button>
-    <button class="efil" onclick="filterEvents('upcoming',this)">Upcoming</button>
-    <button class="efil" onclick="filterEvents('completed',this)">Completed</button>
-    <button class="efil" onclick="filterEvents('2026',this)">2026–27</button>
+    <button class="efil active" onclick="filterEvents('2026',this)">2026–27</button>
     <button class="efil" onclick="filterEvents('2025',this)">2025–26</button>
     <button class="efil" onclick="filterEvents('2023',this)">2023–24</button>
     <button class="efil" onclick="filterEvents('2022',this)">2022–23</button>
@@ -1744,14 +1741,8 @@ function scoreEventPriority(eventName) {
 function eventSortKey(name) {
   return String(name).replace(/\s*[A-Z]$/,'').trim();
 }
-function renderEvents(filter='all'){
-  let filtered=meetsData;
-  if(filter==='upcoming') filtered=meetsData.filter(e=>e.status==='enter');
-  else if(filter==='completed') filtered=meetsData.filter(e=>e.status==='results');
-  else if(filter==='2026') filtered=meetsData.filter(e=>e.year==='2026');
-  else if(filter==='2025') filtered=meetsData.filter(e=>e.year==='2025');
-  else if(filter==='2023') filtered=meetsData.filter(e=>e.year==='2023');
-  else if(filter==='2022') filtered=meetsData.filter(e=>e.year==='2022');
+function renderEvents(filter='2026'){
+  const filtered=meetsData.filter(e=>e.year===filter);
   document.getElementById('eventsGrid').innerHTML=filtered.map(e=>{
     const hasRes=e.status==='results'&&e.results;
     const resCols=hasRes?Object.entries(e.results).sort(([a],[b])=>{
@@ -1784,7 +1775,7 @@ function renderEvents(filter='all'){
       ${hasRes?`<div class="res-expand" id="er-${e.year}-${e.n}"><div class="res-expand-grid">${resCols}</div></div>`:''}</div>`;
   }).join('');
 }
-renderEvents();
+renderEvents('2026');
 function filterEvents(f,el){
   document.querySelectorAll('.efil').forEach(b=>b.classList.remove('active'));
   el.classList.add('active');renderEvents(f);
@@ -2248,7 +2239,7 @@ async function initApp() {
   renderLatestWinnersSidebar();
   renderStandings('w800');
   renderToplist('w800');
-  renderEvents();
+  renderEvents('2026');
 }
 
 function renderLatestWinnersSidebar(){
