@@ -2011,16 +2011,10 @@ document.getElementById('mostChampsClubBody').innerHTML = clubWinsWithYears.map(
 
 // Victorian Mile Champions (Men & Women) — combined table
 const maleMileChamps = [
-  {season:'2025–26',name:'Sam Ray',club:'Unattached',time:'4:14.41'},
-  {season:'2023–24',name:'Harry Eagleson',club:'Unattached',time:'4:12.90'},
-  {season:'2022–23',name:'Larry Cen',club:'Great Britain',time:'4:14.56'},
-  {season:'2021–22',name:'Alex Cameron',club:'Western Athletics',time:'3:41.71'},
+  {season:'2020–21',name:'Matthew Hussey',club:'Western Athletics',time:'4:09.94'},
 ];
 const femaleMileChamps = [
-  {season:'2025–26',name:'Olivia Twining',club:'Yarra Ranges',time:'5:02.94'},
-  {season:'2023–24',name:'Madi Smith',club:'Glenhuntly',time:'4:21.45'},
-  {season:'2022–23',name:'Olivia Twining',club:'Yarra Ranges',time:'5:03.50'},
-  {season:'2021–22',name:'Mia Kennedy',club:'Wellington',time:'5:02.27'},
+  {season:'2020–21',name:'Lauren Ryan',club:'Club AV',time:'4:34.75'},
 ];
 
 // Build combined rows by season (union of seasons from both lists)
@@ -2113,9 +2107,10 @@ async function fetchMasterTab(tab, range) {
 }
 
 function resultGroupLabel(race) {
-  const prefix = race.Gender === 'Women' ? 'W' : race.Gender === 'Men' ? 'M' : 'Mixed';
-  const grade = String(race.Grade || '').trim();
-  return `${prefix} ${race.Event}${grade ? (/^\d+$/.test(grade) ? ` Heat ${grade}` : ` ${grade}`) : ''}`;
+  const prefix = race.Gender === 'Women' ? 'Women' : race.Gender === 'Men' ? 'Men' : 'Mixed';
+  const grade = String(race.Grade || '').trim().replace(/^(?:Men|Women|Mixed)\s+/i, '').replace(/^Heat\s+/i, '');
+  const gradeLabel = /^[A-Z]$|^\d+$/.test(grade) ? `Heat ${grade}` : grade;
+  return `${prefix} ${race.Event}${gradeLabel ? ` — ${gradeLabel}` : ''}`;
 }
 
 function mergeMasterResults(seasons, meets, races, results) {
