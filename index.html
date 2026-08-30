@@ -525,7 +525,7 @@ body{font-family:'Inter',sans-serif;background:var(--cream);color:var(--dark);ov
       
       <div class="divider"></div>
       <div class="sec-eyebrow" id="homeStandingsProgress">Loading club points…</div>
-      <div class="sec-title">TOP 16 CLUBS</div>
+      <div class="sec-title">TOP 10 CLUBS</div>
       <div id="homeClubBoard" class="club-board-scroll" style="margin-top:16px;"></div>
 
       <div class="divider"></div>
@@ -912,7 +912,7 @@ body{font-family:'Inter',sans-serif;background:var(--cream);color:var(--dark);ov
         <div class="sec-title">Points System</div>
         <div class="about-rule"></div>
         <div class="about-body">
-          <p>The Victorian Milers Club utilizes a weighted points system to determine season rankings and club champions. For each meet, gender and discipline, all graded heats are combined and the 20 fastest athletes score points. Mile performances score in the 1500m discipline.</p>
+          <p>The Victorian Milers Club utilizes a weighted points system to determine season rankings and club champions. For each meet, gender and discipline, all graded heats are combined and the 20 fastest athletes score points. Mile performances score in the 1500m discipline. The 3000m meet is non-scoring.</p>
           <div class="table-scroll">
             <table class="prize-table" style="max-width: 240px;">
               <thead><tr><th>Pos</th><th class="r">Pts</th></tr></thead>
@@ -1531,6 +1531,10 @@ function showPage(page){
   document.getElementById('page-'+page).classList.add('active');
   const navEl=document.getElementById('nav-'+page);
   if(navEl) navEl.classList.add('active');
+  if(page === 'about') {
+    const whoButton = document.querySelector('#page-about .hist-nav .hn-item');
+    if(whoButton) showAbout('who', whoButton);
+  }
   window.scrollTo(0,0);
 }
 
@@ -1553,6 +1557,7 @@ function renderHomeLb(key){
   document.getElementById('homeLbBody').innerHTML=rows.length ? rows
     .slice()
     .sort(leaderboardSort)
+    .slice(0,20)
     .map((r,i)=>{
       const move = typeof r.delta === 'number' ? (r.delta>0?`<span class="move-up">▲${r.delta}</span>`:(r.delta<0?`<span class="move-down">▼${Math.abs(r.delta)}</span>`:'')) : '';
       const flame = r.isNew ? `<span class="new-flame" title="New">🔥</span>` : '';
@@ -1599,7 +1604,7 @@ function renderClubBoard(containerId,dark=false){
     return;
   }
 
-  const clubsToShow = containerId === 'homeClubBoard' ? scoringClubs.slice(0, 16) : scoringClubs;
+  const clubsToShow = containerId === 'homeClubBoard' ? scoringClubs.slice(0, 10) : scoringClubs;
 
   const max = clubsToShow[0].pts;
   container.innerHTML = clubsToShow.map((c, i) => `
@@ -2408,7 +2413,7 @@ function buildSeasonStandings(seasons, meets, races, results) {
     const gender = String(result.Gender || race.Gender || '').toLowerCase();
     const event = String(race.Event || '').toLowerCase().replace(/[^a-z0-9]/g, '');
     const sex = gender.startsWith('w') ? 'w' : gender.startsWith('m') ? 'm' : '';
-    const distance = event === '800m' ? '800' : ['1500m','mile','3000m'].includes(event) ? '1500' : '';
+    const distance = event === '800m' ? '800' : ['1500m','mile'].includes(event) ? '1500' : '';
     const seconds = resultTimeSeconds(result);
     if (!sex || !distance || !seconds || !String(result.Athlete_Name_Source || '').trim()) return;
     if (!seasonResults.has(result.Season_ID)) seasonResults.set(result.Season_ID, []);
@@ -2423,7 +2428,7 @@ function buildSeasonStandings(seasons, meets, races, results) {
     const athleteIds = new Set();
 
     // Rank the whole night by time, not each heat. Each meet/gender/discipline
-    // awards exactly 20 scores, and Mile/3000m feed the 1500m discipline.
+    // awards exactly 20 scores, and Mile feeds the 1500m discipline.
     const scoringGroups = new Map();
     entries.forEach(entry => {
       const groupKey = `${entry.result.Meet_ID}|${entry.key}`;
@@ -2502,7 +2507,11 @@ function buildSeasonStandings(seasons, meets, races, results) {
       clubTotals.set(group.club, (clubTotals.get(group.club) || 0) + contribution);
     });
     const clubs = [...clubTotals.entries()].map(([name,pts]) => ({name,pts})).sort((a,b) => b.pts-a.pts || a.name.localeCompare(b.name));
-    const seasonMeets = meets.filter(meet => meet.Season_ID === seasonId);
+    const scoringMeetIds = new Set(races.filter(race => {
+      const event = String(race.Event || '').toLowerCase().replace(/[^a-z0-9]/g, '');
+      return ['800m','1500m','mile'].includes(event) && String(race.Official || 'Yes').toLowerCase() !== 'no';
+    }).map(race => race.Meet_ID));
+    const seasonMeets = meets.filter(meet => meet.Season_ID === seasonId && scoringMeetIds.has(meet.Meet_ID));
     const season = seasonMap.get(seasonId) || {};
     standingsBySeason.set(seasonId, {
       events:eventRows,
