@@ -649,7 +649,7 @@ body{font-family:'Inter',sans-serif;background:var(--cream);color:var(--dark);ov
       <div class="sec-eyebrow-gold" style="margin-bottom:8px;">Season Info</div>
       <div style="font-size:11px;color:var(--muted);line-height:1.9;font-weight:300;">
         Meets completed: <span id="standingsMeetsInfo" style="color:var(--gold);font-weight:600;">—</span><br>
-        Points: <span style="color:var(--gold);font-weight:600;">All graded heats</span><br>
+        Points: <span style="color:var(--gold);font-weight:600;">Top 20 overall times</span><br>
         Athletes: <span id="standingsAthletesInfo" style="color:var(--gold);font-weight:600;">—</span><br>
         Championship rounds: <span style="color:var(--gold);font-weight:600;">Double points</span>
       </div>
@@ -902,7 +902,7 @@ body{font-family:'Inter',sans-serif;background:var(--cream);color:var(--dark);ov
           <div class="rule-item"><div class="rule-num">01</div><div class="rule-text">All athletes must be registered with Athletics Australia or an affiliated international body. Entry closes the Monday prior to each meet at 12pm.</div></div>
           <div class="rule-item"><div class="rule-num">02</div><div class="rule-text">Graded heats are assigned based on submitted estimated times. Athletes are responsible for providing accurate estimates.</div></div>
           <div class="rule-item"><div class="rule-num">03</div><div class="rule-text">Pacemakers must apply separately and are subject to committee approval. Pacers must withdraw before the bell lap if still leading.</div></div>
-          <div class="rule-item"><div class="rule-num">04</div><div class="rule-text">Season points are awarded based on finishing position in each heat. See the Points System section for the full breakdown.</div></div>
+          <div class="rule-item"><div class="rule-num">04</div><div class="rule-text">Season points are awarded to the 20 fastest athletes across all heats in each gender and discipline. See the Points System section for the full breakdown.</div></div>
           <div class="rule-item"><div class="rule-num">05</div><div class="rule-text">Club championship points are aggregated from all members' individual points.</div></div>
           <div class="rule-item"><div class="rule-num">06</div><div class="rule-text">All decisions by the VMC committee regarding results and points are final.</div></div>
         </div>
@@ -912,7 +912,7 @@ body{font-family:'Inter',sans-serif;background:var(--cream);color:var(--dark);ov
         <div class="sec-title">Points System</div>
         <div class="about-rule"></div>
         <div class="about-body">
-          <p>The Victorian Milers Club utilizes a weighted points system to determine season rankings and club champions. Points are awarded based on finishing position in every graded heat.</p>
+          <p>The Victorian Milers Club utilizes a weighted points system to determine season rankings and club champions. For each meet, gender and discipline, all graded heats are combined and the 20 fastest athletes score points. Mile performances score in the 1500m discipline.</p>
           <div class="table-scroll">
             <table class="prize-table" style="max-width: 240px;">
               <thead><tr><th>Pos</th><th class="r">Pts</th></tr></thead>
@@ -2409,9 +2409,10 @@ function buildSeasonStandings(seasons, meets, races, results) {
     const event = String(race.Event || '').toLowerCase().replace(/[^a-z0-9]/g, '');
     const sex = gender.startsWith('w') ? 'w' : gender.startsWith('m') ? 'm' : '';
     const distance = event === '800m' ? '800' : ['1500m','mile','3000m'].includes(event) ? '1500' : '';
-    if (!sex || !distance || !String(result.Athlete_Name_Source || '').trim()) return;
+    const seconds = resultTimeSeconds(result);
+    if (!sex || !distance || !seconds || !String(result.Athlete_Name_Source || '').trim()) return;
     if (!seasonResults.has(result.Season_ID)) seasonResults.set(result.Season_ID, []);
-    seasonResults.get(result.Season_ID).push({result, race, position, key:sex+distance, event});
+    seasonResults.get(result.Season_ID).push({result, race, position, key:sex+distance, event, seconds});
   });
 
   standingsBySeason = new Map();
@@ -2421,12 +2422,35 @@ function buildSeasonStandings(seasons, meets, races, results) {
     const completedMeetIds = new Set();
     const athleteIds = new Set();
 
-    entries.forEach(({result, race, position, key, event}) => {
+    // Rank the whole night by time, not each heat. Each meet/gender/discipline
+    // awards exactly 20 scores, and Mile/3000m feed the 1500m discipline.
+    const scoringGroups = new Map();
+    entries.forEach(entry => {
+      const groupKey = `${entry.result.Meet_ID}|${entry.key}`;
+      if (!scoringGroups.has(groupKey)) scoringGroups.set(groupKey, []);
+      scoringGroups.get(groupKey).push(entry);
+      completedMeetIds.add(entry.result.Meet_ID);
+      athleteIds.add(entry.result.Athlete_ID || String(entry.result.Athlete_Name_Source || '').trim().toLowerCase());
+    });
+    scoringGroups.forEach(group => {
+      const fastestByAthlete = new Map();
+      group.forEach(entry => {
+        const athleteKey = entry.result.Athlete_ID || String(entry.result.Athlete_Name_Source || '').trim().toLowerCase();
+        const current = fastestByAthlete.get(athleteKey);
+        if (!current || entry.seconds < current.seconds) fastestByAthlete.set(athleteKey, entry);
+      });
+      const ranked = [...fastestByAthlete.values()].sort((a,b) => a.seconds-b.seconds || a.position-b.position || String(a.result.Athlete_Name_Source||'').localeCompare(String(b.result.Athlete_Name_Source||'')));
+      ranked.forEach((entry,index) => {
+        entry.scoreRank = index + 1;
+        entry.basePoints = index < 20 ? VMC_POINTS[index + 1] : 0;
+      });
+    });
+
+    entries.forEach(({result, race, key, event, seconds, basePoints}) => {
       const meet = meetMap.get(result.Meet_ID) || {};
       const meetNumber = Number(meet.Meet_Number || String(result.Meet_ID || '').match(/(\d+)$/)?.[1]) || 0;
-      const championship = Boolean(String(race.Championship_Type || '').trim()) || result.Meet_ID === 'M2025-04';
-      const storedPoints = Number(result.Points);
-      const points = storedPoints > 0 ? storedPoints : (VMC_POINTS[position] || 0) * (championship ? 2 : 1);
+      const championship = Boolean(String(race.Championship_Type || '').trim()) || result.Meet_ID === 'M2025-05';
+      const points = (basePoints || 0) * (championship ? 2 : 1);
       if (!points) return;
 
       const athleteId = result.Athlete_ID || String(result.Athlete_Name_Source || '').trim().toLowerCase();
@@ -2443,7 +2467,6 @@ function buildSeasonStandings(seasons, meets, races, results) {
         const meetKey = `m${meetNumber}`;
         row[meetKey] = (Number(row[meetKey]) || 0) + points;
       }
-      const seconds = resultTimeSeconds(result);
       if (seconds) {
         const candidate = {seconds, display:result.Display_Time || String(result.Time_Seconds || ''), event};
         if (!row._fallback || seconds < row._fallback.seconds) row._fallback = candidate;
@@ -2451,12 +2474,9 @@ function buildSeasonStandings(seasons, meets, races, results) {
         if (event === exactEvent && (!row._exact || seconds < row._exact.seconds)) row._exact = candidate;
       }
       map.set(athleteId, row);
-      completedMeetIds.add(result.Meet_ID);
-      athleteIds.add(athleteId);
-
       const club = String(result.Club_Name_Source || '').trim();
       if (club && !/^(independent|unattached)$/i.test(club)) {
-        const groupKey = [result.Meet_ID, event, String(result.Gender || race.Gender || ''), club].join('|');
+        const groupKey = [result.Meet_ID, key, club].join('|');
         if (!clubGroups.has(groupKey)) clubGroups.set(groupKey, {club, scores:[]});
         clubGroups.get(groupKey).scores.push(points);
       }
