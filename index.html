@@ -484,29 +484,24 @@ body{font-family:'Inter',sans-serif;background:var(--cream);color:var(--dark);ov
         <button class="btn-ghost-hero" onclick="showPage('events')">2026–27 Schedule</button>
       </div>
       <div style="width:100%;max-width:820px;">
-        <div style="font-size:9px;letter-spacing:3px;text-transform:uppercase;color:rgba(201,168,76,.6);font-weight:600;margin-bottom:10px;text-align:center;">2026-27 VMC Season</div>
-        <div class="champs-strip">
-          <div class="champ-cell"><div class="cc-event">W 800M</div><div class="cc-name">Lucy Delbridge</div><div class="cc-time">2:06.04</div><div class="cc-label">Collingwood Harriers</div></div>
-          <div class="champ-cell"><div class="cc-event">M 800M</div><div class="cc-name">Bob Abdelrahim</div><div class="cc-time">1:46.08</div><div class="cc-label">St. Kevin's AC</div></div>
-          <div class="champ-cell"><div class="cc-event">W 1500M</div><div class="cc-name">Madison King</div><div class="cc-time">4:21.45</div><div class="cc-label">Glenhuntly AC</div></div>
-          <div class="champ-cell"><div class="cc-event">M 1500M</div><div class="cc-name">Tiarnan Crorken</div><div class="cc-time">3:44.56</div><div class="cc-label">Great Britain</div></div>
-        </div>
+        <div id="homeSeasonLabel" style="font-size:9px;letter-spacing:3px;text-transform:uppercase;color:rgba(201,168,76,.6);font-weight:600;margin-bottom:10px;text-align:center;">VMC Season</div>
+        <div id="homeChampionsStrip" class="champs-strip"></div>
       </div>
     </div>
   </div>
 
   <!-- VMC Records -->
   <div class="records-band">
-    <div class="rec-cell"><div class="rec-event">VMC Record — W 800m</div><div class="rec-time">2:01.4</div><div class="rec-name">Sarah Mitchell, 2019</div></div>
-    <div class="rec-cell"><div class="rec-event">VMC Record — M 800m</div><div class="rec-time">1:46.8</div><div class="rec-name">David Lowe, 2017</div></div>
-    <div class="rec-cell"><div class="rec-event">VMC Record — W 1500m</div><div class="rec-time">4:07.2</div><div class="rec-name">Emma Clarke, 2021</div></div>
-    <div class="rec-cell"><div class="rec-event">VMC Record — M 1500m</div><div class="rec-time">3:35.9</div><div class="rec-name">James Reardon, 2022</div></div>
+    <div class="rec-cell" data-record-key="w800"><div class="rec-event">VMC Record — W 800m</div><div class="rec-time">--</div><div class="rec-name">Loading…</div></div>
+    <div class="rec-cell" data-record-key="m800"><div class="rec-event">VMC Record — M 800m</div><div class="rec-time">--</div><div class="rec-name">Loading…</div></div>
+    <div class="rec-cell" data-record-key="w1500"><div class="rec-event">VMC Record — W 1500m</div><div class="rec-time">--</div><div class="rec-name">Loading…</div></div>
+    <div class="rec-cell" data-record-key="m1500"><div class="rec-event">VMC Record — M 1500m</div><div class="rec-time">--</div><div class="rec-name">Loading…</div></div>
   </div>
   <div class="records-band" style="border-top:1px solid rgba(255,255,255,0.15);">
-    <div class="rec-cell"><div class="rec-event">VMC Record — W Mile</div><div class="rec-time">4:28.5</div><div class="rec-name">Sarah Mitchell, 2020</div></div>
-    <div class="rec-cell"><div class="rec-event">VMC Record — M Mile</div><div class="rec-time">3:54.2</div><div class="rec-name">James Reardon, 2023</div></div>
-    <div class="rec-cell"><div class="rec-event">VMC Record — W 3000m</div><div class="rec-time">8:56.4</div><div class="rec-name">Emma Clarke, 2022</div></div>
-    <div class="rec-cell"><div class="rec-event">VMC Record — M 3000m</div><div class="rec-time">7:48.1</div><div class="rec-name">Patrick Lim, 2023</div></div>
+    <div class="rec-cell" data-record-key="wmile"><div class="rec-event">VMC Record — W Mile</div><div class="rec-time">--</div><div class="rec-name">Loading…</div></div>
+    <div class="rec-cell" data-record-key="mmile"><div class="rec-event">VMC Record — M Mile</div><div class="rec-time">--</div><div class="rec-name">Loading…</div></div>
+    <div class="rec-cell" data-record-key="w3000"><div class="rec-event">VMC Record — W 3000m</div><div class="rec-time">--</div><div class="rec-name">Loading…</div></div>
+    <div class="rec-cell" data-record-key="m3000"><div class="rec-event">VMC Record — M 3000m</div><div class="rec-time">--</div><div class="rec-name">Loading…</div></div>
   </div>
 
   <!-- Main 3 col: Standings | Results | Calendar -->
@@ -556,23 +551,6 @@ body{font-family:'Inter',sans-serif;background:var(--cream);color:var(--dark);ov
       <div class="divider-gold"></div>
       <div id="latestWinnersSidebar"></div>
 
-      <div class="divider-gold"></div>
-      <div class="sec-eyebrow-gold">Season Impact</div>
-      <div class="sec-title-light" style="margin-bottom:16px;">Competition Stats</div>
-      <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;">
-        <div style="background:rgba(255,255,255,.03);padding:16px;text-align:center;border:1px solid rgba(201,168,76,.12);">
-          <div class="stat-n">312</div><div class="stat-l">Total Entries</div>
-        </div>
-        <div style="background:rgba(255,255,255,.03);padding:16px;text-align:center;border:1px solid rgba(201,168,76,.12);">
-          <div class="stat-n">5</div><div class="stat-l">Rounds Complete</div>
-        </div>
-        <div style="background:rgba(255,255,255,.03);padding:16px;text-align:center;border:1px solid rgba(201,168,76,.12);">
-          <div class="stat-n">74</div><div class="stat-l">PBs Set This Season</div>
-        </div>
-        <div style="background:rgba(255,255,255,.03);padding:16px;text-align:center;border:1px solid rgba(201,168,76,.12);">
-          <div class="stat-n">11</div><div class="stat-l">Olympians Competed</div>
-        </div>
-      </div>
     </div>
   </div>
 
@@ -1721,6 +1699,10 @@ function scoreEventPriority(eventName) {
 function eventSortKey(name) {
   return String(name).replace(/\s*[A-Z]$/,'').trim();
 }
+function resultPosition(result) {
+  const position = result.p ?? result.pos ?? result.position ?? result.place;
+  return position === '' || position == null ? '—' : position;
+}
 function renderEvents(filter='2026'){
   const filtered=meetsData.filter(e=>e.year===filter);
   document.getElementById('eventsGrid').innerHTML=filtered.map(e=>{
@@ -1731,7 +1713,7 @@ function renderEvents(filter='2026'){
       if(pa!==pb) return pa-pb;
       return eventSortKey(a).localeCompare(eventSortKey(b));
     }).map(([ev,rows])=>`
-      <div class="res-ev-col"><h4>${ev}</h4>${rows.map(r=>`<div class="res-row"><div class="res-pos">${r.p}</div><div class="res-name">${r.n}</div><div class="res-time">${r.t}</div></div>`).join('')}</div>`).join(''):'';
+      <div class="res-ev-col"><h4>${ev}</h4>${rows.map(r=>`<div class="res-row"><div class="res-pos" title="Finishing position">${resultPosition(r)}</div><div class="res-name">${r.n}</div><div class="res-time">${r.t}</div></div>`).join('')}</div>`).join(''):'';
     return`<div class="event-card">
       <div class="ec-header">
         <div class="ec-num"><div class="ec-num-lbl">Meet</div><div class="ec-num-n">${e.n}</div><div class="ec-num-yr">${e.year}</div></div>
@@ -1810,6 +1792,38 @@ function showAbout(section,btn){
   btn.classList.add('active');
 }
 
+function renderHomepageChampions() {
+  const strip = document.getElementById('homeChampionsStrip');
+  const label = document.getElementById('homeSeasonLabel');
+  if (!strip) return;
+
+  const seasonChampions = champData.find(item => item.year === 2025) || champData[0] || null;
+  if (!seasonChampions) {
+    strip.innerHTML = '';
+    if (label) label.textContent = 'VMC Season';
+    return;
+  }
+
+  const seasonText = `${seasonChampions.year}–${String(seasonChampions.year + 1).slice(2)} Season`;
+  if (label) label.textContent = seasonText;
+
+  const cells = [
+    ['W 800M', seasonChampions.w800],
+    ['M 800M', seasonChampions.m800],
+    ['W 1500M', seasonChampions.w1500],
+    ['M 1500M', seasonChampions.m1500]
+  ];
+
+  strip.innerHTML = cells.map(([event, athlete]) => `
+    <div class="champ-cell">
+      <div class="cc-event">${event}</div>
+      <div class="cc-name">${athlete ? athlete.name : 'TBA'}</div>
+      <div class="cc-time">${athlete ? athlete.time : '--'}</div>
+      <div class="cc-label">${athlete ? athlete.club : ''}</div>
+    </div>
+  `).join('');
+}
+
 // Champions
 document.getElementById('championsHistory').innerHTML=champData.map(y=>`
   <div class="champ-year-block"><div class="cy-title">${y.year}–${String(y.year+1).slice(2)} Season</div>
@@ -1817,6 +1831,7 @@ document.getElementById('championsHistory').innerHTML=champData.map(y=>`
     ${[['W 800m',y.w800],['M 800m',y.m800],['W 1500m',y.w1500],['M 1500m',y.m1500]].map(([ev,d])=>`
       <div class="cy-cell"><div class="cy-event">${ev}</div><div class="cy-name">${d.name}</div><div class="cy-club">${d.club}</div><div class="cy-time">${d.time}</div></div>`).join('')}
   </div></div>`).join('');
+renderHomepageChampions();
 
 // Olympians
 document.getElementById('olympiansGrid').innerHTML=olympiansData.map(o=>`
@@ -1836,6 +1851,50 @@ function formatToplistDate(value) {
   const date = iso ? new Date(Number(iso[1]), Number(iso[2]) - 1, Number(iso[3])) : new Date(direct);
   if (Number.isNaN(date.getTime())) return direct;
   return `${date.getDate()} ${date.toLocaleString('en-AU', {month:'short'})} ${date.getFullYear()}`;
+}
+function getRecordLabel(key) {
+  const map = {
+    w800: 'W 800m',
+    m800: 'M 800m',
+    w1500: 'W 1500m',
+    m1500: 'M 1500m',
+    wmile: 'W Mile',
+    mmile: 'M Mile',
+    w3000: 'W 3000m',
+    m3000: 'M 3000m'
+  };
+  return map[key] || key;
+}
+function updateHomepageRecords() {
+  const cards = document.querySelectorAll('.rec-cell[data-record-key]');
+  if (!cards.length) return;
+
+  cards.forEach(card => {
+    const key = card.dataset.recordKey;
+    const entry = (toplistMap[key] && toplistMap[key][0]) || null;
+    const event = card.querySelector('.rec-event');
+    const time = card.querySelector('.rec-time');
+    const name = card.querySelector('.rec-name');
+
+    if (!entry) {
+      if (event) event.textContent = `VMC Record — ${getRecordLabel(key)}`;
+      if (time) time.textContent = '--';
+      if (name) name.textContent = 'No result yet';
+      return;
+    }
+
+    const year = entry.date ? (() => {
+      const direct = String(entry.date).trim();
+      const iso = direct.match(/^(\d{4})-(\d{2})-(\d{2})$/);
+      if (iso) return Number(iso[1]);
+      const parsed = new Date(direct);
+      return Number.isNaN(parsed.getTime()) ? '' : parsed.getFullYear();
+    })() : '';
+
+    if (event) event.textContent = `VMC Record — ${getRecordLabel(key)}`;
+    if (time) time.textContent = entry.time || '--';
+    if (name) name.textContent = year ? `${entry.name}, ${year}` : entry.name;
+  });
 }
 function renderToplist(key){
   const container = document.getElementById('toplistBody');
@@ -1861,6 +1920,7 @@ function renderToplist(key){
   }).join('');
 }
 renderToplist('w800');
+updateHomepageRecords();
 document.getElementById('toplistTabs').addEventListener('click',e=>{
   const b=e.target.closest('.tab-btn');if(!b)return;
   document.querySelectorAll('#toplistTabs .tab-btn').forEach(t=>t.classList.remove('active'));
@@ -2136,7 +2196,7 @@ function mergeMasterResults(seasons, meets, races, results) {
       const label = resultGroupLabel(race);
       if (!grouped[label]) grouped[label] = [];
       grouped[label].push({
-        p: row.Position || '—',
+        p: row.Position ?? row.Place ?? row.position ?? row.place ?? '—',
         n: row.Athlete_Name_Source || '',
         c: row.Club_Name_Source || '',
         t: row.Display_Time || row.DQ_DNF_DNS || ''
@@ -2170,23 +2230,59 @@ function masterEventKey(event, gender) {
 
 function isAllTimeEligible(result) {
   const name = String(result.Athlete_Name_Source || '').toLowerCase().replace(/[^a-z]/g, '');
-  const status = String(result.DQ_DNF_DNS || '').toLowerCase();
-  return !['richardcolman', 'richardcoleman'].includes(name) && !status.includes('wheelchair') && status !== 'awd';
+  const status = String(result.DQ_DNF_DNS || '').trim().toLowerCase();
+  const excluded = String(result.Exclude_All_Time || '').trim().toLowerCase() === 'yes';
+  const nonFinish = /^(dq|dnf|dns|nt)$/.test(status);
+  return Boolean(name) && !excluded && !nonFinish && !['richardcolman', 'richardcoleman'].includes(name) && !status.includes('wheelchair') && status !== 'awd';
 }
 
-function buildMasterToplists(seasons, meets, races, results) {
+function buildMasterToplists(seasons, meets, races, results, athletes = []) {
   const seasonMap = new Map(seasons.map(row => [row.Season_ID, row]));
   const meetMap = new Map(meets.map(row => [row.Meet_ID, row]));
   const raceMap = new Map(races.map(row => [row.Race_ID, row]));
+  // This imported race is labelled as Women's B but contains men's results.
+  // Keep it out of records until the underlying 2016-17 source rows are repaired.
+  const quarantinedAllTimeRaceIds = new Set(['R-M2016-04-002']);
+  const genderHistory = new Map();
+  athletes.forEach(athlete => {
+    const name = String(athlete.Canonical_Name || '').trim().toLowerCase();
+    const gender = athlete.Gender;
+    if (!name || !['Men', 'Women'].includes(gender)) return;
+    const counts = genderHistory.get(name) || {Men: 0, Women: 0};
+    counts[gender] += 1;
+    genderHistory.set(name, counts);
+  });
+  results.forEach(result => {
+    const name = String(result.Athlete_Name_Source || '').trim().toLowerCase();
+    const gender = result.Gender;
+    if (!name || !['Men', 'Women'].includes(gender)) return;
+    const counts = genderHistory.get(name) || {Men: 0, Women: 0};
+    counts[gender] += 1;
+    genderHistory.set(name, counts);
+  });
   Object.keys(toplistMap).forEach(key => toplistMap[key] = []);
   const best = new Map();
 
   results.forEach(result => {
     if (!isAllTimeEligible(result)) return;
+    if (quarantinedAllTimeRaceIds.has(result.Race_ID)) return;
     const race = raceMap.get(result.Race_ID);
     const seconds = Number(result.Time_Seconds);
-    if (!race || !seconds) return;
-    const key = masterEventKey(race.Event, result.Gender);
+    if (!race || !seconds || String(race.Official || 'Yes').toLowerCase() === 'no') return;
+    const nameKey = String(result.Athlete_Name_Source || '').trim().toLowerCase();
+    const genders = genderHistory.get(nameKey);
+    const resultGender = result.Gender;
+    const raceGender = race.Gender;
+    let resolvedGender = resultGender === raceGender ? resultGender : (raceGender || resultGender);
+    if (genders && genders.Men !== genders.Women) {
+      const dominantGender = genders.Men > genders.Women ? 'Men' : 'Women';
+      const dominantCount = Math.max(genders.Men, genders.Women);
+      const otherCount = Math.min(genders.Men, genders.Women);
+      if (resultGender !== raceGender || (dominantCount >= 3 && dominantCount >= otherCount * 3)) {
+        resolvedGender = dominantGender;
+      }
+    }
+    const key = masterEventKey(race.Event, resolvedGender);
     if (!key) return;
     const athleteKey = result.Athlete_ID || result.Athlete_Name_Source;
     const bestKey = key + '|' + athleteKey;
@@ -2211,6 +2307,7 @@ function buildMasterToplists(seasons, meets, races, results) {
     toplistMap[key].sort((a,b) => a.seconds - b.seconds || a.name.localeCompare(b.name));
     toplistMap[key] = toplistMap[key].slice(0, 200);
   });
+  updateHomepageRecords();
   renderToplist(document.querySelector('#toplistTabs .tab-btn.active')?.dataset.tl || 'w800');
 }
 
@@ -2253,7 +2350,7 @@ function buildMasterWins(races, results, athletes) {
   results.forEach(result => {
     if (!isAllTimeEligible(result)) return;
     const race = raceMap.get(result.Race_ID);
-    if (!race || race.Race_Type !== 'A-Race' || Number(result.Position) !== 1) return;
+    if (!race || String(race.Official || 'Yes').toLowerCase() === 'no' || race.Race_Type !== 'A-Race' || Number(result.Position) !== 1) return;
     const gender = result.Gender;
     if (gender === 'Men') add(buckets.male, result);
     if (gender === 'Women') add(buckets.female, result);
@@ -2312,7 +2409,7 @@ async function loadMasterSnapshot() {
 
 function applyMasterDatabase({seasons, meets, races, results, athletes = []}) {
   mergeMasterResults(seasons, meets, races, results);
-  buildMasterToplists(seasons, meets, races, results);
+  buildMasterToplists(seasons, meets, races, results, athletes);
   buildMasterWins(races, results, athletes);
   return renderEventFilters(seasons);
 }
@@ -2322,9 +2419,9 @@ async function syncMasterDatabase() {
     const [seasons, meets, races, results, athletes] = await Promise.all([
       fetchMasterTab('SEASONS', 'A4:H1000'),
       fetchMasterTab('MEETS', 'A4:L1000'),
-      fetchMasterTab('RACES', 'A4:L6000'),
-      fetchMasterTab('RESULTS', 'A4:Q25000'),
-      fetchMasterTab('ATHLETES', 'A4:K10000')
+      fetchMasterTab('RACES', 'A4:L10000'),
+      fetchMasterTab('RESULTS', 'A4:Q50000'),
+      fetchMasterTab('ATHLETES', 'A4:K20000')
     ]);
     applyMasterDatabase({seasons, meets, races, results, athletes});
     console.log('VMC Sync: Master database loaded');
@@ -2513,32 +2610,43 @@ function renderLatestWinnersSidebar(){
   const container = document.getElementById('latestWinnersSidebar');
   if(!container) return;
 
-  // Filter for meets that have results and sort them by year then meet number (descending)
-  const meetsWithResults = [...meetsData]
+  // Get all unique years from meetsData that have results, sorted descending
+  const yearsWithResults = [...new Set(meetsData
     .filter(m => m.results && Object.keys(m.results).length > 0)
-    .sort((a, b) => (b.year || "").localeCompare(a.year || "") || (b.n || 0) - (a.n || 0));
+    .map(m => m.year)
+  )].sort((a, b) => (b || "").localeCompare(a || ""));
 
-  if (!meetsWithResults || meetsWithResults.length === 0) { // Check if there are any meets with results
+  if (yearsWithResults.length === 0) {
     container.innerHTML = '';
     return;
   }
 
+  // Use the most recent year with results
+  const selectedYear = yearsWithResults[0];
+  const meetsWithResults = [...meetsData]
+    .filter(m => m.year === selectedYear && m.results && Object.keys(m.results).length > 0)
+    .sort((a, b) => (b.n || 0) - (a.n || 0));
+
+  // Create season label from year (e.g., 2025 → 2025–26 Season)
+  const seasonLabel = `${selectedYear}–${String(Number(selectedYear) + 1).slice(2)} Season`;
+
   let allMeetsWinnersHtml = '';
 
-  meetsWithResults.forEach((meet, index) => { // Iterate over all meets with results
+  meetsWithResults.forEach((meet, index) => {
     const hasAHeats = Object.keys(meet.results).some(k => /\bA\b/i.test(k));
     const winners = [];
 
     for (const eventName in meet.results) {
       const isPremier = hasAHeats ? /\bA\b/i.test(eventName) : true;
       if (isPremier) {
-        const winner = meet.results[eventName].find(x => x.p === 1 || x.pos === 1);
+        const winner = meet.results[eventName].find(x => x.p === 1 || x.p === '1' || x.pos === 1 || x.pos === '1');
         if (winner) {
           let evLabel = eventName
-            .replace(/Men/gi, 'M').replace(/Women|Wom/gi, 'W')
-            .replace(/Metre Run/gi, 'm').replace(/Open/gi, '')
-            .replace(/\bA\b/g, '').replace(/\s+/g, ' ').trim()
-            .replace(/(\d+)\s*m/i, '$1M');
+            .replace(/Men|Male/gi, 'M').replace(/Women|Woman|Female|Wom/gi, 'W')
+            .replace(/\s*—\s*/g, ' ').replace(/Heat\s*[A-Z]/gi, '')
+            .replace(/Metre Run|Metres Run/gi, 'm').replace(/Open/gi, '')
+            .replace(/1500\s*m|1500m/gi, '1500M').replace(/800\s*m|800m/gi, '800M').replace(/3000\s*m|3000m/gi, '3000M')
+            .replace(/\s+/g, ' ').trim();
 
           winners.push({ ev: evLabel, name: winner.n || winner.name, time: winner.t || winner.time });
         }
@@ -2556,12 +2664,12 @@ function renderLatestWinnersSidebar(){
               <div style="font-family:'Bebas Neue',sans-serif;font-size:20px;color:var(--text);letter-spacing:.5px;">${w.time}</div>
             </div>`).join('')}
         </div>
-        ${index < meetsWithResults.length - 1 ? '<div class="divider-gold"></div>' : ''} <!-- Add divider between meets -->
+        ${index < meetsWithResults.length - 1 ? '<div class="divider-gold"></div>' : ''}
       `;
     }
   });
 
-  container.innerHTML = `<div class="sec-eyebrow-gold">2025–26 Season</div>${allMeetsWinnersHtml}`;
+  container.innerHTML = `<div class="sec-eyebrow-gold">${seasonLabel}</div>${allMeetsWinnersHtml}`;
 }
 
 window.addEventListener('DOMContentLoaded', initApp);
