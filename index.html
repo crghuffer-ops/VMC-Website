@@ -2236,6 +2236,16 @@ function isAllTimeEligible(result) {
   return Boolean(name) && !excluded && !nonFinish && !['richardcolman', 'richardcoleman'].includes(name) && !status.includes('wheelchair') && status !== 'awd';
 }
 
+function resultTimeSeconds(result) {
+  const stored = Number(result.Time_Seconds);
+  if (Number.isFinite(stored) && stored > 0) return stored;
+  const display = String(result.Display_Time || '').trim().toLowerCase().replace(/h$/, '');
+  const minutes = display.match(/^(\d+):(\d+(?:\.\d+)?)$/);
+  if (minutes) return Number(minutes[1]) * 60 + Number(minutes[2]);
+  const seconds = Number(display);
+  return Number.isFinite(seconds) && seconds > 0 ? seconds : 0;
+}
+
 function buildMasterToplists(seasons, meets, races, results, athletes = []) {
   const seasonMap = new Map(seasons.map(row => [row.Season_ID, row]));
   const meetMap = new Map(meets.map(row => [row.Meet_ID, row]));
@@ -2267,7 +2277,7 @@ function buildMasterToplists(seasons, meets, races, results, athletes = []) {
     if (!isAllTimeEligible(result)) return;
     if (quarantinedAllTimeRaceIds.has(result.Race_ID)) return;
     const race = raceMap.get(result.Race_ID);
-    const seconds = Number(result.Time_Seconds);
+    const seconds = resultTimeSeconds(result);
     if (!race || !seconds || String(race.Official || 'Yes').toLowerCase() === 'no') return;
     const nameKey = String(result.Athlete_Name_Source || '').trim().toLowerCase();
     const genders = genderHistory.get(nameKey);
