@@ -508,7 +508,7 @@ body{font-family:'Inter',sans-serif;background:var(--cream);color:var(--dark);ov
   <div class="home-main">
     <!-- Standings -->
     <div class="hm-col">
-      <div class="sec-eyebrow">2026–27 Season</div>
+      <div class="sec-eyebrow" id="homeStandingsSeason">Loading standings…</div>
       <div class="sec-title">Season Standings</div>
       <div class="tab-row" id="homeLbTabs">
         <button class="tab-btn active" data-key="w800">W 800m</button>
@@ -524,7 +524,7 @@ body{font-family:'Inter',sans-serif;background:var(--cream);color:var(--dark);ov
       </div>
       
       <div class="divider"></div>
-      <div class="sec-eyebrow">After Meet 5</div>
+      <div class="sec-eyebrow" id="homeStandingsProgress">Loading club points…</div>
       <div class="sec-title">TOP 16 CLUBS</div>
       <div id="homeClubBoard" class="club-board-scroll" style="margin-top:16px;"></div>
 
@@ -620,21 +620,14 @@ body{font-family:'Inter',sans-serif;background:var(--cream);color:var(--dark);ov
     <div class="page-hero-bg"></div>
     <div class="page-hero-wm">STANDINGS</div>
     <div class="ph-content">
-      <div class="ph-eyebrow">2026–27 Season</div>
+      <div class="ph-eyebrow" id="standingsSeasonLabel">Loading standings…</div>
       <h1 class="ph-title">Season <em>Standings</em></h1>
       <p class="ph-sub">Full season rankings. Points accumulated across all meets. Updated after every race.</p>
     </div>
   </div>
   <div class="standings-layout">
     <div class="standings-main">
-      <div class="season-btns">
-        <button class="s-btn active">2026–27</button>
-        <button class="s-btn">2025–26</button>
-        <button class="s-btn">2023–24</button>
-        <button class="s-btn">2022–23</button>
-        <button class="s-btn">2021–22</button>
-        <button class="s-btn">2020–21</button>
-      </div>
+      <div class="season-btns" id="standingsSeasonButtons"></div>
       <div class="tab-row" id="standingsTabs">
         <button class="tab-btn active" data-key="w800">Women's 800m</button>
         <button class="tab-btn" data-key="m800">Men's 800m</button>
@@ -649,16 +642,16 @@ body{font-family:'Inter',sans-serif;background:var(--cream);color:var(--dark);ov
       </div>
     </div>
     <div class="standings-sidebar">
-      <div class="sec-eyebrow-gold" style="margin-bottom:8px;">After Meet 1</div>
+      <div class="sec-eyebrow-gold" id="standingsClubProgress" style="margin-bottom:8px;">Loading club points…</div>
       <div class="sec-title-light" style="font-size:17px;margin-bottom:14px;">Club Board</div>
       <div id="sideClub" class="club-board-scroll"></div>
       <div class="divider-gold"></div>
       <div class="sec-eyebrow-gold" style="margin-bottom:8px;">Season Info</div>
       <div style="font-size:11px;color:var(--muted);line-height:1.9;font-weight:300;">
-        Meets completed: <span style="color:var(--gold);font-weight:600;">0 of 5</span><br>
-        Points: <span style="color:var(--gold);font-weight:600;">Best 4 of 5</span><br>
-        Athletes: <span style="color:var(--gold);font-weight:600;">TBA</span><br>
-        PBs set: <span style="color:var(--gold);font-weight:600;">TBA</span>
+        Meets completed: <span id="standingsMeetsInfo" style="color:var(--gold);font-weight:600;">—</span><br>
+        Points: <span style="color:var(--gold);font-weight:600;">All graded heats</span><br>
+        Athletes: <span id="standingsAthletesInfo" style="color:var(--gold);font-weight:600;">—</span><br>
+        Championship rounds: <span style="color:var(--gold);font-weight:600;">Double points</span>
       </div>
     </div>
   </div>
@@ -1163,6 +1156,17 @@ let lbData = {
   ]
 };
 
+// Live standings replace the design-time sample above as soon as the master
+// database loads. Keeping each season separate also lets the page switch years.
+const VMC_POINTS = Object.freeze({1:50,2:40,3:30,4:25,5:20,6:18,7:16,8:14,9:12,10:10,11:9,12:8,13:7,14:6,15:5,16:4,17:3,18:2,19:1,20:1});
+let standingsBySeason = new Map();
+let activeStandingsSeasonId = '';
+let clubStandingsData = [];
+let standingsSeasonMeta = {label:'', completed:0, total:0, athletes:0};
+let homepageLbData = lbData;
+let homepageClubStandingsData = [];
+let homepageStandingsMeta = {label:'', completed:0, total:0, athletes:0};
+
 let resultData = {
   rw800:[
     {pos:1,name:'Lucy Delbridge',club:'Collingwood',time:'2:06.04'},
@@ -1538,10 +1542,17 @@ function posBadge(i){
   return `<div class="pos-n">${i+1}</div>`;
 }
 
+function leaderboardSort(a,b){
+  return (Number(b.pts)||0) - (Number(a.pts)||0)
+    || (Number(a.sbSeconds)||Number.POSITIVE_INFINITY) - (Number(b.sbSeconds)||Number.POSITIVE_INFINITY)
+    || String(a.name||'').localeCompare(String(b.name||''));
+}
+
 function renderHomeLb(key){
-  document.getElementById('homeLbBody').innerHTML=lbData[key]
+  const rows = homepageLbData[key] || [];
+  document.getElementById('homeLbBody').innerHTML=rows.length ? rows
     .slice()
-    .sort((a, b) => b.pts - a.pts)
+    .sort(leaderboardSort)
     .map((r,i)=>{
       const move = typeof r.delta === 'number' ? (r.delta>0?`<span class="move-up">▲${r.delta}</span>`:(r.delta<0?`<span class="move-down">▼${Math.abs(r.delta)}</span>`:'')) : '';
       const flame = r.isNew ? `<span class="new-flame" title="New">🔥</span>` : '';
@@ -1551,7 +1562,7 @@ function renderHomeLb(key){
     <td><div class="td-club">${r.club}</div></td>
     <td class="td-time">${r.sb}</td>
     <td class="td-pts"><span>${r.pts}</span></td></tr>`;
-    }).join('');
+    }).join('') : '<tr><td colspan="5" style="padding:24px;color:#8A7052;">No points recorded for this event yet.</td></tr>';
 }
 renderHomeLb('w800');
 document.getElementById('homeLbTabs').addEventListener('click',e=>{
@@ -1579,25 +1590,14 @@ document.getElementById('homeResTabs').addEventListener('click',e=>{
 
 // Club board
 function renderClubBoard(containerId,dark=false){
-  // Aggregate scores from all athletes in lbData to find "every club who has scored"
-  const totals = {};
-  Object.values(lbData).forEach(eventList => {
-    eventList.forEach(ath => {
-      if (ath.pts && !isNaN(ath.pts)) {
-        const clubName = ath.club || "Unattached";
-        if (!totals[clubName]) totals[clubName] = 0;
-        totals[clubName] += ath.pts;
-      }
-    });
-  });
-
-  // Convert to sorted array
-  const scoringClubs = Object.entries(totals)
-    .map(([name, pts]) => ({ name, pts }))
-    .sort((a, b) => b.pts - a.pts);
+  const scoringClubs = containerId === 'homeClubBoard' ? homepageClubStandingsData : clubStandingsData;
 
   const container = document.getElementById(containerId);
-  if (!container || scoringClubs.length === 0) return;
+  if (!container) return;
+  if (scoringClubs.length === 0) {
+    container.innerHTML = '<div style="font-size:11px;color:#8A7052;padding:12px 0;">No club points recorded yet.</div>';
+    return;
+  }
 
   const clubsToShow = containerId === 'homeClubBoard' ? scoringClubs.slice(0, 16) : scoringClubs;
 
@@ -1727,9 +1727,10 @@ function toggleRes(id,btn){
 
 // ═══════════════════ STANDINGS PAGE ═══════════════════
 function renderStandings(key){
-  document.getElementById('standingsBody').innerHTML=lbData[key]
+  const rows = lbData[key] || [];
+  document.getElementById('standingsBody').innerHTML=rows.length ? rows
     .slice()
-    .sort((a, b) => b.pts - a.pts)
+    .sort(leaderboardSort)
     .map((r,i)=>{
       const move = typeof r.delta === 'number' ? (r.delta>0?`<span class="move-up">▲${r.delta}</span>`:(r.delta<0?`<span class="move-down">▼${Math.abs(r.delta)}</span>`:'')) : '';
       const flame = r.isNew ? `<span class="new-flame" title="New">🔥</span>` : '';
@@ -1744,13 +1745,18 @@ function renderStandings(key){
     <td class="td-sm">${r.m4 || '-'}</td>
     <td class="td-sm">${r.m5 || '-'}</td>
     <td class="td-pts"><span>${r.pts}</span></td></tr>`;
-    }).join('');
+    }).join('') : '<tr><td colspan="10" style="padding:24px;color:#8A7052;">No points recorded for this event yet.</td></tr>';
 }
 renderStandings('w800');
 document.getElementById('standingsTabs').addEventListener('click',e=>{
   const b=e.target.closest('.tab-btn');if(!b)return;
   document.querySelectorAll('#standingsTabs .tab-btn').forEach(t=>t.classList.remove('active'));
   b.classList.add('active');renderStandings(b.dataset.key);
+});
+
+document.getElementById('standingsSeasonButtons').addEventListener('click',e=>{
+  const button=e.target.closest('.s-btn[data-season-id]');
+  if(button) selectStandingsSeason(button.dataset.seasonId);
 });
 
 // ═══════════════════ HISTORY PAGE ═══════════════════
@@ -2352,6 +2358,167 @@ function buildMasterWins(races, results, athletes) {
   renderWinsTable('mostWinsFemale1500Body', sorted(buckets.female1500));
 }
 
+function standingsProgressText(meta) {
+  if (!meta.completed) return 'No meets completed';
+  if (meta.total && meta.completed >= meta.total) return `Final standings · ${meta.completed} meets`;
+  return `After Meet ${meta.completed}`;
+}
+
+function selectStandingsSeason(seasonId) {
+  const season = standingsBySeason.get(seasonId);
+  if (!season) return;
+  activeStandingsSeasonId = seasonId;
+  lbData = season.events;
+  clubStandingsData = season.clubs;
+  standingsSeasonMeta = season.meta;
+
+  const seasonLabel = `${season.meta.label} Season`;
+  const label = document.getElementById('standingsSeasonLabel');
+  const progress = document.getElementById('standingsClubProgress');
+  const meetsInfo = document.getElementById('standingsMeetsInfo');
+  const athletesInfo = document.getElementById('standingsAthletesInfo');
+  if (label) label.textContent = seasonLabel;
+  if (progress) progress.textContent = standingsProgressText(season.meta);
+  if (meetsInfo) meetsInfo.textContent = `${season.meta.completed} of ${season.meta.total}`;
+  if (athletesInfo) athletesInfo.textContent = season.meta.athletes.toLocaleString('en-AU');
+  document.querySelectorAll('#standingsSeasonButtons .s-btn').forEach(button => {
+    button.classList.toggle('active', button.dataset.seasonId === seasonId);
+  });
+
+  const key = document.querySelector('#standingsTabs .tab-btn.active')?.dataset.key || 'w800';
+  renderStandings(key);
+  renderClubBoard('sideClub', true);
+}
+
+function buildSeasonStandings(seasons, meets, races, results) {
+  const seasonMap = new Map(seasons.map(row => [row.Season_ID, row]));
+  const meetMap = new Map(meets.map(row => [row.Meet_ID, row]));
+  const raceMap = new Map(races.map(row => [row.Race_ID, row]));
+  const seasonYears = new Map(seasons.map(row => [row.Season_ID, Number((String(row.Season_Label || '').match(/\d{4}/) || [0])[0])]));
+  const seasonResults = new Map();
+
+  results.forEach(result => {
+    const seasonYear = seasonYears.get(result.Season_ID) || 0;
+    if (seasonYear < 2025) return;
+    const race = raceMap.get(result.Race_ID);
+    const position = Number(result.Position);
+    const status = String(result.DQ_DNF_DNS || '').trim().toLowerCase();
+    if (!race || position < 1 || position > 20 || /^(dq|dnf|dns|nt)$/.test(status)) return;
+    if (String(race.Official || 'Yes').toLowerCase() === 'no') return;
+    const gender = String(result.Gender || race.Gender || '').toLowerCase();
+    const event = String(race.Event || '').toLowerCase().replace(/[^a-z0-9]/g, '');
+    const sex = gender.startsWith('w') ? 'w' : gender.startsWith('m') ? 'm' : '';
+    const distance = event === '800m' ? '800' : ['1500m','mile','3000m'].includes(event) ? '1500' : '';
+    if (!sex || !distance || !String(result.Athlete_Name_Source || '').trim()) return;
+    if (!seasonResults.has(result.Season_ID)) seasonResults.set(result.Season_ID, []);
+    seasonResults.get(result.Season_ID).push({result, race, position, key:sex+distance, event});
+  });
+
+  standingsBySeason = new Map();
+  [...seasonResults.entries()].forEach(([seasonId, entries]) => {
+    const eventMaps = {w800:new Map(),m800:new Map(),w1500:new Map(),m1500:new Map()};
+    const clubGroups = new Map();
+    const completedMeetIds = new Set();
+    const athleteIds = new Set();
+
+    entries.forEach(({result, race, position, key, event}) => {
+      const meet = meetMap.get(result.Meet_ID) || {};
+      const meetNumber = Number(meet.Meet_Number || String(result.Meet_ID || '').match(/(\d+)$/)?.[1]) || 0;
+      const championship = Boolean(String(race.Championship_Type || '').trim()) || result.Meet_ID === 'M2025-04';
+      const storedPoints = Number(result.Points);
+      const points = storedPoints > 0 ? storedPoints : (VMC_POINTS[position] || 0) * (championship ? 2 : 1);
+      if (!points) return;
+
+      const athleteId = result.Athlete_ID || String(result.Athlete_Name_Source || '').trim().toLowerCase();
+      const map = eventMaps[key];
+      const row = map.get(athleteId) || {
+        name:result.Athlete_Name_Source || '', club:result.Club_Name_Source || '', nat:'',
+        sb:'—', sbSeconds:Number.POSITIVE_INFINITY, m1:'-',m2:'-',m3:'-',m4:'-',m5:'-',pts:0,
+        _exact:null, _fallback:null
+      };
+      row.name = result.Athlete_Name_Source || row.name;
+      row.club = result.Club_Name_Source || row.club || 'Independent';
+      row.pts += points;
+      if (meetNumber >= 1 && meetNumber <= 5) {
+        const meetKey = `m${meetNumber}`;
+        row[meetKey] = (Number(row[meetKey]) || 0) + points;
+      }
+      const seconds = resultTimeSeconds(result);
+      if (seconds) {
+        const candidate = {seconds, display:result.Display_Time || String(result.Time_Seconds || ''), event};
+        if (!row._fallback || seconds < row._fallback.seconds) row._fallback = candidate;
+        const exactEvent = key.endsWith('800') ? '800m' : '1500m';
+        if (event === exactEvent && (!row._exact || seconds < row._exact.seconds)) row._exact = candidate;
+      }
+      map.set(athleteId, row);
+      completedMeetIds.add(result.Meet_ID);
+      athleteIds.add(athleteId);
+
+      const club = String(result.Club_Name_Source || '').trim();
+      if (club && !/^(independent|unattached)$/i.test(club)) {
+        const groupKey = [result.Meet_ID, event, String(result.Gender || race.Gender || ''), club].join('|');
+        if (!clubGroups.has(groupKey)) clubGroups.set(groupKey, {club, scores:[]});
+        clubGroups.get(groupKey).scores.push(points);
+      }
+    });
+
+    const eventRows = {};
+    Object.entries(eventMaps).forEach(([key,map]) => {
+      eventRows[key] = [...map.values()].map(row => {
+        const best = row._exact || row._fallback;
+        if (best) {
+          row.sbSeconds = best.seconds;
+          row.sb = best.display + (row._exact ? '' : ` (${best.event === 'mile' ? 'Mile' : best.event.replace('m','m')})`);
+        }
+        delete row._exact;
+        delete row._fallback;
+        return row;
+      }).sort(leaderboardSort);
+    });
+
+    const clubTotals = new Map();
+    clubGroups.forEach(group => {
+      const contribution = group.scores.sort((a,b) => b-a).slice(0,3).reduce((sum,value) => sum+value,0);
+      clubTotals.set(group.club, (clubTotals.get(group.club) || 0) + contribution);
+    });
+    const clubs = [...clubTotals.entries()].map(([name,pts]) => ({name,pts})).sort((a,b) => b.pts-a.pts || a.name.localeCompare(b.name));
+    const seasonMeets = meets.filter(meet => meet.Season_ID === seasonId);
+    const season = seasonMap.get(seasonId) || {};
+    standingsBySeason.set(seasonId, {
+      events:eventRows,
+      clubs,
+      meta:{
+        label:season.Season_Label || seasonId,
+        completed:completedMeetIds.size,
+        total:seasonMeets.length || completedMeetIds.size,
+        athletes:athleteIds.size,
+        year:seasonYears.get(seasonId) || 0
+      }
+    });
+  });
+
+  const available = [...standingsBySeason.entries()].sort((a,b) => b[1].meta.year-a[1].meta.year);
+  if (!available.length) return;
+  const latestId = available[0][0];
+  const latest = available[0][1];
+  homepageLbData = latest.events;
+  homepageClubStandingsData = latest.clubs;
+  homepageStandingsMeta = latest.meta;
+  const homeLabel = document.getElementById('homeStandingsSeason');
+  const homeProgress = document.getElementById('homeStandingsProgress');
+  if (homeLabel) homeLabel.textContent = `${latest.meta.label} Season`;
+  if (homeProgress) homeProgress.textContent = standingsProgressText(latest.meta);
+
+  const buttons = document.getElementById('standingsSeasonButtons');
+  if (buttons) buttons.innerHTML = available.map(([id,data],index) =>
+    `<button class="s-btn ${index===0?'active':''}" data-season-id="${id}">${data.meta.label}</button>`
+  ).join('');
+  selectStandingsSeason(activeStandingsSeasonId && standingsBySeason.has(activeStandingsSeasonId) ? activeStandingsSeasonId : latestId);
+  const homeKey = document.querySelector('#homeLbTabs .tab-btn.active')?.dataset.key || 'w800';
+  renderHomeLb(homeKey);
+  renderClubBoard('homeClubBoard');
+}
+
 function renderEventFilters(seasons) {
   const container = document.getElementById('eventFilters');
   if (!container) return '2026';
@@ -2392,6 +2559,7 @@ async function loadMasterSnapshot() {
 
 function applyMasterDatabase({seasons, meets, races, results, athletes = []}) {
   mergeMasterResults(seasons, meets, races, results);
+  buildSeasonStandings(seasons, meets, races, results);
   buildMasterToplists(seasons, meets, races, results, athletes);
   buildMasterWins(races, results, athletes);
   return renderEventFilters(seasons);
