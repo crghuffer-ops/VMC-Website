@@ -674,7 +674,7 @@ body{font-family:'Inter',sans-serif;background:var(--cream);color:var(--dark);ov
     <div class="ph-content">
       <div class="ph-eyebrow">Wall of Fame</div>
       <h1 class="ph-title">VMC <em>History</em></h1>
-      <p class="ph-sub">Champions, Olympians, records and the complete story of Victorian Milers Club.</p>
+      <p class="ph-sub">Champions, records and the complete story of Victorian Milers Club.</p>
     </div>
   </div>
   <div class="history-layout">
@@ -688,7 +688,6 @@ body{font-family:'Inter',sans-serif;background:var(--cream);color:var(--dark);ov
       <button class="hn-item" onclick="showHist('mostwins',this)">Most A-Race Wins</button>
       <button class="hn-item" onclick="showHist('mostpoints',this)">Most Points</button>
       <button class="hn-item" onclick="showHist('mostchamps',this)">Most Championships</button>
-      <button class="hn-item" onclick="showHist('olympians',this)">Olympians</button>
     </div>
     <div class="hist-content">
 
@@ -699,14 +698,10 @@ body{font-family:'Inter',sans-serif;background:var(--cream);color:var(--dark);ov
         <div class="about-body">
           <p>Established in 2005, The Victorian Milers Club aims to foster and promote middle distance running amongst the Victorian athletics community.</p>
         </div>
-        <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:28px;">
+        <div style="display:grid;grid-template-columns:repeat(2,1fr);gap:14px;margin-top:28px;">
           <div style="background:#fff;border:1px solid var(--border);padding:18px;text-align:center;">
             <div style="font-family:'Bebas Neue',sans-serif;font-size:44px;color:var(--red);line-height:1;">35+</div>
             <div style="font-size:9px;letter-spacing:2px;text-transform:uppercase;color:#8A7052;margin-top:4px;">Seasons of Racing</div>
-          </div>
-          <div style="background:#fff;border:1px solid var(--border);padding:18px;text-align:center;">
-            <div style="font-family:'Bebas Neue',sans-serif;font-size:44px;color:var(--red);line-height:1;">11</div>
-            <div style="font-size:9px;letter-spacing:2px;text-transform:uppercase;color:#8A7052;margin-top:4px;">Olympians Competed</div>
           </div>
           <div style="background:#fff;border:1px solid var(--border);padding:18px;text-align:center;">
             <div style="font-family:'Bebas Neue',sans-serif;font-size:44px;color:var(--red);line-height:1;">1000+</div>
@@ -719,12 +714,6 @@ body{font-family:'Inter',sans-serif;background:var(--cream);color:var(--dark);ov
         <div class="sec-eyebrow">Roll of Honour</div>
         <div class="sec-title" style="margin-bottom:4px;">Season Champions</div>
         <div id="championsHistory"></div>
-      </div>
-
-      <div class="hist-section" id="hist-olympians">
-        <div class="sec-eyebrow">Wall of Fame</div>
-        <div class="sec-title" style="margin-bottom:14px;">VMC Olympians</div>
-        <div class="olympians-grid" id="olympiansGrid"></div>
       </div>
 
       <div class="hist-section" id="hist-toplist">
@@ -1359,18 +1348,6 @@ function champBadgeFor(name, row){
   return '';
 }
 
-let olympiansData = [
-  {name:"David Lowe",games:"2016 Rio Olympics",event:"1500m",club:"Knox AC"},
-  {name:"Emma Clarke",games:"2020 Tokyo Olympics",event:"1500m",club:"Melbourne Uni"},
-  {name:"Sarah Mitchell",games:"2016 Rio Olympics",event:"800m",club:"Box Hill AC"},
-  {name:"James Reardon",games:"2024 Paris Olympics",event:"1500m",club:"Melbourne Uni AC"},
-  {name:"Patrick Lim",games:"2024 Paris Olympics",event:"1500m",club:"St. Kevin's AC"},
-  {name:"Marcus Webb",games:"2020 Tokyo Olympics",event:"800m",club:"Box Hill Athletics"},
-  {name:"Sophie Nguyen",games:"2024 Paris Olympics",event:"800m",club:"Box Hill Athletics"},
-  {name:"Tom Harbridge",games:"2012 London Olympics",event:"1500m",club:"Glenhuntly AC"},
-  {name:"Grace Thornton",games:"2020 Tokyo Olympics",event:"1500m",club:"Glenhuntly AC"},
-];
-
 let photosData = [
   {cap:"Meet 2 — Box Hill",sub:"21 December 2023",color:"135deg, #3D0008, #1A1A1A"},
   {cap:"Women's 800m Final",sub:"Sophie Nguyen takes gold",color:"135deg, #1A0008, #2D3D28"},
@@ -1832,10 +1809,6 @@ document.getElementById('championsHistory').innerHTML=champData.map(y=>`
       <div class="cy-cell"><div class="cy-event">${ev}</div><div class="cy-name">${d.name}</div><div class="cy-club">${d.club}</div><div class="cy-time">${d.time}</div></div>`).join('')}
   </div></div>`).join('');
 renderHomepageChampions();
-
-// Olympians
-document.getElementById('olympiansGrid').innerHTML=olympiansData.map(o=>`
-  <div class="ol-card"><div class="ol-name">${o.name}</div><div class="ol-games">${o.games}</div><div class="ol-club">${o.club}</div><div class="ol-ev">${o.event}</div></div>`).join('');
 
 // Top Lists
 const toplistMap = {
