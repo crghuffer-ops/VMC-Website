@@ -19,7 +19,7 @@ body{font-family:'Inter',sans-serif;background:var(--cream);color:var(--dark);ov
 
 /* ── DATA LOADING SCREEN ── */
 body.vmc-loading{overflow:hidden;}
-.vmc-loader{--loader-x:8%;position:fixed;inset:0;z-index:9999;background:var(--dark);display:flex;align-items:center;justify-content:center;color:var(--text);transition:opacity .65s ease,visibility .65s ease;overflow:hidden;}
+.vmc-loader{--loader-progress:8;--loader-colour:#F1D27B;--loader-glow:rgba(241,210,123,.25);position:fixed;inset:0;z-index:9999;background:var(--dark);display:flex;align-items:center;justify-content:center;color:var(--text);transition:opacity .65s ease,visibility .65s ease;overflow:hidden;}
 .vmc-loader::before{content:"";position:absolute;inset:0;opacity:.055;background-image:repeating-linear-gradient(0deg,transparent,transparent 47px,#fff 47px,#fff 48px),repeating-linear-gradient(90deg,transparent,transparent 47px,#fff 47px,#fff 48px);}
 .vmc-loader::after{content:"VMC";position:absolute;right:-3vw;bottom:-14vh;font-family:'Bebas Neue',sans-serif;font-size:min(46vw,620px);line-height:1;color:var(--red);opacity:.055;letter-spacing:-12px;}
 .vmc-loader.is-complete{opacity:0;visibility:hidden;pointer-events:none;}
@@ -32,15 +32,20 @@ body.vmc-loading{overflow:hidden;}
 .vmc-loader-kicker{font-size:9px;letter-spacing:4px;text-transform:uppercase;color:var(--gold);font-weight:600;margin-bottom:10px;}
 .vmc-loader-title{font-family:'Playfair Display',serif;font-size:clamp(26px,5vw,42px);line-height:1.08;font-weight:700;margin-bottom:34px;}
 .vmc-loader-title em{color:var(--gold);font-weight:400;}
-.vmc-track{height:72px;position:relative;border:1px solid rgba(201,168,76,.3);border-radius:999px;background:rgba(255,255,255,.025);overflow:hidden;box-shadow:inset 0 0 0 8px rgba(255,255,255,.012);}
-.vmc-track::before,.vmc-track::after{content:"";position:absolute;left:18px;right:18px;border-top:1px dashed rgba(245,240,232,.13);}
-.vmc-track::before{top:24px}.vmc-track::after{top:47px}
-.vmc-track-progress{position:absolute;left:0;bottom:0;height:3px;width:var(--loader-x);background:linear-gradient(90deg,var(--red),var(--gold));transition:width .7s cubic-bezier(.25,.8,.25,1);box-shadow:0 0 16px rgba(201,168,76,.5);}
+.vmc-track{height:108px;position:relative;filter:drop-shadow(0 14px 28px rgba(0,0,0,.28));}
+.vmc-track-svg{width:100%;height:100%;display:block;overflow:visible;}
+.vmc-track-bed{fill:rgba(255,255,255,.018);stroke:rgba(201,168,76,.2);stroke-width:1;}
+.vmc-track-lane{fill:none;stroke:rgba(245,240,232,.12);stroke-width:1;stroke-dasharray:1 2.1;}
+.vmc-track-infield{fill:rgba(4,4,4,.32);stroke:rgba(245,240,232,.06);stroke-width:1;}
+.vmc-track-progress-glow,.vmc-track-progress{fill:none;stroke-linecap:round;stroke-dasharray:var(--loader-progress) 100;transition:stroke-dasharray .7s cubic-bezier(.25,.8,.25,1),stroke .7s ease;}
+.vmc-track-progress-glow{stroke:var(--loader-glow);stroke-width:10;filter:blur(4px);}
+.vmc-track-progress{stroke:var(--loader-colour);stroke-width:3.5;}
+.vmc-track-finish{stroke:rgba(245,240,232,.72);stroke-width:1;stroke-dasharray:2 2;}
 .vmc-loader-meta{display:flex;align-items:center;justify-content:space-between;margin-top:14px;gap:20px;}
 .vmc-loader-status{font-size:9px;letter-spacing:2px;text-transform:uppercase;color:rgba(245,240,232,.48);text-align:left;}
 .vmc-loader-percent{font-family:'Bebas Neue',sans-serif;color:var(--gold);font-size:16px;letter-spacing:1px;}
-@media (prefers-reduced-motion:reduce){.vmc-loader,.vmc-track-progress{transition:none}}
-@media (max-width:600px){.vmc-loader-brand{margin-bottom:34px}.vmc-loader-name{font-size:12px}.vmc-loader-title{margin-bottom:26px}.vmc-track{height:64px}}
+@media (prefers-reduced-motion:reduce){.vmc-loader,.vmc-track-progress,.vmc-track-progress-glow{transition:none}}
+@media (max-width:600px){.vmc-loader-brand{margin-bottom:34px}.vmc-loader-name{font-size:12px}.vmc-loader-title{margin-bottom:26px}.vmc-track{height:84px}}
 
 /* ── NAV ── */
 .nav{position:sticky;top:0;z-index:200;background:var(--dark);border-bottom:2px solid var(--red);display:flex;align-items:center;justify-content:space-between;padding:0 40px;}
@@ -453,7 +458,15 @@ body.vmc-loading{overflow:hidden;}
     <div class="vmc-loader-kicker">The home of middle-distance racing</div>
     <div class="vmc-loader-title">On your <em>marks.</em></div>
     <div class="vmc-track" aria-hidden="true">
-      <div class="vmc-track-progress"></div>
+      <svg class="vmc-track-svg" viewBox="0 0 620 108" preserveAspectRatio="none">
+        <rect class="vmc-track-bed" x="2" y="2" width="616" height="104" rx="52"/>
+        <rect class="vmc-track-lane" x="12" y="12" width="596" height="84" rx="42"/>
+        <rect class="vmc-track-lane" x="23" y="23" width="574" height="62" rx="31"/>
+        <rect class="vmc-track-infield" x="34" y="34" width="552" height="40" rx="20"/>
+        <path class="vmc-track-progress-glow" pathLength="100" d="M54 28 A26 26 0 0 0 28 54 A26 26 0 0 0 54 80 H566 A26 26 0 0 0 592 54 A26 26 0 0 0 566 28 H54 Z"/>
+        <path class="vmc-track-progress" pathLength="100" d="M54 28 A26 26 0 0 0 28 54 A26 26 0 0 0 54 80 H566 A26 26 0 0 0 592 54 A26 26 0 0 0 566 28 H54 Z"/>
+        <line class="vmc-track-finish" x1="54" y1="24" x2="54" y2="34"/>
+      </svg>
     </div>
     <div class="vmc-loader-meta"><div class="vmc-loader-status" id="loaderStatus">Opening the VMC archive…</div><div class="vmc-loader-percent" id="loaderPercent">8%</div></div>
   </div>
@@ -1103,6 +1116,21 @@ body.vmc-loading{overflow:hidden;}
 </footer>
 
 <script>
+// Browsers block fetch() from a page opened directly with file://. Load the
+// generated local snapshot as a regular script in that preview mode instead.
+window.vmcLocalSnapshotReady = Promise.resolve();
+if (window.location.protocol === 'file:') {
+  window.vmcLocalSnapshotReady = new Promise((resolve,reject) => {
+    const snapshotScript = document.createElement('script');
+    snapshotScript.src = 'data/vmc-master.js';
+    snapshotScript.onload = resolve;
+    snapshotScript.onerror = () => reject(new Error('The local VMC data snapshot could not be opened.'));
+    document.head.appendChild(snapshotScript);
+  });
+}
+</script>
+
+<script>
 // ═══════════════════ DATA ═══════════════════
 const loaderStartedAt = Date.now();
 let loaderFinished = false;
@@ -1110,7 +1138,13 @@ function updateSiteLoader(percent, message) {
   const loader = document.getElementById('siteLoader');
   if (!loader || loaderFinished) return;
   const value = Math.max(8,Math.min(100,Number(percent)||8));
-  loader.style.setProperty('--loader-x',`${value}%`);
+  const colourProgress = Math.max(0,Math.min(1,(value-8)/44));
+  const startColour = [241,210,123];
+  const finishColour = [192,0,26];
+  const colour = startColour.map((channel,index) => Math.round(channel+(finishColour[index]-channel)*colourProgress));
+  loader.style.setProperty('--loader-progress',String(value));
+  loader.style.setProperty('--loader-colour',`rgb(${colour.join(',')})`);
+  loader.style.setProperty('--loader-glow',`rgba(${colour.join(',')},.28)`);
   const status = document.getElementById('loaderStatus');
   const counter = document.getElementById('loaderPercent');
   if (status && message) status.textContent = message;
@@ -1121,7 +1155,9 @@ function finishSiteLoader() {
   loaderFinished = true;
   const loader = document.getElementById('siteLoader');
   if (!loader) return;
-  loader.style.setProperty('--loader-x','100%');
+  loader.style.setProperty('--loader-progress','100');
+  loader.style.setProperty('--loader-colour','rgb(192,0,26)');
+  loader.style.setProperty('--loader-glow','rgba(192,0,26,.32)');
   const status = document.getElementById('loaderStatus');
   const counter = document.getElementById('loaderPercent');
   if (status) status.textContent = 'Race data ready';
@@ -1425,7 +1461,7 @@ function setOfficialSeasonChampions(rows = [], athletes = [], results = []) {
     const event = String(row.Event || row.Distance || row.Discipline || '').trim().toLowerCase();
     const athlete = athleteMap.get(row.Athlete_ID) || {};
     const result = resultMap.get(row.Result_ID) || {};
-    const name = String(row.Athlete || row.Athlete_Name || row.Name || athlete.Canonical_Name || result.Athlete_Name_Source || '').trim();
+    const name = String(row.Athlete || row.Athlete_Name || row.Name || result.Athlete_Name_Source || athlete.Canonical_Name || '').trim();
     const genderKey = gender.startsWith('w') || gender.startsWith('f') ? 'w' : gender.startsWith('m') ? 'm' : '';
     const eventKey = event.includes('800') ? '800' : event.includes('1500') || event.includes('mile') ? '1500' : '';
     if (!year || !genderKey || !eventKey || !name) return;
@@ -1985,17 +2021,11 @@ function updateHomepageRecords() {
       return;
     }
 
-    const year = entry.date ? (() => {
-      const direct = String(entry.date).trim();
-      const iso = direct.match(/^(\d{4})-(\d{2})-(\d{2})$/);
-      if (iso) return Number(iso[1]);
-      const parsed = new Date(direct);
-      return Number.isNaN(parsed.getTime()) ? '' : parsed.getFullYear();
-    })() : '';
+    const performanceDate = formatToplistDate(entry.date);
 
     if (event) event.textContent = `VMC Record — ${getRecordLabel(key)}`;
     if (time) time.textContent = entry.time || '--';
-    if (name) name.textContent = year ? `${entry.name}, ${year}` : entry.name;
+    if (name) name.textContent = performanceDate ? `${entry.name}, ${performanceDate}` : entry.name;
   });
 }
 function renderToplist(key){
@@ -2949,9 +2979,12 @@ function buildSeasonStandings(seasons, meets, races, results) {
     const gender = String(result.Gender || race.Gender || '').toLowerCase();
     const event = String(race.Event || '').toLowerCase().replace(/[^a-z0-9]/g, '');
     const sex = gender.startsWith('w') ? 'w' : gender.startsWith('m') ? 'm' : '';
-    const distance = event === '800m' ? '800' : ['1500m','mile'].includes(event) ? '1500' : '';
+    const distance = event === '800m' ? '800' : ['1500m','mile'].includes(event) ? '1500' : event === '3000m' ? '3000' : '';
     const seconds = resultTimeSeconds(result);
     if (!sex || !distance || !seconds || !String(result.Athlete_Name_Source || '').trim()) return;
+    const meet = meetMap.get(result.Meet_ID) || {};
+    const meetNumber = Number(meet.Meet_No || meet.Meet_Number || String(result.Meet_ID || '').match(/(\d+)$/)?.[1]) || 0;
+    if (distance === '3000' && meetNumber !== 1) return;
     if (!seasonResults.has(result.Season_ID)) seasonResults.set(result.Season_ID, []);
     seasonResults.get(result.Season_ID).push({result, race, position, key:sex+distance, event, seconds});
   });
@@ -2989,13 +3022,23 @@ function buildSeasonStandings(seasons, meets, races, results) {
 
     entries.forEach(({result, race, key, event, seconds, basePoints}) => {
       const meet = meetMap.get(result.Meet_ID) || {};
-      const meetNumber = Number(meet.Meet_Number || String(result.Meet_ID || '').match(/(\d+)$/)?.[1]) || 0;
+      const meetNumber = Number(meet.Meet_No || meet.Meet_Number || String(result.Meet_ID || '').match(/(\d+)$/)?.[1]) || 0;
       const championship = Boolean(String(race.Championship_Type || '').trim()) || result.Meet_ID === 'M2025-05';
       const points = (basePoints || 0) * (championship ? 2 : 1);
       if (!points) return;
 
-      const athleteId = result.Athlete_ID || String(result.Athlete_Name_Source || '').trim().toLowerCase();
+      const club = String(result.Club_Name_Source || '').trim();
+      if (isEligibleClubForPoints(club)) {
+        const groupKey = [result.Meet_ID, key, club].join('|');
+        if (!clubGroups.has(groupKey)) clubGroups.set(groupKey, {club, scores:[]});
+        clubGroups.get(groupKey).scores.push(points);
+      }
+
+      // Round-one 3000m scores contribute to club totals only. Individual
+      // standings and season bests remain limited to 800m and 1500m/Mile.
       const map = eventMaps[key];
+      if (!map) return;
+      const athleteId = result.Athlete_ID || String(result.Athlete_Name_Source || '').trim().toLowerCase();
       const row = map.get(athleteId) || {
         name:result.Athlete_Name_Source || '', club:result.Club_Name_Source || '', nat:'',
         sb:'—', sbSeconds:Number.POSITIVE_INFINITY, m1:'-',m2:'-',m3:'-',m4:'-',m5:'-',pts:0,
@@ -3015,12 +3058,6 @@ function buildSeasonStandings(seasons, meets, races, results) {
         if (event === exactEvent && (!row._exact || seconds < row._exact.seconds)) row._exact = candidate;
       }
       map.set(athleteId, row);
-      const club = String(result.Club_Name_Source || '').trim();
-      if (isEligibleClubForPoints(club)) {
-        const groupKey = [result.Meet_ID, key, club].join('|');
-        if (!clubGroups.has(groupKey)) clubGroups.set(groupKey, {club, scores:[]});
-        clubGroups.get(groupKey).scores.push(points);
-      }
     });
 
     const eventRows = {};
@@ -3045,7 +3082,11 @@ function buildSeasonStandings(seasons, meets, races, results) {
     const clubs = [...clubTotals.entries()].map(([name,pts]) => ({name,pts})).sort((a,b) => b.pts-a.pts || a.name.localeCompare(b.name));
     const scoringMeetIds = new Set(races.filter(race => {
       const event = String(race.Event || '').toLowerCase().replace(/[^a-z0-9]/g, '');
-      return ['800m','1500m','mile'].includes(event) && String(race.Official || 'Yes').toLowerCase() !== 'no';
+      if (!['800m','1500m','mile','3000m'].includes(event) || String(race.Official || 'Yes').toLowerCase() === 'no') return false;
+      if (event !== '3000m') return true;
+      const meet = meetMap.get(race.Meet_ID) || {};
+      const meetNumber = Number(meet.Meet_No || meet.Meet_Number || String(race.Meet_ID || '').match(/(\d+)$/)?.[1]) || 0;
+      return meetNumber === 1;
     }).map(race => race.Meet_ID));
     const seasonMeets = meets.filter(meet => meet.Season_ID === seasonId && scoringMeetIds.has(meet.Meet_ID));
     const season = seasonMap.get(seasonId) || {};
@@ -3111,6 +3152,18 @@ function rowsToObjects(values) {
 }
 
 async function loadMasterSnapshot() {
+  await window.vmcLocalSnapshotReady;
+  if (window.VMC_MASTER_SNAPSHOT) {
+    const data = window.VMC_MASTER_SNAPSHOT;
+    return {
+      seasons: rowsToObjects(data.seasons),
+      meets: rowsToObjects(data.meets),
+      races: rowsToObjects(data.races),
+      results: rowsToObjects(data.results),
+      athletes: rowsToObjects(data.athletes),
+      champions: rowsToObjects(data.championships || data.champions)
+    };
+  }
   const response = await fetch('data/vmc-master.json', { cache: 'no-store' });
   if (!response.ok) throw new Error(`Master snapshot returned ${response.status}`);
   const data = await response.json();
@@ -3147,6 +3200,16 @@ function applyMasterDatabase({seasons, meets, races, results, athletes = [], cha
 }
 
 async function syncMasterDatabase() {
+  if (window.location.protocol === 'file:') {
+    try {
+      applyMasterDatabase(await loadMasterSnapshot());
+      console.log('VMC Sync: Local browser snapshot loaded');
+      return true;
+    } catch (snapshotError) {
+      console.error('VMC Sync: Local browser snapshot failed', snapshotError);
+      return false;
+    }
+  }
   try {
     const [seasons, meets, races, results, athletes, champions] = await Promise.all([
       fetchMasterTab('SEASONS', 'A4:H1000'),
