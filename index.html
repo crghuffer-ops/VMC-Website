@@ -17,6 +17,31 @@
 body{font-family:'Inter',sans-serif;background:var(--cream);color:var(--dark);overflow-x:hidden;}
 .page{display:none;}.page.active{display:block;}
 
+/* ── DATA LOADING SCREEN ── */
+body.vmc-loading{overflow:hidden;}
+.vmc-loader{--loader-x:8%;position:fixed;inset:0;z-index:9999;background:var(--dark);display:flex;align-items:center;justify-content:center;color:var(--text);transition:opacity .65s ease,visibility .65s ease;overflow:hidden;}
+.vmc-loader::before{content:"";position:absolute;inset:0;opacity:.055;background-image:repeating-linear-gradient(0deg,transparent,transparent 47px,#fff 47px,#fff 48px),repeating-linear-gradient(90deg,transparent,transparent 47px,#fff 47px,#fff 48px);}
+.vmc-loader::after{content:"VMC";position:absolute;right:-3vw;bottom:-14vh;font-family:'Bebas Neue',sans-serif;font-size:min(46vw,620px);line-height:1;color:var(--red);opacity:.055;letter-spacing:-12px;}
+.vmc-loader.is-complete{opacity:0;visibility:hidden;pointer-events:none;}
+.vmc-loader-card{position:relative;z-index:2;width:min(620px,86vw);text-align:center;}
+.vmc-loader-brand{display:inline-flex;align-items:center;gap:15px;margin-bottom:42px;text-align:left;}
+.vmc-loader-badge{width:56px;height:56px;background:var(--red);display:flex;align-items:center;justify-content:center;box-shadow:0 0 0 1px rgba(255,255,255,.08),0 16px 40px rgba(192,0,26,.22);}
+.vmc-loader-badge span{font-family:'Bebas Neue',sans-serif;font-size:28px;color:#fff;letter-spacing:.5px;}
+.vmc-loader-name{font-family:'Playfair Display',serif;font-size:16px;font-weight:700;letter-spacing:3px;text-transform:uppercase;}
+.vmc-loader-place{font-size:9px;letter-spacing:3px;text-transform:uppercase;color:var(--gold);margin-top:5px;}
+.vmc-loader-kicker{font-size:9px;letter-spacing:4px;text-transform:uppercase;color:var(--gold);font-weight:600;margin-bottom:10px;}
+.vmc-loader-title{font-family:'Playfair Display',serif;font-size:clamp(26px,5vw,42px);line-height:1.08;font-weight:700;margin-bottom:34px;}
+.vmc-loader-title em{color:var(--gold);font-weight:400;}
+.vmc-track{height:72px;position:relative;border:1px solid rgba(201,168,76,.3);border-radius:999px;background:rgba(255,255,255,.025);overflow:hidden;box-shadow:inset 0 0 0 8px rgba(255,255,255,.012);}
+.vmc-track::before,.vmc-track::after{content:"";position:absolute;left:18px;right:18px;border-top:1px dashed rgba(245,240,232,.13);}
+.vmc-track::before{top:24px}.vmc-track::after{top:47px}
+.vmc-track-progress{position:absolute;left:0;bottom:0;height:3px;width:var(--loader-x);background:linear-gradient(90deg,var(--red),var(--gold));transition:width .7s cubic-bezier(.25,.8,.25,1);box-shadow:0 0 16px rgba(201,168,76,.5);}
+.vmc-loader-meta{display:flex;align-items:center;justify-content:space-between;margin-top:14px;gap:20px;}
+.vmc-loader-status{font-size:9px;letter-spacing:2px;text-transform:uppercase;color:rgba(245,240,232,.48);text-align:left;}
+.vmc-loader-percent{font-family:'Bebas Neue',sans-serif;color:var(--gold);font-size:16px;letter-spacing:1px;}
+@media (prefers-reduced-motion:reduce){.vmc-loader,.vmc-track-progress{transition:none}}
+@media (max-width:600px){.vmc-loader-brand{margin-bottom:34px}.vmc-loader-name{font-size:12px}.vmc-loader-title{margin-bottom:26px}.vmc-track{height:64px}}
+
 /* ── NAV ── */
 .nav{position:sticky;top:0;z-index:200;background:var(--dark);border-bottom:2px solid var(--red);display:flex;align-items:center;justify-content:space-between;padding:0 40px;}
 .nav-logo{display:flex;align-items:center;gap:12px;padding:12px 0;cursor:pointer;}
@@ -150,17 +175,21 @@ body{font-family:'Inter',sans-serif;background:var(--cream);color:var(--dark);ov
 .champs-strip{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;width:100%;max-width:820px;background:rgba(201,168,76,.15);border:1px solid rgba(201,168,76,.2);}
 .champ-cell{background:rgba(13,13,13,.88);padding:14px 18px;text-align:center;backdrop-filter:blur(4px);}
 .cc-event{font-size:8px;letter-spacing:2.5px;text-transform:uppercase;color:var(--gold);font-weight:600;margin-bottom:5px;}
-.cc-name{font-size:11px;font-weight:500;color:var(--text);margin-bottom:3px;}
+.cc-name{font-size:11px;font-weight:500;color:var(--text);margin-bottom:5px;display:flex;align-items:center;justify-content:center;gap:7px;flex-wrap:wrap;}
 .cc-time{font-family:'Bebas Neue',sans-serif;font-size:20px;color:#fff;letter-spacing:.5px;line-height:1;}
 .cc-label{font-size:8px;letter-spacing:1px;text-transform:uppercase;color:rgba(245,240,232,.25);margin-top:2px;}
 
 /* RECORDS & STATS */
-.records-band{background:var(--red);display:grid;grid-template-columns:repeat(4,1fr);}
-.rec-cell{padding:18px 24px;border-right:1px solid rgba(255,255,255,.1);text-align:center;}
+.records-band{background:var(--dark2);display:grid;grid-template-columns:repeat(4,1fr);border-left:1px solid rgba(192,0,26,.55);border-right:1px solid rgba(192,0,26,.55);}
+.home-hero + .records-band{border-top:3px solid var(--red);}
+.records-band + .records-band{border-top:1px solid rgba(201,168,76,.16);border-bottom:3px solid var(--red);}
+.rec-cell{position:relative;overflow:hidden;min-height:104px;padding:22px 24px;border-right:1px solid rgba(201,168,76,.16);text-align:center;display:flex;flex-direction:column;align-items:center;justify-content:center;background:linear-gradient(145deg,rgba(192,0,26,.09),transparent 48%);transition:background .2s ease;}
+.rec-cell::before{content:'';position:absolute;left:0;top:20px;bottom:20px;width:2px;background:var(--red);opacity:.65;}
+.rec-cell:hover{background:linear-gradient(145deg,rgba(192,0,26,.16),rgba(201,168,76,.035));}
 .rec-cell:last-child{border-right:none;}
-.rec-event{font-size:8px;letter-spacing:2px;text-transform:uppercase;color:rgba(255,255,255,.6);font-weight:600;margin-bottom:4px;}
-.rec-time{font-family:'Bebas Neue',sans-serif;font-size:28px;color:#fff;letter-spacing:1px;line-height:1;margin-bottom:3px;}
-.rec-name{font-size:10px;color:rgba(255,255,255,.5);font-weight:300;}
+.rec-event{font-size:8px;letter-spacing:2.2px;text-transform:uppercase;color:var(--gold);font-weight:700;margin-bottom:8px;}
+.rec-time{font-family:'Bebas Neue',sans-serif;font-size:32px;color:var(--text);letter-spacing:1.2px;line-height:1;margin-bottom:6px;text-shadow:0 3px 16px rgba(0,0,0,.35);}
+.rec-name{font-size:10px;color:rgba(245,240,232,.52);font-weight:300;letter-spacing:.15px;}
 .stats-band{background:var(--dark);display:grid;grid-template-columns:repeat(4,1fr);border-top:1px solid rgba(201,168,76,.12);}
 .stat-cell{padding:20px 24px;border-right:1px solid rgba(255,255,255,.05);text-align:center;}
 .stat-cell:last-child{border-right:none;}
@@ -413,7 +442,22 @@ body{font-family:'Inter',sans-serif;background:var(--cream);color:var(--dark);ov
 }
 </style>
 </head>
-<body>
+<body class="vmc-loading">
+
+<div class="vmc-loader" id="siteLoader" role="status" aria-live="polite" aria-label="Loading Victorian Milers Club results">
+  <div class="vmc-loader-card">
+    <div class="vmc-loader-brand">
+      <div class="vmc-loader-badge"><span>VMC</span></div>
+      <div><div class="vmc-loader-name">Victorian Milers Club</div><div class="vmc-loader-place">Melbourne, Victoria</div></div>
+    </div>
+    <div class="vmc-loader-kicker">The home of middle-distance racing</div>
+    <div class="vmc-loader-title">On your <em>marks.</em></div>
+    <div class="vmc-track" aria-hidden="true">
+      <div class="vmc-track-progress"></div>
+    </div>
+    <div class="vmc-loader-meta"><div class="vmc-loader-status" id="loaderStatus">Opening the VMC archive…</div><div class="vmc-loader-percent" id="loaderPercent">8%</div></div>
+  </div>
+</div>
 
 <!-- ══ NAV ══ -->
 <nav class="nav">
@@ -497,7 +541,7 @@ body{font-family:'Inter',sans-serif;background:var(--cream);color:var(--dark);ov
     <div class="rec-cell" data-record-key="w1500"><div class="rec-event">VMC Record — W 1500m</div><div class="rec-time">--</div><div class="rec-name">Loading…</div></div>
     <div class="rec-cell" data-record-key="m1500"><div class="rec-event">VMC Record — M 1500m</div><div class="rec-time">--</div><div class="rec-name">Loading…</div></div>
   </div>
-  <div class="records-band" style="border-top:1px solid rgba(255,255,255,0.15);">
+  <div class="records-band">
     <div class="rec-cell" data-record-key="wmile"><div class="rec-event">VMC Record — W Mile</div><div class="rec-time">--</div><div class="rec-name">Loading…</div></div>
     <div class="rec-cell" data-record-key="mmile"><div class="rec-event">VMC Record — M Mile</div><div class="rec-time">--</div><div class="rec-name">Loading…</div></div>
     <div class="rec-cell" data-record-key="w3000"><div class="rec-event">VMC Record — W 3000m</div><div class="rec-time">--</div><div class="rec-name">Loading…</div></div>
@@ -837,6 +881,7 @@ body{font-family:'Inter',sans-serif;background:var(--cream);color:var(--dark);ov
         <div class="table-scroll">
           <table class="wins-table"><thead><tr><th>Season</th><th>Men's Champion</th><th>Women's Champion</th></tr></thead><tbody id="mileChampsCombinedBody"></tbody></table>
         </div>
+        <p style="font-size:10px;color:#8A7052;margin-top:12px;">* Championship record. Missing seasons are shown exactly as supplied.</p>
       </div>
 
       <div class="hist-section" id="hist-clubchamps">
@@ -1059,6 +1104,36 @@ body{font-family:'Inter',sans-serif;background:var(--cream);color:var(--dark);ov
 
 <script>
 // ═══════════════════ DATA ═══════════════════
+const loaderStartedAt = Date.now();
+let loaderFinished = false;
+function updateSiteLoader(percent, message) {
+  const loader = document.getElementById('siteLoader');
+  if (!loader || loaderFinished) return;
+  const value = Math.max(8,Math.min(100,Number(percent)||8));
+  loader.style.setProperty('--loader-x',`${value}%`);
+  const status = document.getElementById('loaderStatus');
+  const counter = document.getElementById('loaderPercent');
+  if (status && message) status.textContent = message;
+  if (counter) counter.textContent = `${Math.round(value)}%`;
+}
+function finishSiteLoader() {
+  if (loaderFinished) return;
+  loaderFinished = true;
+  const loader = document.getElementById('siteLoader');
+  if (!loader) return;
+  loader.style.setProperty('--loader-x','100%');
+  const status = document.getElementById('loaderStatus');
+  const counter = document.getElementById('loaderPercent');
+  if (status) status.textContent = 'Race data ready';
+  if (counter) counter.textContent = '100%';
+  const minimumDisplay = Math.max(0,900-(Date.now()-loaderStartedAt));
+  window.setTimeout(() => {
+    loader.classList.add('is-complete');
+    document.body.classList.remove('vmc-loading');
+    window.setTimeout(() => loader.remove(),700);
+  },minimumDisplay);
+}
+
 const CONFIG = {
   // This is the main Google Sheet ID. All GIDs below refer to tabs within this sheet.
   SHEET_ID: '1YV3zZcsQt8nUMEfkwy7jDMmOuTI1phmXIgHSmFYc-XI',
@@ -1324,29 +1399,52 @@ meetsData.push(
   {n:5,year:'2026',date:'Tue 23 Mar 2027',calendarDate:'Tuesday 23rd March',venue:'Doncaster',time:'6:00pm',events:'800m & 1500m',status:'enter',entryLink:'https://members.athsvic.org.au/events/upcoming',close:'Mon 22 Mar 2027 12pm'}
 );
 
-let champData = [
-  {year:2025,w800:{name:"Lucy Delbridge",club:"Collingwood",time:"2:06.04"},m800:{name:"Bob Abdelrahim",club:"St Kevins",time:"1:46.08"},w1500:{name:"Madison King",club:"Glenhuntly",time:"4:21.45"},m1500:{name:"Tiarnan Crorken",club:"Great Britain",time:"3:44.56"}},
-  {year:2023,w800:{name:"Sophie Nguyen",club:"Box Hill Athletics",time:"2:04.3"},m800:{name:"James Reardon",club:"Melbourne Uni AC",time:"1:48.2"},w1500:{name:"Chloe Bartlett",club:"Mentone Athletics",time:"4:12.4"},m1500:{name:"Patrick Lim",club:"St. Kevin's AC",time:"3:38.7"}},
-  {year:2022,w800:{name:"Sarah Mitchell",club:"Box Hill AC",time:"2:03.8"},m800:{name:"David Lowe",club:"Knox AC",time:"1:47.9"},w1500:{name:"Emma Clarke",club:"Melbourne Uni",time:"4:09.1"},m1500:{name:"James Reardon",club:"Melbourne Uni AC",time:"3:37.2"}},
-  {year:2021,w800:{name:"Emma Clarke",club:"Melbourne Uni",time:"2:04.9"},m800:{name:"Marcus Webb",club:"Box Hill Athletics",time:"1:49.2"},w1500:{name:"Grace Thornton",club:"Glenhuntly AC",time:"4:11.5"},m1500:{name:"Tom Harbridge",club:"Glenhuntly AC",time:"3:40.1"}},
-  {year:2020,w800:{name:"Niamh O'Brien",club:"Williamstown AC",time:"2:06.3"},m800:{name:"Tom Harbridge",club:"Glenhuntly AC",time:"1:50.4"},w1500:{name:"Sophie Nguyen",club:"Box Hill Athletics",time:"4:15.2"},m1500:{name:"Patrick Lim",club:"St. Kevin's AC",time:"3:41.8"}},
-];
+// Season champions are built from verified season standings after data loads.
+let champData = [];
 
-// Build a lookup of athlete -> season strings they were champion (e.g. '24/25')
-const champSeasonsMap = {};
-champData.forEach(y=>{
-  const season = `${String(y.year).slice(2)}/${String(y.year+1).slice(2)}`;
-  ['w800','m800','w1500','m1500'].forEach(ev=>{
-    if(y[ev] && y[ev].name){
-      const n = y[ev].name;
-      champSeasonsMap[n] = champSeasonsMap[n] || [];
-      if(!champSeasonsMap[n].includes(season)) champSeasonsMap[n].push(season);
-    }
+// Local fallback for official championship-round winners. A CHAMPIONS sheet tab
+// with Season, Gender, Event, Athlete and Club columns overrides these entries.
+const OFFICIAL_CHAMPION_FALLBACK = [
+  {year:2025,key:'w800',name:'Lucy Delbridge',club:'Collingwood'},
+  {year:2025,key:'m800',name:'Bob Abdelrahim',club:"St Kevin's"},
+  {year:2025,key:'w1500',name:'Madison King',club:'Glenhuntly'},
+  {year:2025,key:'m1500',name:'Tiarnan Crorken',club:'Great Britain'}
+];
+let officialSeasonChampions = [...OFFICIAL_CHAMPION_FALLBACK];
+
+function setOfficialSeasonChampions(rows = [], athletes = [], results = []) {
+  const merged = new Map(OFFICIAL_CHAMPION_FALLBACK.map(row => [`${row.year}:${row.key}`,row]));
+  const athleteMap = new Map(athletes.map(row => [row.Athlete_ID,row]));
+  const resultMap = new Map(results.map(row => [row.Result_ID,row]));
+  rows.forEach(row => {
+    if (row.Championship_Type && String(row.Championship_Type).trim().toLowerCase() !== 'season champion') return;
+    if (row.Verified && String(row.Verified).trim().toLowerCase() !== 'yes') return;
+    const season = String(row.Season || row.Season_Label || row.Season_ID || '').trim();
+    const year = Number((season.match(/\d{4}/) || [])[0]);
+    const gender = String(row.Gender || row.Sex || '').trim().toLowerCase();
+    const event = String(row.Event || row.Distance || row.Discipline || '').trim().toLowerCase();
+    const athlete = athleteMap.get(row.Athlete_ID) || {};
+    const result = resultMap.get(row.Result_ID) || {};
+    const name = String(row.Athlete || row.Athlete_Name || row.Name || athlete.Canonical_Name || result.Athlete_Name_Source || '').trim();
+    const genderKey = gender.startsWith('w') || gender.startsWith('f') ? 'w' : gender.startsWith('m') ? 'm' : '';
+    const eventKey = event.includes('800') ? '800' : event.includes('1500') || event.includes('mile') ? '1500' : '';
+    if (!year || !genderKey || !eventKey || !name) return;
+    const key = `${genderKey}${eventKey}`;
+    const club = String(row.Club || row.Club_Name || result.Club_Name_Source || '').trim();
+    merged.set(`${year}:${key}`,{year,key,name,club});
   });
-});
+  officialSeasonChampions = [...merged.values()];
+}
+
+function officialChampion(year,key) {
+  return officialSeasonChampions.find(row => row.year === Number(year) && row.key === key) || null;
+}
 
 function champBadgeFor(name, row){
-  const seasons = champSeasonsMap[name];
+  const seasons = champData.flatMap(season => {
+    const won = ['w800','m800','w1500','m1500'].some(key => season[key]?.name === name);
+    return won ? [`${String(season.year).slice(2)}/${String(season.year+1).slice(2)}`] : [];
+  });
   if(seasons && seasons.length) return `<span class="champ-badge">${seasons.join(', ')}</span>`;
   if(row && row.prevChamp) return `<span class="champ-badge">Prev Champ</span>`;
   return '';
@@ -1535,6 +1633,14 @@ function showPage(page){
     const whoButton = document.querySelector('#page-about .hist-nav .hn-item');
     if(whoButton) showAbout('who', whoButton);
   }
+  if(page === 'events') {
+    const activeYear = document.querySelector('#eventFilters .efil.active')?.textContent.match(/\d{4}/)?.[0] || '2026';
+    renderEvents(activeYear);
+  }
+  if(page === 'standings') {
+    if(activeStandingsSeasonId && standingsBySeason.has(activeStandingsSeasonId)) selectStandingsSeason(activeStandingsSeasonId);
+    else renderStandings(document.querySelector('#standTabs .tab-btn.active')?.dataset.key || 'w800');
+  }
   window.scrollTo(0,0);
 }
 
@@ -1720,6 +1826,9 @@ function renderEvents(filter='2026'){
   }).join('');
 }
 renderEvents('2026');
+// Build the season buttons immediately from the local meet data. Live Sheet
+// updates enhance these buttons later, but can never leave Events empty.
+renderEventFilters([]);
 function filterEvents(f,el){
   document.querySelectorAll('.efil').forEach(b=>b.classList.remove('active'));
   el.classList.add('active');renderEvents(f);
@@ -1785,16 +1894,17 @@ function renderHomepageChampions() {
   const label = document.getElementById('homeSeasonLabel');
   if (!strip) return;
 
-  const seasonChampions = champData.find(item => item.year === 2025) || champData[0] || null;
+  // Keep the most recently completed champions on the homepage. The current
+  // points leaders replace them only when that season has fully completed.
+  const seasonChampions = champData[0] || champData.find(item => item.year === 2025) || null;
   if (!seasonChampions) {
     strip.innerHTML = '';
     if (label) label.textContent = 'VMC Season';
     return;
   }
 
-  const seasonText = `${seasonChampions.year}–${String(seasonChampions.year + 1).slice(2)} Season`;
+  const seasonText = `${seasonChampions.year}–${String(seasonChampions.year + 1).slice(2)} Season Champions`;
   if (label) label.textContent = seasonText;
-
   const cells = [
     ['W 800M', seasonChampions.w800],
     ['M 800M', seasonChampions.m800],
@@ -1805,20 +1915,28 @@ function renderHomepageChampions() {
   strip.innerHTML = cells.map(([event, athlete]) => `
     <div class="champ-cell">
       <div class="cc-event">${event}</div>
-      <div class="cc-name">${athlete ? athlete.name : 'TBA'}</div>
-      <div class="cc-time">${athlete ? athlete.time : '--'}</div>
+      <div class="cc-name"><span>${athlete ? athlete.name : 'TBA'}</span></div>
       <div class="cc-label">${athlete ? athlete.club : ''}</div>
     </div>
   `).join('');
 }
 
 // Champions
-document.getElementById('championsHistory').innerHTML=champData.map(y=>`
-  <div class="champ-year-block"><div class="cy-title">${y.year}–${String(y.year+1).slice(2)} Season</div>
-  <div class="cy-grid">
-    ${[['W 800m',y.w800],['M 800m',y.m800],['W 1500m',y.w1500],['M 1500m',y.m1500]].map(([ev,d])=>`
-      <div class="cy-cell"><div class="cy-event">${ev}</div><div class="cy-name">${d.name}</div><div class="cy-club">${d.club}</div><div class="cy-time">${d.time}</div></div>`).join('')}
-  </div></div>`).join('');
+function renderChampionsHistory() {
+  const container = document.getElementById('championsHistory');
+  if (!container) return;
+  if (!champData.length) {
+    container.innerHTML = '<div style="padding:24px;color:#8A7052;">Verified championship data will appear here.</div>';
+    return;
+  }
+  container.innerHTML=champData.map(y=>`
+    <div class="champ-year-block"><div class="cy-title">${y.year}–${String(y.year+1).slice(2)} Season</div>
+    <div class="cy-grid">
+      ${[['W 800m',y.w800],['M 800m',y.m800],['W 1500m',y.w1500],['M 1500m',y.m1500]].map(([ev,d])=>`
+        <div class="cy-cell"><div class="cy-event">${ev}</div><div class="cy-name">${d?.name || '—'}</div><div class="cy-club">${d?.club || ''}</div><div class="cy-time">${d?.time || ''}</div></div>`).join('')}
+    </div></div>`).join('');
+}
+renderChampionsHistory();
 renderHomepageChampions();
 
 // Top Lists
@@ -2053,30 +2171,223 @@ const clubWinsWithYears = Object.entries(clubChampionsBySeason.reduce((acc,r)=>{
   .sort((a,b)=>b.count - a.count || a.club.localeCompare(b.club));
 document.getElementById('mostChampsClubBody').innerHTML = clubWinsWithYears.map((r,i)=>`<tr class="wins-row"><td style="width:48px;font-family:'Bebas Neue',sans-serif;font-size:14px;color:#C4B090;text-align:left;padding-right:8px;">${i+1}</td><td style="font-size:12px;"><div style="font-weight:600;">${r.club}</div><div style="font-size:11px;color:#8A7052;margin-top:4px;">${r.years.join(', ')}</div></td><td style="text-align:right;font-family:'Bebas Neue',sans-serif;font-size:18px;color:var(--red);">${r.count}</td></tr>`).join('');
 
-// Victorian Mile Champions (Men & Women) — combined table
-const maleMileChamps = [
-  {season:'2020–21',name:'Matthew Hussey',club:'Western Athletics',time:'4:09.94'},
-];
-const femaleMileChamps = [
-  {season:'2020–21',name:'Lauren Ryan',club:'Club AV',time:'4:34.75'},
-];
-
-// Build combined rows by season (union of seasons from both lists)
-const seasonsSet = new Set([...maleMileChamps.map(s=>s.season), ...femaleMileChamps.map(s=>s.season)]);
-const seasons = Array.from(seasonsSet).sort((a,b)=>{
-  const ay = parseInt(a.split('–')[0],10) || 0;
-  const by = parseInt(b.split('–')[0],10) || 0;
-  return by - ay; // descending
+// Remove design-time examples. Verified results replace these placeholders when
+// the master database finishes loading.
+[
+  'mostWinsMaleBody','mostWinsFemaleBody','mostWinsMale800Body','mostWinsFemale800Body','mostWinsMale1500Body','mostWinsFemale1500Body',
+  'mostPointsMaleBody','mostPointsFemaleBody','mostChampsMaleBody','mostChampsFemaleBody','mostChampsMale800Body','mostChampsFemale800Body',
+  'mostChampsMale1500Body','mostChampsFemale1500Body','mostChampsClubBody','clubChampsBody'
+].forEach(id => {
+  const body = document.getElementById(id);
+  if (body) body.innerHTML = '<tr><td colspan="3" style="padding:20px;color:#8A7052;">Loading verified results…</td></tr>';
 });
 
-const mileRows = seasons.map(season => {
-  const m = maleMileChamps.find(x=>x.season===season) || {};
-  const f = femaleMileChamps.find(x=>x.season===season) || {};
-  const menHtml = m.name ? `${m.name}, <span style="color:#8A7052;font-size:11px;">${m.club}</span>, <span style="font-family:'Bebas Neue',sans-serif;color:var(--red);">${m.time}</span>` : '-';
-  const womenHtml = f.name ? `${f.name}, <span style="color:#8A7052;font-size:11px;">${f.club}</span>, <span style="font-family:'Bebas Neue',sans-serif;color:var(--red);">${f.time}</span>` : '-';
-  return `<tr class="wins-row"><td style="font-size:12px;font-weight:600;">${season}</td><td style="font-size:12px;">${menHtml}</td><td style="font-size:12px;">${womenHtml}</td></tr>`;
-});
-document.getElementById('mileChampsCombinedBody').innerHTML = mileRows.join('');
+// Victorian Mile Champions — supplied historic roll plus automatic future winners.
+const maleMileChampText = `
+1891-1892|Ernest Corner|NSW|4.49.2
+1892-1893|Edwin Flack|Melbourne Hare & Hounds|4.44.0
+1893-1894|Edwin Flack|Melbourne Hare & Hounds|4.49.4
+1894-1895|William Cumming|Melbourne|4.38.2
+1895-1896|William Cumming|Melbourne|4.47.0
+1896-1897|Richard Lynas|Melbourne|4.41.4
+1897-1898|Charles Bennett|Ballarat Harriers|4.43.4
+1898-1899|Samuel Duncan|Footscray|4.40.2
+1899-1900|Samuel Duncan|Footscray|4.40.6
+1900-1901|Harvey Sutton|Melbourne Hare & Hounds|4.59.8
+1901-1902|Harvey Sutton|Melbourne Hare & Hounds|4.40.2
+1902-1903|Rufus Ferguson|East Melbourne Harriers|4.39.2
+1903-1904|Alfred Shrubb|England|4.29.5
+1903-1904|George Blake|Melbourne Hare & Hounds|4.32.8
+1904-1905|Norman Burrowes|East Melbourne Harriers|4.33.2
+1905-1906|James Riddell|Carlton|4.36.2
+1906-1907|William Steele|East Melbourne Harriers|4.45.8
+1907-1908|J McGregor|Ballarat Harriers|4.44.6
+1908-1909|Charles Suffren|Ballarat Harriers|5.03.4
+1909-1910|Stephen Hollow|Essendon|4.39.0
+1909-1910|Sam Marshall|Malvern|4.39.0
+1910-1911|Greg Wheatley|Essendon|4.50.0
+1911-1912|Russell Watson|Malvern|4.40.2
+1912-1913|Emil Voigt|Caulfield|4.34.0
+1913-1914|David Turnbull|East Melbourne Harriers|4.50.0
+1914-1915|William Brown|St Stephens Harriers|4.32.0
+1915-1918|Event not held due to WWI||
+1918-1919|William Brown|St Stephens Harriers|4.44.8
+1919-1920|Harry Davis|St Stephens Harriers|4.49.0
+1920-1921|William Brown|St Stephens Harriers|4.40.6
+1921-1922|Jack Newman|St Stephens Harriers|4.37.0
+1922-1923|Jack Newman|St Stephens Harriers|4.28.4
+1923-1924|Malcolm Boyd|St Stephens Harriers|4.26.4
+1924-1925|Jack Howell|Geelong Guild|4.35.7
+1925-1926|George Hyde|Melbourne Harriers|4.22.2
+1926-1927|William Whyte|Melbourne Harriers|4.32.3
+1927-1928|William Whyte|Melbourne Harriers|4.23.2
+1928-1929|Alex Hillhouse|Melbourne University|4.33.5
+1929-1930|William Whyte|Melbourne Harriers|4.27.0
+1930-1931|Alex Hillhouse|Melbourne University|4.26.4
+1931-1932|William Whyte|Melbourne Harriers|4.23.4
+1932-1933|Alex Hillhouse|Melbourne University|4.25.6
+1933-1934|Fred Colman|St Stephens Harriers|4.21.5
+1934-1935|Gerald Backhouse|St Stephens Harriers|4.24.1
+1935-1936|Gerald Backhouse|St Stephens Harriers|4.20.1
+1936-1937|Gerald Backhouse|St Stephens Harriers|4.19.9
+1937-1938|Gerald Backhouse|St Stephens Harriers|4.16.8
+1938-1939|Gerald Backhouse|St Stephens Harriers|4.22.0
+1939-1940|Gerald Backhouse|St Stephens Harriers|4.20.2
+1940-1945|Event not held due to WW2||
+1945-1946|Jack Stevens|St Stephens Harriers|4.33.0
+1946-1947|Jack Stevens|St Stephens Harriers|4.26.2
+1947-1948|Ken MacDonald|YMCA|4.19.8
+1948-1949|John Marks|Coburg|4.28.0
+1949-1950|Don MacMillan|Melbourne University|4.22.6
+1950-1951|Don MacMillan|Melbourne University|4.19.6
+1951-1952|Don MacMillan|Melbourne University|4.13.4
+1952-1953|John Landy|Geelong Guild|4.11.0
+1953-1954|Terry Sullivan|Mentone|4.14.6
+1954-1955|Don MacMillan|Geelong Guild|4.11.8
+1955-1956|John Landy|Geelong Guild|3.58.6
+1956-1957|Herb Elliott|Melbourne HS Old Boys|4.06.0
+1957-1958|Terry Sullivan|Mentone|4.11.6
+1958-1959|Merv Lincoln|Melbourne HS Old Boys|4.02.6
+1959-1960|Herb Elliott|Coburg|4.00.0
+1960-1961|Trevor Vincent|Glenhuntly|4.10.2
+1961-1962|Trevor Vincent|Glenhuntly|4.10.5
+1962-1963|Trevor Vincent|Glenhuntly|4.03.4
+1963-1964|Trevor Vincent|Glenhuntly|4.06.9
+1964-1965|Trevor Vincent|Glenhuntly|4.08.5
+1965-1966|Ralph Doubell|Melbourne University|4.02.0
+1966-1967|Tony Benson|Glenhuntly|4.04.5
+1967-1968|Tony Benson|Box Hill|4.02.1
+1968-1969|Tony Benson|Box Hill|4.00.1
+1969-1970|Graham Crouch|Box Hill|4.09.6
+1970-1971|Graham Crouch|Box Hill|4.03.8
+1971-1972|Graham Crouch|Box Hill|4.02.6
+1972-1973|Peter Fuller|Box Hill|4.01.6
+1973-1974|Graham Crouch|Box Hill|3.56.7*
+1974-1975|Ken Hall|East Melbourne Harriers|3.59.5
+1975-1976|John Bermingham|Box Hill|4.07.2
+1976-1977|Graham Crouch|Box Hill|3.58.2
+1977-1978|Alan Gibson|Ringwood|4.06.2
+1978-1979|Ken Hall|Essendon/EMH|4.02.4
+1979-1980|Paul Grinsted|Mentone|4.06.2
+1980-1981|Alan Gibson|Ringwood|4.07.5
+1981-1982|Peter Bourke|Glenhuntly|3.58.0
+1982-1983|Paul Grinsted|Mentone|4.06.7
+1983-1984|Mike Hillardt|St Stephens Harriers|3.57.09
+1984-1985|Mike Hillardt|St Stephens Harriers|3.59.2
+1985-1986|Pat Scammell|Glenhuntly|3.56.86
+1989-1990|Shaun Creighton|Ballarat YCW|4.04.0
+2001-2002|Marcus Tierney|Box Hill|04:12.0
+2004-2005|Tim Norton|Ringwood|04:13.0
+2006-2007|Paul Hoffman|NSW|4.00.47
+2006-2007|Jeff Riseley|Knox AC|4.00.69
+2007-2008|Barry Lynch|Box Hill|4.14.80
+2008-2009|Brenton Rowe|Deakin|4.07.4
+2009-2010|Daniel Clark|Box Hill|4.17.02
+2010-2011|Tyson Popplestone|Eureka|4.11.1
+2011-2012|Mitch Brown|Essendon|4.11.7
+2012-2013|Ryan Geard|Essendon|4.07.9
+2013-2014|Tom Fawthorpe|Ringwood|4.08.6
+2014-2015|Brenton Rowe|Deakin|4.09.2
+2015-2016|Luke Mathews|St.Kevins|3.56.7*
+2016-2017|Jordan Gusman|ACT|3.57.9
+2016-2017|Brett Robinson|Old Melburnians|3.58.5
+2017-2018|Luke Mathews|St.Kevins|4.00.6
+2018-2019|Matthew Ramsden|Western Australia|4.08.8
+2018-2019|Isaac Hockey|Melbourne University|4.10.6
+2019-2020|Lachlan Barber|Western Athletics|4.09.13
+2020-2021|Matthew Hussey|Western Athletics|4.09.94
+2021-2022|Matthew Hussey|Western Athletics|4:05.32
+2022-2023|Matthew Hussey|Western Athletics|4:01.39
+2023-2024|Luke Burrows|Western Australia|4:07.09
+2023-2024|Riley Bryce|Old Xaverians|4:08.00
+2024-2025|Lucas Chis|Casey Cardinia|4:03.35`;
+
+const femaleMileChampText = `
+1964-1965|Ilsa Schneider|Brunswick|5.43.1
+1965-1966|Daisy King|Glenhuntly|5.38.6
+1966-1967|Ilsa Schneider|Brunswick|5.32.9
+2006-2007|Anna Worland|Eureka|4.48.16
+2007-2008|Lee Furst|Knox|5.03.76
+2008-2009|Anna (Worland) Kasapis|Eureka|5.00.9
+2009-2010|Samantha Carberry|Doncaster|4.59.84
+2010-2011|Eliza Curnow|Deakin|4.58.8
+2011-2012|Coreena Cleland|Deakin|4.50.4
+2012-2013|Melissa Duncan|Knox|4.42.7
+2013-2014|Coreena Cleland|Deakin|4.46.8
+2014-2015|Coreena Cleland|Deakin|4.43.5
+2015-2016|Genevieve LaCaze|Glenhuntly|4.32.6
+2016-2017|Madeleine Murray|Deakin|4.47.1
+2017-2018|Katrina Anderson|Melbourne University|4.45.7
+2018-2019|Natalie Rule|Knox|4.48.8
+2019-2020|Madeleine Murray|Deakin|4.41.74
+2020-2021|Lauren Ryan|Essendon|4.34.75
+2021-2022|Melissa Duncan|St Stephens|4:45.73
+2022-2023|Piper Gay|Williamstown|4:48.41
+2023-2024|Melissa Duncan|Box Hill|4:43.39
+2024-2025|Amy Robinson|Mansfield|4:30.20*`;
+
+function parseMileChampions(text, gender) {
+  return text.trim().split('\n').map(line => {
+    const [season,name,club='',time=''] = line.split('|');
+    return {season,gender,name,club,time,notHeld:name.startsWith('Event not held')};
+  });
+}
+
+const historicMileChampions = [
+  ...parseMileChampions(maleMileChampText, 'Men'),
+  ...parseMileChampions(femaleMileChampText, 'Women')
+];
+let mileChampionsData = [...historicMileChampions];
+
+function mileSeasonLabel(value) {
+  return String(value || '').replace(/^(\d{4})[-–](\d{2,4})$/, (_,start,end) => `${start}–${end.length === 4 ? end.slice(2) : end}`);
+}
+
+function renderMileChampions() {
+  const body = document.getElementById('mileChampsCombinedBody');
+  if (!body) return;
+  const bySeason = new Map();
+  mileChampionsData.forEach(entry => {
+    if (!bySeason.has(entry.season)) bySeason.set(entry.season, {Men:[],Women:[]});
+    bySeason.get(entry.season)[entry.gender].push(entry);
+  });
+  const formatEntries = entries => entries.length ? entries.map(entry => {
+    if (entry.notHeld) return `<span style="color:#8A7052;font-style:italic;">${entry.name}</span>`;
+    return `<div style="margin-bottom:${entries.length > 1 ? '6px' : '0'};">${entry.name}, <span style="color:#8A7052;font-size:11px;">${entry.club}</span>, <span style="font-family:'Bebas Neue',sans-serif;color:var(--red);">${entry.time}</span></div>`;
+  }).join('') : '—';
+  body.innerHTML = [...bySeason.entries()]
+    .sort((a,b) => (Number(b[0].slice(0,4)) || 0) - (Number(a[0].slice(0,4)) || 0))
+    .map(([season,entries]) => `<tr class="wins-row"><td style="font-size:12px;font-weight:600;">${mileSeasonLabel(season)}</td><td style="font-size:12px;">${formatEntries(entries.Men)}</td><td style="font-size:12px;">${formatEntries(entries.Women)}</td></tr>`)
+    .join('');
+}
+
+function buildMasterMileChampions(seasons, meets, races, results) {
+  const seasonMap = new Map(seasons.map(row => [row.Season_ID, row]));
+  const raceMap = new Map(races.map(row => [row.Race_ID, row]));
+  const candidates = new Map();
+  results.forEach(result => {
+    const race = raceMap.get(result.Race_ID);
+    const season = seasonMap.get(result.Season_ID) || {};
+    const seasonLabel = String(season.Season_Label || '').trim();
+    const seasonYear = Number((seasonLabel.match(/\d{4}/) || [0])[0]);
+    const event = String(race?.Event || '').toLowerCase().replace(/[^a-z0-9]/g, '');
+    const grade = String(race?.Grade || '').trim();
+    const explicitLabel = [race?.Championship_Type,race?.Source_Race_Name,race?.Notes].join(' ').toLowerCase();
+    const isARace = race?.Race_Type === 'A-Race' || /(?:^|\s)A$/.test(grade);
+    const explicitChampionship = /victorian.*mile|mile.*championship/.test(explicitLabel);
+    if (!race || seasonYear <= 2024 || event !== 'mile' || Number(result.Position) !== 1 || String(race.Official || 'Yes').toLowerCase() === 'no' || (!isARace && !explicitChampionship)) return;
+    const gender = result.Gender || race.Gender;
+    if (!['Men','Women'].includes(gender)) return;
+    const key = `${seasonLabel}|${gender}`;
+    const candidate = {season:seasonLabel,gender,name:result.Athlete_Name_Source || '',club:result.Club_Name_Source || '',time:result.Display_Time || '',explicitChampionship};
+    const current = candidates.get(key);
+    if (!current || (candidate.explicitChampionship && !current.explicitChampionship)) candidates.set(key, candidate);
+  });
+  mileChampionsData = [...historicMileChampions, ...candidates.values()];
+  renderMileChampions();
+}
+
+renderMileChampions();
 
 // ═══════════════════ PHOTO SLIDER ═══════════════════
 document.getElementById('photoReel').innerHTML=photosData.map((p,i)=>`
@@ -2230,10 +2541,130 @@ function resultTimeSeconds(result) {
   return Number.isFinite(seconds) && seconds > 0 ? seconds : 0;
 }
 
+const ATHLETE_NAME_CORRECTIONS = new Map([
+  ['georgia box hill griffith', 'georgia griffith'],
+  ['stephen dineen', 'stephen dinneen']
+]);
+
+const RESULT_NAME_FIXES = new Map([
+  ['powne darcy 3389', {name:'Darcy Powne'}],
+  ['huffer craig 4685', {name:'Craig Huffer'}],
+  ['matthew melbourne un scott', {name:'Matthew Scott',club:'Melbourne University'}],
+  ['jemima sandringham russell', {name:'Jemima Russell',club:'Sandringham'}],
+  ['catriona melbourne un bisset', {name:'Catriona Bisset',club:'Melbourne University'}],
+  ['catriona melourne un bisset', {name:'Catriona Bisset',club:'Melbourne University'}],
+  ['katherine katsanevakis doncaster', {name:'Katherine Katsanevakis',club:'Doncaster',gender:'Women'}],
+  ['katherine katsanevakis female doncaster', {name:'Katherine Katsanevakis',club:'Doncaster',gender:'Women'}],
+  ['declyn mornington p tanner', {name:'Declyn Tanner',club:'Mornington Peninsula'}],
+  ['ellie box hill ath sanford', {name:'Ellie Sanford',club:'Box Hill'}]
+]);
+
+const CLUB_NAME_PARTS = [
+  [/\bbox hill (?:athletic club|athletics?|aths?|ath|ac)\b/i,'Box Hill'],
+  [/\bbox hill\b/i,'Box Hill'],
+  [/\bmornington (?:peninsula athletic|peninsula|pen|p)\b/i,'Mornington Peninsula'],
+  [/\b(?:melbourne|melourne) (?:un|uni|university)\b/i,'Melbourne University'],
+  [/\bold scotch c\b/i,'Old Scotch'],
+  [/\bold melburni(?:ans?)?\b/i,'Old Melburnians'],
+  [/\bold xaverian(?:s)?\b/i,'Old Xaverians'],
+  [/\bsouth melbou(?:rne)?\b/i,'South Melbourne'],
+  [/\bst\.?\s*stephens\b/i,'St Stephens'],
+  [/\bbendigo harr(?:iers)?\b/i,'Bendigo Harriers'],
+  [/\byarra ranges\b/i,'Yarra Ranges'],
+  [/\bdiamond valley\b/i,'Diamond Valley'],
+  [/\beureka athle(?:tics?)?\b/i,'Eureka'],
+  [/\bmaccabi (?:athl|athletics?|aths?|ath|a|ac)\b/i,'Maccabi'],
+  [/\bst\.?\s*kevin'?s (?:athletics?|aths?|ath|a|ac)\b/i,"St Kevin's"],
+  [/\bathletics? nunawading\b|\bathletics nu\b/i,'Nunawading'],
+  [/\bglenhuntly (?:athletics?|aths?|ath|a|ac)\b|\bglenhuntly\b/i,'Glenhuntly'],
+  [/\bdoncaster (?:athletics?|aths?|ath|at|a|ac)\b/i,'Doncaster'],
+  [/\bwilliamstown\b/i,'Williamstown'],
+  [/\bsandringham\b/i,'Sandringham'],
+  [/\bmentone (?:athletics?|aths?|athl|ath|a|ac)\b|\bmentone\b/i,'Mentone'],
+  [/\bfrankston (?:athletics?|aths?|ath|at|a|ac)\b/i,'Frankston'],
+  [/\bringwood (?:athletics?|aths?|ath|a|ac)\b|\bringwood\b/i,'Ringwood'],
+  [/\bcollingwood\b/i,'Collingwood'],
+  [/\bdeakin (?:athle|athletics?|aths?|ath|a|ac)\b/i,'Deakin'],
+  [/\bknox (?:athlefcs|athletics?|aths?|ath|a|ac)\b/i,'Knox'],
+  [/\bcoburg harriers\b/i,'Coburg'],
+  [/\bdoncaster\b/i,'Doncaster']
+];
+
+function normalizedNameSignature(value) {
+  return String(value || '').toLowerCase().replace(/[^a-z0-9]+/g,' ').trim().split(/\s+/).filter(Boolean).sort().join('|');
+}
+
+function normalizeMasterResults(results, athletes = []) {
+  const cleanCandidates = new Map();
+  const addCandidate = value => {
+    const name = String(value || '').trim();
+    if (!name || /\d{3,5}$/.test(name) || /\b(?:male|female)\b/i.test(name) || CLUB_NAME_PARTS.some(([pattern]) => pattern.test(name))) return;
+    const signature = normalizedNameSignature(name);
+    if (signature && !cleanCandidates.has(signature)) cleanCandidates.set(signature,name);
+  };
+  athletes.forEach(row => addCandidate(row.Canonical_Name));
+  results.forEach(row => addCandidate(row.Athlete_Name_Source));
+
+  return results.map(result => {
+    const rawName = String(result.Athlete_Name_Source || '').trim();
+    const direct = RESULT_NAME_FIXES.get(rawName.toLowerCase());
+    if (direct) return {...result,Athlete_Name_Source:direct.name,Club_Name_Source:direct.club || result.Club_Name_Source,Gender:direct.gender || result.Gender};
+
+    let cleaned = rawName;
+    let detectedClub = '';
+    const hadBib = /\d/.test(cleaned);
+    cleaned = cleaned.split(/\s+/).filter(token => !/\d/.test(token)).join(' ').trim();
+    cleaned = cleaned.replace(/\b(?:male|female)\b/ig,' ').replace(/\s+/g,' ').trim();
+    if (cleaned.split(/\s+/).length >= 3) {
+      for (const [pattern,club] of CLUB_NAME_PARTS) {
+        if (!pattern.test(cleaned)) continue;
+        cleaned = cleaned.replace(pattern,' ').replace(/\s+/g,' ').trim();
+        detectedClub = club;
+        break;
+      }
+    }
+    const candidate = cleanCandidates.get(normalizedNameSignature(cleaned));
+    if (candidate) cleaned = candidate;
+    else if (hadBib) {
+      const parts = cleaned.split(/\s+/).filter(Boolean);
+      if (parts.length >= 2) cleaned = [parts.pop(),...parts].join(' ');
+    }
+    const currentClub = String(result.Club_Name_Source || '').trim();
+    const club = detectedClub || currentClub;
+    return {...result,Athlete_Name_Source:cleaned || rawName,Club_Name_Source:club};
+  });
+}
+
+function athleteIdentity(result, athleteMap = new Map()) {
+  const athlete = athleteMap.get(result.Athlete_ID) || {};
+  // Cleaned result names take priority over legacy canonical rows, which can
+  // contain bib numbers or a club between the athlete's first and last name.
+  let display = String(result.Athlete_Name_Source || athlete.Canonical_Name || '').trim();
+  let key = display.toLowerCase().replace(/[^a-z0-9]+/g, ' ').trim();
+  key = ATHLETE_NAME_CORRECTIONS.get(key) || key;
+  if (key === 'georgia griffith') display = 'Georgia Griffith';
+  if (key === 'stephen dinneen') display = 'Stephen Dinneen';
+  return {key, display};
+}
+
+function normalizeInlineMeetResults() {
+  const targetRows = [];
+  const sourceRows = [];
+  meetsData.forEach(meet => Object.values(meet.results || {}).forEach(group => group.forEach(row => {
+    targetRows.push(row);
+    sourceRows.push({Athlete_Name_Source:row.n || '',Club_Name_Source:row.c || '',Gender:''});
+  })));
+  normalizeMasterResults(sourceRows).forEach((result,index) => {
+    targetRows[index].n = result.Athlete_Name_Source;
+    targetRows[index].c = result.Club_Name_Source;
+  });
+}
+
 function buildMasterToplists(seasons, meets, races, results, athletes = []) {
   const seasonMap = new Map(seasons.map(row => [row.Season_ID, row]));
   const meetMap = new Map(meets.map(row => [row.Meet_ID, row]));
   const raceMap = new Map(races.map(row => [row.Race_ID, row]));
+  const athleteMap = new Map(athletes.map(row => [row.Athlete_ID, row]));
   // This imported race is labelled as Women's B but contains men's results.
   // Keep it out of records until the underlying 2016-17 source rows are repaired.
   const quarantinedAllTimeRaceIds = new Set(['R-M2016-04-002']);
@@ -2278,15 +2709,16 @@ function buildMasterToplists(seasons, meets, races, results, athletes = []) {
     }
     const key = masterEventKey(race.Event, resolvedGender);
     if (!key) return;
-    const athleteKey = result.Athlete_ID || result.Athlete_Name_Source;
-    const bestKey = key + '|' + athleteKey;
+    const identity = athleteIdentity(result, athleteMap);
+    if (!identity.key) return;
+    const bestKey = key + '|' + identity.key;
     if (!best.has(bestKey) || seconds < best.get(bestKey).seconds) {
       const meet = meetMap.get(result.Meet_ID) || {};
       const season = seasonMap.get(result.Season_ID) || {};
       best.set(bestKey, {
         key,
         seconds,
-        name: result.Athlete_Name_Source || '',
+        name: identity.display,
         club: result.Club_Name_Source || '',
         time: result.Display_Time || '',
         date: meet.Date || '',
@@ -2321,6 +2753,87 @@ function renderWinsTable(id, rows) {
     </tr>`).join('');
 }
 
+function renderHistoryMetric(id, rows, field, emptyText = 'No verified results loaded yet.') {
+  const body = document.getElementById(id);
+  if (!body) return;
+  if (!rows.length) {
+    body.innerHTML = `<tr><td colspan="3" style="padding:20px;color:#8A7052;">${emptyText}</td></tr>`;
+    return;
+  }
+  const max = Number(rows[0][field]) || 1;
+  body.innerHTML = rows.map(row => `<tr class="wins-row">
+    <td><div style="font-size:12px;font-weight:500;">${row.name}</div><div class="wins-bar"><div class="wins-bar-fill" style="width:${Math.round((Number(row[field])||0)/max*100)}%"></div></div></td>
+    <td style="font-size:10px;color:#8A7052;">${row.club || ''}</td>
+    <td style="text-align:right;font-family:'Bebas Neue',sans-serif;font-size:20px;color:var(--red);">${row[field]}</td>
+  </tr>`).join('');
+}
+
+function buildVerifiedHistoryStats() {
+  const points = {Men:new Map(),Women:new Map()};
+  const titles = {
+    overall:{Men:new Map(),Women:new Map()},
+    800:{Men:new Map(),Women:new Map()},
+    1500:{Men:new Map(),Women:new Map()}
+  };
+  const clubTitles = new Map();
+  const clubChampions = [];
+  champData = [];
+
+  const addMetric = (map, row, field, amount) => {
+    if (!row?.name) return;
+    const key = (ATHLETE_NAME_CORRECTIONS.get(row.name.toLowerCase().replace(/[^a-z0-9]+/g,' ').trim()) || row.name.toLowerCase().replace(/[^a-z0-9]+/g,' ').trim());
+    const current = map.get(key) || {name:row.name,club:row.club || '',[field]:0};
+    current[field] += amount;
+    current.club = row.club || current.club;
+    map.set(key,current);
+  };
+
+  [...standingsBySeason.values()].forEach(season => {
+    [['w800','Women','800'],['m800','Men','800'],['w1500','Women','1500'],['m1500','Men','1500']].forEach(([key,gender,distance]) => {
+      (season.events[key] || []).forEach(row => addMetric(points[gender],row,'pts',Number(row.pts)||0));
+    });
+
+    const finalSeason = season.meta.total > 0 && season.meta.completed >= season.meta.total;
+    if (!finalSeason) return;
+    const year = season.meta.year;
+    const champions = {year};
+    [['w800','Women','800'],['m800','Men','800'],['w1500','Women','1500'],['m1500','Men','1500']].forEach(([key,gender,distance]) => {
+      const official = officialChampion(year,key);
+      const standingsWinner = season.events[key]?.[0];
+      const winner = official ? {name:official.name,club:official.club,sb:''} : standingsWinner;
+      if (!winner) return;
+      champions[key] = {name:winner.name,club:winner.club,time:official ? '' : winner.sb};
+      addMetric(titles.overall[gender],winner,'champs',1);
+      addMetric(titles[distance][gender],winner,'champs',1);
+    });
+    champData.push(champions);
+    const clubWinner = season.clubs?.[0];
+    if (clubWinner) {
+      clubChampions.push({season:season.meta.label,club:clubWinner.name,pts:clubWinner.pts});
+      clubTitles.set(clubWinner.name,(clubTitles.get(clubWinner.name)||0)+1);
+    }
+  });
+
+  champData.sort((a,b)=>b.year-a.year);
+  const sortMetric = (map,field) => [...map.values()].sort((a,b)=>b[field]-a[field] || a.name.localeCompare(b.name));
+  renderHistoryMetric('mostPointsMaleBody',sortMetric(points.Men,'pts'),'pts');
+  renderHistoryMetric('mostPointsFemaleBody',sortMetric(points.Women,'pts'),'pts');
+  renderHistoryMetric('mostChampsMaleBody',sortMetric(titles.overall.Men,'champs'),'champs');
+  renderHistoryMetric('mostChampsFemaleBody',sortMetric(titles.overall.Women,'champs'),'champs');
+  renderHistoryMetric('mostChampsMale800Body',sortMetric(titles[800].Men,'champs'),'champs');
+  renderHistoryMetric('mostChampsFemale800Body',sortMetric(titles[800].Women,'champs'),'champs');
+  renderHistoryMetric('mostChampsMale1500Body',sortMetric(titles[1500].Men,'champs'),'champs');
+  renderHistoryMetric('mostChampsFemale1500Body',sortMetric(titles[1500].Women,'champs'),'champs');
+
+  const clubBody = document.getElementById('clubChampsBody');
+  if (clubBody) clubBody.innerHTML = clubChampions.length ? clubChampions.map(row => `<tr class="wins-row"><td style="font-size:12px;font-weight:600;">${mileSeasonLabel(row.season)}</td><td style="font-size:12px;">${row.club}</td><td style="text-align:right;font-family:'Bebas Neue',sans-serif;font-size:18px;color:var(--red);">${row.pts}</td></tr>`).join('') : '<tr><td colspan="3" style="padding:20px;color:#8A7052;">No completed verified seasons yet.</td></tr>';
+  const mostClubBody = document.getElementById('mostChampsClubBody');
+  const mostClubs = [...clubTitles.entries()].map(([name,champs])=>({name,champs})).sort((a,b)=>b.champs-a.champs || a.name.localeCompare(b.name));
+  if (mostClubBody) mostClubBody.innerHTML = mostClubs.length ? mostClubs.map((row,index) => `<tr class="wins-row"><td style="width:48px;font-family:'Bebas Neue',sans-serif;font-size:14px;color:#C4B090;text-align:left;padding-right:8px;">${index+1}</td><td style="font-size:12px;font-weight:600;">${row.name}</td><td style="text-align:right;font-family:'Bebas Neue',sans-serif;font-size:18px;color:var(--red);">${row.champs}</td></tr>`).join('') : '<tr><td colspan="3" style="padding:20px;color:#8A7052;">No completed verified seasons yet.</td></tr>';
+  renderChampionsHistory();
+  renderHomepageChampions();
+}
+
 function buildMasterWins(races, results, athletes) {
   const raceMap = new Map(races.map(row => [row.Race_ID, row]));
   const athleteMap = new Map(athletes.map(row => [row.Athlete_ID, row]));
@@ -2329,16 +2842,16 @@ function buildMasterWins(races, results, athletes) {
     female800: new Map(), male1500: new Map(), female1500: new Map()
   };
   const add = (bucket, result) => {
-    const athlete = athleteMap.get(result.Athlete_ID) || {};
-    const id = result.Athlete_ID || result.Athlete_Name_Source;
-    const current = bucket.get(id) || {
-      name: athlete.Canonical_Name || result.Athlete_Name_Source || '',
+    const identity = athleteIdentity(result, athleteMap);
+    if (!identity.key) return;
+    const current = bucket.get(identity.key) || {
+      name: identity.display,
       club: result.Club_Name_Source || '',
       wins: 0
     };
     current.wins += 1;
     current.club = result.Club_Name_Source || current.club;
-    bucket.set(id, current);
+    bucket.set(identity.key, current);
   };
 
   results.forEach(result => {
@@ -2350,11 +2863,16 @@ function buildMasterWins(races, results, athletes) {
     if (gender === 'Women') add(buckets.female, result);
     if (race.Event === '800m' && gender === 'Men') add(buckets.male800, result);
     if (race.Event === '800m' && gender === 'Women') add(buckets.female800, result);
-    if (race.Event === '1500m' && gender === 'Men') add(buckets.male1500, result);
-    if (race.Event === '1500m' && gender === 'Women') add(buckets.female1500, result);
+    if (['1500m','Mile'].includes(race.Event) && gender === 'Men') add(buckets.male1500, result);
+    if (['1500m','Mile'].includes(race.Event) && gender === 'Women') add(buckets.female1500, result);
   });
 
-  const sorted = bucket => [...bucket.values()].sort((a,b) => b.wins - a.wins || a.name.localeCompare(b.name)).slice(0, 200);
+  const sorted = bucket => {
+    const rows = [...bucket.values()].sort((a,b) => b.wins - a.wins || a.name.localeCompare(b.name));
+    if (rows.length <= 5) return rows;
+    const fifthPlaceWins = rows[4].wins;
+    return rows.filter((row,index) => index < 5 || row.wins === fifthPlaceWins);
+  };
   renderWinsTable('mostWinsMaleBody', sorted(buckets.male));
   renderWinsTable('mostWinsFemaleBody', sorted(buckets.female));
   renderWinsTable('mostWinsMale800Body', sorted(buckets.male800));
@@ -2393,6 +2911,24 @@ function selectStandingsSeason(seasonId) {
   const key = document.querySelector('#standingsTabs .tab-btn.active')?.dataset.key || 'w800';
   renderStandings(key);
   renderClubBoard('sideClub', true);
+}
+
+const NON_CLUB_POINT_TEAMS = new Set([
+  'unattached','independent','no club','unknown',
+  'australia','australian capital territory','act','new south wales','nsw',
+  'northern territory','nt','queensland','qld','south australia','sa',
+  'tasmania','tas','victoria','vic','western australia','wa',
+  'athletics south','athletics australia',
+  'great britain','england','scotland','wales','ireland','northern ireland',
+  'new zealand','united states','united states of america','usa','canada',
+  'hong kong','israel','japan','singapore','solomon islands','sri lanka'
+]);
+
+function isEligibleClubForPoints(value) {
+  const club = String(value || '').trim().toLowerCase().replace(/\s+/g,' ');
+  if (!club || NON_CLUB_POINT_TEAMS.has(club)) return false;
+  if (/^(?:team |national |australian |state team)/.test(club)) return false;
+  return true;
 }
 
 function buildSeasonStandings(seasons, meets, races, results) {
@@ -2480,7 +3016,7 @@ function buildSeasonStandings(seasons, meets, races, results) {
       }
       map.set(athleteId, row);
       const club = String(result.Club_Name_Source || '').trim();
-      if (club && !/^(independent|unattached)$/i.test(club)) {
+      if (isEligibleClubForPoints(club)) {
         const groupKey = [result.Meet_ID, key, club].join('|');
         if (!clubGroups.has(groupKey)) clubGroups.set(groupKey, {club, scores:[]});
         clubGroups.get(groupKey).scores.push(points);
@@ -2526,6 +3062,7 @@ function buildSeasonStandings(seasons, meets, races, results) {
     });
   });
 
+  buildVerifiedHistoryStats();
   const available = [...standingsBySeason.entries()].sort((a,b) => b[1].meta.year-a[1].meta.year);
   if (!available.length) return;
   const latestId = available[0][0];
@@ -2540,7 +3077,7 @@ function buildSeasonStandings(seasons, meets, races, results) {
 
   const buttons = document.getElementById('standingsSeasonButtons');
   if (buttons) buttons.innerHTML = available.map(([id,data],index) =>
-    `<button class="s-btn ${index===0?'active':''}" data-season-id="${id}">${data.meta.label}</button>`
+    `<button class="s-btn ${index===0?'active':''}" data-season-id="${id}" onclick="selectStandingsSeason('${id}')">${data.meta.label}</button>`
   ).join('');
   selectStandingsSeason(activeStandingsSeasonId && standingsBySeason.has(activeStandingsSeasonId) ? activeStandingsSeasonId : latestId);
   const homeKey = document.querySelector('#homeLbTabs .tab-btn.active')?.dataset.key || 'w800';
@@ -2582,28 +3119,44 @@ async function loadMasterSnapshot() {
     meets: rowsToObjects(data.meets),
     races: rowsToObjects(data.races),
     results: rowsToObjects(data.results),
-    athletes: rowsToObjects(data.athletes)
+    athletes: rowsToObjects(data.athletes),
+    champions: rowsToObjects(data.championships || data.champions)
   };
 }
 
-function applyMasterDatabase({seasons, meets, races, results, athletes = []}) {
+function applyMasterDatabase({seasons, meets, races, results, athletes = [], champions = []}) {
+  setOfficialSeasonChampions(champions, athletes, results);
+  results = normalizeMasterResults(results, athletes);
   mergeMasterResults(seasons, meets, races, results);
-  buildSeasonStandings(seasons, meets, races, results);
-  buildMasterToplists(seasons, meets, races, results, athletes);
-  buildMasterWins(races, results, athletes);
-  return renderEventFilters(seasons);
+  const selectedSeason = renderEventFilters(seasons);
+  renderEvents(selectedSeason);
+
+  // Each derived table is independent. A problem in History, standings or an
+  // all-time list must not interrupt the Events page and its results.
+  const derivedUpdates = [
+    ['standings', () => buildSeasonStandings(seasons, meets, races, results)],
+    ['Victorian Mile champions', () => buildMasterMileChampions(seasons, meets, races, results)],
+    ['all-time lists', () => buildMasterToplists(seasons, meets, races, results, athletes)],
+    ['A-race wins', () => buildMasterWins(races, results, athletes)]
+  ];
+  derivedUpdates.forEach(([label, update]) => {
+    try { update(); }
+    catch (error) { console.error(`VMC Sync: Could not update ${label}`, error); }
+  });
+  return selectedSeason;
 }
 
 async function syncMasterDatabase() {
   try {
-    const [seasons, meets, races, results, athletes] = await Promise.all([
+    const [seasons, meets, races, results, athletes, champions] = await Promise.all([
       fetchMasterTab('SEASONS', 'A4:H1000'),
       fetchMasterTab('MEETS', 'A4:L1000'),
       fetchMasterTab('RACES', 'A4:L10000'),
       fetchMasterTab('RESULTS', 'A4:Q50000'),
-      fetchMasterTab('ATHLETES', 'A4:K20000')
+      fetchMasterTab('ATHLETES', 'A4:K20000'),
+      fetchMasterTab('CHAMPIONSHIPS', 'A4:L1000').catch(() => [])
     ]);
-    applyMasterDatabase({seasons, meets, races, results, athletes});
+    applyMasterDatabase({seasons, meets, races, results, athletes, champions});
     console.log('VMC Sync: Master database loaded');
     return true;
   } catch (error) {
@@ -2641,10 +3194,14 @@ async function loadHistoricMeetFallback() {
 }
 
 async function initApp() {
+  normalizeInlineMeetResults();
+  updateSiteLoader(18,'Connecting to the VMC results archive…');
   const masterLoaded = await syncMasterDatabase();
+  updateSiteLoader(masterLoaded ? 72 : 52,masterLoaded ? 'Results archive connected' : 'Loading the local results archive…');
   if (!masterLoaded) await loadHistoricMeetFallback();
 
   if (CONFIG.SHEET_ID && CONFIG.SHEET_ID !== '' && !CONFIG.SHEET_ID.includes('YOUR_PUBLISHED')) {
+    updateSiteLoader(80,'Checking the latest spreadsheet updates…');
     console.log('VMC Sync: Connecting to Google Sheets...');
 
     // 1. Sync Horizontal Toplists
@@ -2784,6 +3341,7 @@ async function initApp() {
   renderToplist('w800');
   const activeEventYear = document.querySelector('#eventFilters .efil.active')?.textContent.match(/\d{4}/)?.[0] || '2026';
   renderEvents(activeEventYear);
+  updateSiteLoader(96,'Building events, standings and records…');
 }
 
 function renderLatestWinnersSidebar(){
@@ -2852,7 +3410,18 @@ function renderLatestWinnersSidebar(){
   container.innerHTML = `<div class="sec-eyebrow-gold">${seasonLabel}</div>${allMeetsWinnersHtml}`;
 }
 
-window.addEventListener('DOMContentLoaded', initApp);
+window.addEventListener('DOMContentLoaded', () => {
+  // A slow or unavailable spreadsheet must never trap visitors behind the loader.
+  window.setTimeout(finishSiteLoader,15000);
+  initApp().catch(error => {
+    console.error('VMC initialization failed; restoring local page data.', error);
+    renderEventFilters([]);
+    renderEvents('2026');
+    renderStandings('w800');
+    renderHomeLb('w800');
+    renderClubBoard('homeClubBoard');
+  }).finally(finishSiteLoader);
+});
 
 </script>
 </body>
