@@ -9,7 +9,9 @@
 <style>
 *{box-sizing:border-box;margin:0;padding:0;}
 :root{
-  --red:#C0001A;--red-dark:#8B0012;--red-deep:#3D0008;
+  /* The original red accent is retained as a variable name for compatibility,
+     but now forms the deep end of VMC's gold palette. */
+  --red:#A8781A;--red-dark:#6F4A0B;--red-deep:#241806;
   --gold:#C9A84C;--gold-light:#E8C97A;--gold-pale:#F5EDD0;
   --cream:#FAF7F2;--dark:#0D0D0D;--dark2:#1A1A1A;
   --text:#F5F0E8;--muted:rgba(245,240,232,0.45);--border:#E0D8CC;
@@ -21,12 +23,11 @@ body{font-family:'Inter',sans-serif;background:var(--cream);color:var(--dark);ov
 body.vmc-loading{overflow:hidden;}
 .vmc-loader{--loader-progress:8;--loader-colour:#F1D27B;--loader-glow:rgba(241,210,123,.25);position:fixed;inset:0;z-index:9999;background:var(--dark);display:flex;align-items:center;justify-content:center;color:var(--text);transition:opacity .65s ease,visibility .65s ease;overflow:hidden;}
 .vmc-loader::before{content:"";position:absolute;inset:0;opacity:.055;background-image:repeating-linear-gradient(0deg,transparent,transparent 47px,#fff 47px,#fff 48px),repeating-linear-gradient(90deg,transparent,transparent 47px,#fff 47px,#fff 48px);}
-.vmc-loader::after{content:"VMC";position:absolute;right:-3vw;bottom:-14vh;font-family:'Bebas Neue',sans-serif;font-size:min(46vw,620px);line-height:1;color:var(--red);opacity:.055;letter-spacing:-12px;}
+.vmc-loader::after{content:"";position:absolute;right:-5vw;bottom:-16vh;width:min(48vw,660px);aspect-ratio:3/2;background:url('assets/vmc-winged-foot.png') center/contain no-repeat;opacity:.055;filter:saturate(.75);}
 .vmc-loader.is-complete{opacity:0;visibility:hidden;pointer-events:none;}
 .vmc-loader-card{position:relative;z-index:2;width:min(620px,86vw);text-align:center;}
-.vmc-loader-brand{display:inline-flex;align-items:center;gap:15px;margin-bottom:42px;text-align:left;}
-.vmc-loader-badge{width:56px;height:56px;background:var(--red);display:flex;align-items:center;justify-content:center;box-shadow:0 0 0 1px rgba(255,255,255,.08),0 16px 40px rgba(192,0,26,.22);}
-.vmc-loader-badge span{font-family:'Bebas Neue',sans-serif;font-size:28px;color:#fff;letter-spacing:.5px;}
+.vmc-loader-brand{display:block;margin:0 auto 30px;}
+.vmc-loader-logo{display:block;width:min(430px,78vw);height:auto;margin:0 auto;filter:drop-shadow(0 12px 30px rgba(0,0,0,.42)) drop-shadow(0 0 12px rgba(201,168,76,.18));}
 .vmc-loader-name{font-family:'Playfair Display',serif;font-size:16px;font-weight:700;letter-spacing:3px;text-transform:uppercase;}
 .vmc-loader-place{font-size:9px;letter-spacing:3px;text-transform:uppercase;color:var(--gold);margin-top:5px;}
 .vmc-loader-kicker{font-size:9px;letter-spacing:4px;text-transform:uppercase;color:var(--gold);font-weight:600;margin-bottom:10px;}
@@ -45,15 +46,16 @@ body.vmc-loading{overflow:hidden;}
 .vmc-loader-status{font-size:9px;letter-spacing:2px;text-transform:uppercase;color:rgba(245,240,232,.48);text-align:left;}
 .vmc-loader-percent{font-family:'Bebas Neue',sans-serif;color:var(--gold);font-size:16px;letter-spacing:1px;}
 @media (prefers-reduced-motion:reduce){.vmc-loader,.vmc-track-progress,.vmc-track-progress-glow{transition:none}}
-@media (max-width:600px){.vmc-loader-brand{margin-bottom:34px}.vmc-loader-name{font-size:12px}.vmc-loader-title{margin-bottom:26px}.vmc-track{height:84px}}
+@media (max-width:600px){.vmc-loader-brand{margin-bottom:26px}.vmc-loader-title{margin-bottom:26px}.vmc-track{height:84px}}
 
 /* ── NAV ── */
 .nav{position:sticky;top:0;z-index:200;background:var(--dark);border-bottom:2px solid var(--red);display:flex;align-items:center;justify-content:space-between;padding:0 40px;}
 .nav-logo{display:flex;align-items:center;gap:12px;padding:12px 0;cursor:pointer;}
-.logo-badge{width:40px;height:40px;background:var(--red);display:flex;align-items:center;justify-content:center;}
-.logo-badge span{font-family:'Bebas Neue',sans-serif;font-size:20px;color:#fff;}
+.logo-badge{width:46px;height:46px;display:flex;align-items:center;justify-content:center;flex:0 0 auto;}
+.logo-badge img{width:100%;height:100%;object-fit:contain;filter:drop-shadow(0 0 8px rgba(201,168,76,.18));}
 .logo-text-main{font-family:'Playfair Display',serif;font-size:12px;letter-spacing:3px;text-transform:uppercase;color:var(--text);font-weight:700;}
-.logo-text-sub{font-size:9px;letter-spacing:2px;text-transform:uppercase;color:var(--gold);font-weight:400;margin-top:2px;}
+.logo-text-sub{font-size:9px;letter-spacing:1px;color:var(--gold);font-weight:400;margin-top:2px;}
+.logo-text-sub em{font-family:'Playfair Display',serif;font-style:italic;}
 .nav-links{display:flex;list-style:none;position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);z-index:10;}
 .nav-links a{display:block;padding:20px 15px;font-size:10px;letter-spacing:2px;text-transform:uppercase;text-decoration:none;color:rgba(245,240,232,.5);font-weight:500;border-bottom:2px solid transparent;transition:color .2s,border-color .2s;cursor:pointer;}
 .nav-links a:hover,.nav-links a.active{color:var(--gold);border-bottom-color:var(--gold);}
@@ -83,7 +85,8 @@ body.vmc-loading{overflow:hidden;}
 /* ── PAGE HEROES ── */
 .page-hero{background:var(--dark);padding:52px 48px;position:relative;overflow:hidden;border-bottom:3px solid var(--red);}
 .page-hero-bg{position:absolute;inset:0;opacity:0.04;background-image:repeating-linear-gradient(0deg,transparent,transparent 39px,#fff 39px,#fff 40px),repeating-linear-gradient(90deg,transparent,transparent 39px,#fff 39px,#fff 40px);}
-.page-hero-wm{position:absolute;right:-10px;bottom:-20px;font-family:'Bebas Neue',sans-serif;font-size:180px;color:var(--red);opacity:0.06;line-height:1;pointer-events:none;letter-spacing:-4px;}
+.page-hero-wm{position:absolute;right:-22px;bottom:-74px;width:min(310px,35vw);pointer-events:none;opacity:.075;transform:rotate(-5deg);}
+.page-hero-wm img{display:block;width:100%;height:auto;}
 .ph-content{position:relative;z-index:2;}
 .ph-eyebrow{font-size:9px;letter-spacing:3px;text-transform:uppercase;color:var(--gold);font-weight:600;margin-bottom:10px;}
 .ph-title{font-family:'Playfair Display',serif;font-size:clamp(32px,5vw,52px);font-weight:900;color:var(--text);line-height:1;}
@@ -120,7 +123,7 @@ body.vmc-loading{overflow:hidden;}
 
 /* FOOTER */
 .site-footer{background:var(--dark);border-top:2px solid var(--red);}
-.footer-main{padding:32px 48px;display:grid;grid-template-columns:1fr 1fr 1fr;gap:40px;}
+.footer-main{padding:36px 48px;display:grid;grid-template-columns:minmax(230px,.8fr) minmax(420px,1.7fr);gap:56px;align-items:center;}
 .footer-col-title{font-family:'Playfair Display',serif;font-size:14px;color:var(--text);margin-bottom:12px;font-weight:600;}
 .footer-links-list{display:flex;flex-direction:column;gap:6px;}
 .footer-links-list a{font-size:10px;letter-spacing:1.5px;text-transform:uppercase;color:rgba(245,240,232,.3);text-decoration:none;cursor:pointer;transition:color .15s;}
@@ -128,6 +131,10 @@ body.vmc-loading{overflow:hidden;}
 .footer-social{display:flex;gap:10px;margin-top:10px;}
 .footer-social-btn{width:36px;height:36px;border:1px solid rgba(245,240,232,.12);display:flex;align-items:center;justify-content:center;color:rgba(245,240,232,.3);text-decoration:none;font-size:14px;transition:all .15s;}
 .footer-social-btn:hover{border-color:var(--gold);color:var(--gold);}
+.footer-partners-label{font-size:8px;letter-spacing:2.4px;text-transform:uppercase;color:var(--gold);font-weight:600;margin-bottom:12px;}
+.footer-partners-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px;}
+.footer-partner{height:76px;background:#fff;border:1px solid rgba(201,168,76,.2);display:flex;align-items:center;justify-content:center;padding:8px;}
+.footer-partner img{display:block;width:100%;height:100%;object-fit:contain;mix-blend-mode:multiply;}
 .footer-bottom{padding:16px 48px;border-top:1px solid rgba(245,240,232,.06);display:flex;justify-content:space-between;align-items:center;}
 .footer-copy{font-size:9px;color:rgba(245,240,232,.2);letter-spacing:1px;}
 .gsheet-badge{display:inline-flex;align-items:center;gap:8px;background:rgba(201,168,76,.08);border:1px solid rgba(201,168,76,.18);padding:8px 14px;}
@@ -144,35 +151,30 @@ body.vmc-loading{overflow:hidden;}
 .cal-meet-pill{flex:1;display:flex;align-items:center;gap:0;border-right:1px solid rgba(201,168,76,.1);min-width:180px;transition:background .15s;cursor:pointer;}
 .cal-meet-pill:last-child{border-right:none;}
 .cal-meet-pill:hover{background:rgba(201,168,76,.06);}
-.cmp-num{background:var(--red);padding:14px 12px;display:flex;flex-direction:column;align-items:center;justify-content:center;min-width:44px;}
+.cmp-num{background:linear-gradient(145deg,#5B3A1A 0%,#765126 55%,#4A2E14 100%);padding:14px 12px;display:flex;flex-direction:column;align-items:center;justify-content:center;min-width:44px;box-shadow:inset 1px 0 rgba(232,201,122,.16),inset -1px 0 rgba(0,0,0,.28);}
 .cmp-n-lbl{font-size:7px;letter-spacing:2px;text-transform:uppercase;color:rgba(255,255,255,.5);}
 .cmp-n-val{font-family:'Bebas Neue',sans-serif;font-size:22px;color:#fff;line-height:1;}
 .cmp-info{padding:10px 14px;}
 .cmp-date{font-size:10px;font-weight:500;color:var(--text);margin-bottom:1px;}
 .cmp-venue{font-size:9px;color:var(--muted);font-weight:300;margin-bottom:3px;}
 .cmp-status{font-size:8px;letter-spacing:1.5px;text-transform:uppercase;font-weight:600;padding:2px 7px;display:inline-block;}
-.st-enter{background:rgba(192,0,26,.2);color:#ff6b7a;}
+.st-enter{background:rgba(168,120,26,.22);color:var(--gold-light);}
 .st-results{background:rgba(201,168,76,.15);color:var(--gold);}
 .st-closed{background:rgba(255,255,255,.05);color:rgba(245,240,232,.3);}
 
 /* HERO */
-.home-hero{position:relative;background:var(--dark);min-height:580px;display:flex;align-items:center;justify-content:center;overflow:hidden;}
-.hero-bg-abs{position:absolute;inset:0;background-image:url('https://scontent.fmel15-1.fna.fbcdn.net/v/t39.30808-6/626366610_1423402263039254_8435946760617825436_n.jpg?_nc_cat=110&ccb=1-7&_nc_sid=127cfc&_nc_ohc=ElTWkhaOf0oQ7kNvwE4TzzD&_nc_oc=AdpxWnimM3nRFz5EWKPlXrmO9QabRkHJWbSRJIn_8nnJKu1CXbMrq6oVXRIIlv_fB9M&_nc_zt=23&_nc_ht=scontent.fmel15-1.fna&_nc_gid=1sgtEUcVJ4Om52ChlyTU8Q&_nc_ss=7b2a8&oh=00_Af9iVOLRJ4422ED-Gd6qVuMj98obmS_I_vC2KKD_EjbS1w&oe=6A2338F2');background-size:cover;background-position:center top;}
-.hero-grad{position:absolute;inset:0;background:radial-gradient(ellipse 90% 70% at 50% 50%, rgba(61,0,8,.65) 0%, rgba(13,13,13,.97) 100%);}
+.home-hero{position:relative;background:var(--dark);min-height:690px;display:flex;align-items:center;justify-content:center;overflow:hidden;}
+.hero-bg-abs{position:absolute;inset:0;background-image:url('assets/vmc-hero-race.jpg');background-size:cover;background-position:center 48%;}
+.hero-grad{position:absolute;inset:0;background:radial-gradient(ellipse 58% 58% at 50% 35%,rgba(13,13,13,.5) 0%,rgba(13,13,13,.25) 52%,rgba(13,13,13,.68) 100%),linear-gradient(180deg,rgba(8,8,8,.28) 0%,rgba(8,8,8,.36) 46%,rgba(8,8,8,.88) 100%);}
 .hero-track-svg{position:absolute;inset:0;opacity:.05;}
 .hero-track-svg svg{width:100%;height:100%;}
-.hero-wm{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;pointer-events:none;}
-.hero-wm span{font-family:'Bebas Neue',sans-serif;font-size:300px;color:var(--red);opacity:.055;letter-spacing:-8px;line-height:1;user-select:none;}
-.hero-centre{position:relative;z-index:2;text-align:center;display:flex;flex-direction:column;align-items:center;padding:56px 40px;}
-.hero-logo-ring{width:96px;height:96px;border:2px solid var(--gold);border-radius:50%;display:flex;align-items:center;justify-content:center;margin-bottom:20px;position:relative;}
-.hero-logo-ring::before{content:'';position:absolute;inset:5px;border:1px solid rgba(201,168,76,.3);border-radius:50%;}
-.hero-vmc{font-family:'Bebas Neue',sans-serif;font-size:34px;color:var(--gold);letter-spacing:3px;}
-.hero-club-name{font-family:'Playfair Display',serif;font-size:12px;letter-spacing:5px;text-transform:uppercase;color:rgba(245,240,232,.4);margin-bottom:20px;}
-.hero-red-rule{width:60px;height:1px;background:var(--red);margin:0 auto 20px;}
-.hero-tagline{font-family:'Playfair Display',serif;font-size:clamp(26px,4vw,44px);font-weight:700;color:var(--text);line-height:1.1;margin-bottom:10px;max-width:580px;}
+.hero-wm{position:absolute;right:-6%;bottom:-20%;width:min(48vw,620px);pointer-events:none;opacity:.045;transform:rotate(-6deg);}
+.hero-wm img{display:block;width:100%;height:auto;}
+.hero-centre{position:relative;z-index:2;text-align:center;display:flex;flex-direction:column;align-items:center;width:100%;padding:62px 40px 52px;}
+.hero-brand-logo{display:block;width:min(610px,74vw);max-height:300px;object-fit:contain;margin-bottom:8px;filter:drop-shadow(0 10px 32px rgba(0,0,0,.72)) drop-shadow(0 0 12px rgba(201,168,76,.14));}
+.hero-tagline{font-family:'Playfair Display',serif;font-size:clamp(23px,3.2vw,38px);font-weight:700;color:var(--text);line-height:1.18;margin-bottom:8px;max-width:740px;text-shadow:0 3px 18px rgba(0,0,0,.85);}
 .hero-tagline em{font-style:italic;color:var(--gold);}
-.hero-sub{font-size:14px;color:var(--muted);line-height:1.7;font-weight:300;max-width:460px;margin-bottom:28px;}
-.hero-btns{display:flex;gap:14px;justify-content:center;margin-bottom:44px;}
+.hero-btns{display:flex;gap:14px;justify-content:center;margin:24px 0 40px;}
 .btn-ghost-hero{background:transparent;color:rgba(245,240,232,.6);border:1px solid rgba(245,240,232,.18);padding:13px 32px;font-family:'Inter',sans-serif;font-size:10px;font-weight:400;letter-spacing:2px;text-transform:uppercase;cursor:pointer;transition:border-color .2s,color .2s;}
 .btn-ghost-hero:hover{border-color:var(--gold);color:var(--gold);}
 
@@ -185,12 +187,12 @@ body.vmc-loading{overflow:hidden;}
 .cc-label{font-size:8px;letter-spacing:1px;text-transform:uppercase;color:rgba(245,240,232,.25);margin-top:2px;}
 
 /* RECORDS & STATS */
-.records-band{background:var(--dark2);display:grid;grid-template-columns:repeat(4,1fr);border-left:1px solid rgba(192,0,26,.55);border-right:1px solid rgba(192,0,26,.55);}
+.records-band{background:var(--dark2);display:grid;grid-template-columns:repeat(4,1fr);border-left:1px solid rgba(168,120,26,.55);border-right:1px solid rgba(168,120,26,.55);}
 .home-hero + .records-band{border-top:3px solid var(--red);}
 .records-band + .records-band{border-top:1px solid rgba(201,168,76,.16);border-bottom:3px solid var(--red);}
-.rec-cell{position:relative;overflow:hidden;min-height:104px;padding:22px 24px;border-right:1px solid rgba(201,168,76,.16);text-align:center;display:flex;flex-direction:column;align-items:center;justify-content:center;background:linear-gradient(145deg,rgba(192,0,26,.09),transparent 48%);transition:background .2s ease;}
+.rec-cell{position:relative;overflow:hidden;min-height:104px;padding:22px 24px;border-right:1px solid rgba(201,168,76,.16);text-align:center;display:flex;flex-direction:column;align-items:center;justify-content:center;background:linear-gradient(145deg,rgba(168,120,26,.13),transparent 48%);transition:background .2s ease;}
 .rec-cell::before{content:'';position:absolute;left:0;top:20px;bottom:20px;width:2px;background:var(--red);opacity:.65;}
-.rec-cell:hover{background:linear-gradient(145deg,rgba(192,0,26,.16),rgba(201,168,76,.035));}
+.rec-cell:hover{background:linear-gradient(145deg,rgba(232,201,122,.18),rgba(201,168,76,.04));}
 .rec-cell:last-child{border-right:none;}
 .rec-event{font-size:8px;letter-spacing:2.2px;text-transform:uppercase;color:var(--gold);font-weight:700;margin-bottom:8px;}
 .rec-time{font-family:'Bebas Neue',sans-serif;font-size:32px;color:var(--text);letter-spacing:1.2px;line-height:1;margin-bottom:6px;text-shadow:0 3px 16px rgba(0,0,0,.35);}
@@ -238,11 +240,21 @@ body.vmc-loading{overflow:hidden;}
 /* IG STRIP */
 .ig-section{background:var(--dark);border-top:1px solid rgba(201,168,76,.15);padding:32px 0 0;}
 .ig-header{padding:0 48px 16px;display:flex;align-items:center;justify-content:space-between;}
+.ig-header-actions{display:flex;align-items:center;gap:10px;}
 .ig-link{font-size:10px;letter-spacing:1.5px;text-transform:uppercase;color:var(--gold);text-decoration:none;font-weight:600;}
-.ig-track{overflow:hidden;padding:0 48px;}
-.ig-reel{display:flex;gap:12px;transition:transform .4s cubic-bezier(.4,0,.2,1);}
-.ig-card{flex-shrink:0;width:160px;height:160px;position:relative;overflow:hidden;cursor:pointer;}
-.ig-card-bg{width:100%;height:100%;background:linear-gradient(135deg,rgba(61,0,8,.8),rgba(26,26,26,.9));display:flex;align-items:center;justify-content:center;flex-direction:column;gap:6px;transition:transform .2s;}
+.ig-nav{display:flex;gap:5px;}
+.ig-nav-btn{width:30px;height:30px;border:1px solid rgba(201,168,76,.34);background:transparent;color:var(--gold-light);font-size:18px;line-height:1;cursor:pointer;transition:background .18s,border-color .18s,color .18s;}
+.ig-nav-btn:hover:not(:disabled){background:rgba(201,168,76,.16);border-color:var(--gold);color:#fff;}
+.ig-nav-btn:disabled{opacity:.28;cursor:default;}
+.ig-track{overflow:hidden;padding:0 48px;cursor:grab;touch-action:pan-y;}
+.ig-track.is-dragging{cursor:grabbing;}
+.ig-reel{display:block;}
+.ig-slide{display:none;grid-template-columns:repeat(5,minmax(0,1fr));gap:12px;animation:ig-page-in .22s ease both;}
+.ig-slide.active{display:grid;}
+@keyframes ig-page-in{from{opacity:.35;transform:translateX(8px)}to{opacity:1;transform:translateX(0)}}
+.ig-card{aspect-ratio:1/1;position:relative;overflow:hidden;cursor:pointer;}
+.ig-card-bg{width:100%;height:100%;background:var(--dark2);transition:transform .2s;}
+.ig-card-bg img{width:100%;height:100%;object-fit:cover;display:block;}
 .ig-card:hover .ig-card-bg{transform:scale(1.04);}
 .ig-icon{font-size:22px;opacity:.35;}
 .ig-num{font-family:'Bebas Neue',sans-serif;font-size:28px;color:rgba(255,255,255,.08);}
@@ -303,6 +315,21 @@ body.vmc-loading{overflow:hidden;}
 .season-btns{display:flex;gap:6px;margin-bottom:20px;flex-wrap:wrap;}
 .s-btn{padding:7px 14px;font-size:9px;letter-spacing:1.5px;text-transform:uppercase;font-weight:600;font-family:'Inter',sans-serif;cursor:pointer;background:transparent;color:#8A7052;border:1px solid var(--border);transition:all .15s;}
 .s-btn.active{background:var(--red);color:#fff;border-color:var(--red);}
+.club-standings-section{margin-top:38px;padding-top:28px;border-top:1px solid var(--border);}
+.club-standings-table th,.club-standings-table td{text-align:center!important;}
+.club-standings-table th:nth-child(2),.club-standings-table td:nth-child(2){text-align:left!important;}
+.club-standings-table .td-pts{text-align:center!important;}
+.individual-standings-table{width:100%;table-layout:fixed;}
+.individual-standings-table th,.individual-standings-table td{text-align:center!important;}
+.individual-standings-table th:nth-child(2),.individual-standings-table td:nth-child(2){text-align:left!important;}
+.individual-standings-table th:nth-child(3),.individual-standings-table td:nth-child(3){text-align:left!important;}
+.individual-standings-table th:nth-child(1){width:5%;}
+.individual-standings-table th:nth-child(2){width:20%;}
+.individual-standings-table th:nth-child(3){width:18%;}
+.individual-standings-table th:nth-child(4){width:12%;}
+.individual-standings-table th:nth-child(n+5){width:7%;}
+.individual-standings-table th:nth-child(10){width:10%;}
+.individual-standings-table .td-time,.individual-standings-table .td-sm,.individual-standings-table .td-pts{text-align:center!important;}
 
 /* ═══════════════════════════════════
    HISTORY PAGE
@@ -433,8 +460,9 @@ body.vmc-loading{overflow:hidden;}
   .nav-social, .logo-text-sub { display: none; }
   .logo-text-main { font-size: 10px; }
   .cy-grid, .olympians-grid, .store-grid, .res-expand-grid { grid-template-columns: 1fr; }
-  .hero-wm span { font-size: 140px; }
-  .home-hero { min-height: 480px; }
+  .hero-wm { width: 72vw; right: -24%; bottom: -8%; }
+  .home-hero { min-height: 600px; }
+  .hero-brand-logo { width: min(620px,88vw); }
   .sec-title { font-size: 20px; }
 }
 
@@ -442,6 +470,10 @@ body.vmc-loading{overflow:hidden;}
   .records-band, .stats-band, .champs-strip, .cy-grid, .board-grid {
     grid-template-columns: 1fr;
   }
+  .ig-slide{grid-template-columns:repeat(2,minmax(0,1fr));}
+  .footer-main{grid-template-columns:1fr;gap:28px;padding:30px 24px;}
+  .footer-partners-grid{grid-template-columns:repeat(2,minmax(0,1fr));}
+  .footer-bottom{padding:14px 24px;}
   .records-band{display:none;}
   .rec-cell { border-right: none; border-bottom: 1px solid rgba(255,255,255,0.1); }
 }
@@ -452,8 +484,7 @@ body.vmc-loading{overflow:hidden;}
 <div class="vmc-loader" id="siteLoader" role="status" aria-live="polite" aria-label="Loading Victorian Milers Club results">
   <div class="vmc-loader-card">
     <div class="vmc-loader-brand">
-      <div class="vmc-loader-badge"><span>VMC</span></div>
-      <div><div class="vmc-loader-name">Victorian Milers Club</div><div class="vmc-loader-place">Melbourne, Victoria</div></div>
+      <img class="vmc-loader-logo" src="assets/vmc-full-logo.png" alt="Victorian Milers Club">
     </div>
     <div class="vmc-loader-kicker">The home of middle-distance racing</div>
     <div class="vmc-loader-title">On your <em>marks.</em></div>
@@ -475,10 +506,10 @@ body.vmc-loading{overflow:hidden;}
 <!-- ══ NAV ══ -->
 <nav class="nav">
   <div class="nav-logo" onclick="showPage('home')">
-    <div class="logo-badge"><span>VMC</span></div>
+    <div class="logo-badge"><img src="assets/vmc-winged-foot.png" alt=""></div>
     <div>
       <div class="logo-text-main">Victorian Milers Club</div>
-      <div class="logo-text-sub">Melbourne, Victoria</div>
+      <div class="logo-text-sub">Home of <em>middle-distance</em> racing</div>
     </div>
   </div>
   <ul class="nav-links" id="navLinks">
@@ -519,23 +550,11 @@ body.vmc-loading{overflow:hidden;}
   <div class="home-hero">
     <div class="hero-bg-abs">
       <div class="hero-grad"></div>
-      <div class="hero-track-svg">
-        <svg viewBox="0 0 1200 600" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg">
-          <ellipse cx="600" cy="300" rx="570" ry="255" fill="none" stroke="white" stroke-width="1.5"/>
-          <ellipse cx="600" cy="300" rx="470" ry="195" fill="none" stroke="white" stroke-width="1"/>
-          <ellipse cx="600" cy="300" rx="370" ry="135" fill="none" stroke="white" stroke-width="1"/>
-          <ellipse cx="600" cy="300" rx="270" ry="75" fill="none" stroke="white" stroke-width=".5"/>
-          <line x1="30" y1="300" x2="1170" y2="300" stroke="white" stroke-width=".5" opacity=".35"/>
-        </svg>
-      </div>
     </div>
-    <div class="hero-wm"><span>VMC</span></div>
+    <div class="hero-wm" aria-hidden="true"><img src="assets/vmc-winged-foot.png" alt=""></div>
     <div class="hero-centre">
-      <div class="hero-logo-ring"><span class="hero-vmc">VMC</span></div>
-      <div class="hero-club-name">Victorian Milers Club</div>
-      <div class="hero-red-rule"></div>
-      <h1 class="hero-tagline">Premier <em>middle-distance</em><br>competition in Victoria</h1>
-      <p class="hero-sub">Graded racing for all abilities — from club athletes to Olympians.</p>
+      <img class="hero-brand-logo" src="assets/vmc-full-logo.png" alt="Victorian Milers Club">
+      <h1 class="hero-tagline">The home of <em>middle-distance</em> racing in Australia</h1>
       <div class="hero-btns">
         <button class="btn-red" onclick="showPage('events')">Enter a Meet</button>
         <button class="btn-ghost-hero" onclick="showPage('events')">2026–27 Schedule</button>
@@ -611,19 +630,6 @@ body.vmc-loading{overflow:hidden;}
     </div>
   </div>
 
-  <!-- Photo Slider -->
-  <div class="photo-section">
-    <div class="photo-header">
-      <div><div class="sec-eyebrow-gold">Gallery</div><div class="sec-title-light">Race Memories</div></div>
-      <div class="photo-nav-btns">
-        <button class="pnav" id="photoPrev">&#8592;</button>
-        <button class="pnav" id="photoNext">&#8594;</button>
-      </div>
-    </div>
-    <div class="photo-track"><div class="photo-reel" id="photoReel"></div></div>
-    <div class="photo-dots" id="photoDots"></div>
-  </div>
-
   <!-- Instagram Strip -->
   <div class="ig-section">
     <div class="ig-header">
@@ -631,25 +637,18 @@ body.vmc-loading{overflow:hidden;}
         <div class="sec-eyebrow-gold">Social</div>
         <div class="sec-title-light">Latest from Instagram</div>
       </div>
-      <a href="https://www.instagram.com/vicmilersclub/" class="ig-link" target="_blank" rel="noopener">@vicmilersclub ↗</a>
+      <div class="ig-header-actions">
+        <div class="ig-nav" aria-label="Instagram gallery controls">
+          <button class="ig-nav-btn" id="igPrev" type="button" aria-label="Previous Instagram photos">‹</button>
+          <button class="ig-nav-btn" id="igNext" type="button" aria-label="Next Instagram photos">›</button>
+        </div>
+        <a href="https://www.instagram.com/vicmilersclub/" class="ig-link" target="_blank" rel="noopener">@vicmilersclub ↗</a>
+      </div>
     </div>
     <div class="ig-track"><div class="ig-reel" id="igReel"></div></div>
     <div class="ig-dots" id="igDots"></div>
   </div>
 
-  <!-- Sponsors -->
-  <div class="sponsors-section">
-    <div class="sec-eyebrow">Partners</div>
-    <div class="sec-title">Club Sponsors</div>
-    <div class="sponsor-logos">
-      <div class="sponsor-cell"><div class="sponsor-ph">Principal Sponsor</div></div>
-      <div class="sponsor-cell"><div class="sponsor-ph">Gold Sponsor</div></div>
-      <div class="sponsor-cell"><div class="sponsor-ph">Gold Sponsor</div></div>
-      <div class="sponsor-cell"><div class="sponsor-ph">Silver Sponsor</div></div>
-      <div class="sponsor-cell"><div class="sponsor-ph">Silver Sponsor</div></div>
-      <div class="sponsor-cell"><div class="sponsor-ph">Partner</div></div>
-    </div>
-  </div>
 </div>
 
 <!-- ══════════════════════════════════════════
@@ -658,7 +657,7 @@ body.vmc-loading{overflow:hidden;}
 <div id="page-events" class="page">
   <div class="page-hero">
     <div class="page-hero-bg"></div>
-    <div class="page-hero-wm">EVENTS</div>
+    <div class="page-hero-wm" aria-hidden="true"><img src="assets/vmc-winged-foot.png" alt=""></div>
     <div class="ph-content">
       <div class="ph-eyebrow">Victorian Milers Club</div>
       <h1 class="ph-title">Race <em>Events</em></h1>
@@ -675,7 +674,7 @@ body.vmc-loading{overflow:hidden;}
 <div id="page-standings" class="page">
   <div class="page-hero">
     <div class="page-hero-bg"></div>
-    <div class="page-hero-wm">STANDINGS</div>
+    <div class="page-hero-wm" aria-hidden="true"><img src="assets/vmc-winged-foot.png" alt=""></div>
     <div class="ph-content">
       <div class="ph-eyebrow" id="standingsSeasonLabel">Loading standings…</div>
       <h1 class="ph-title">Season <em>Standings</em></h1>
@@ -690,13 +689,15 @@ body.vmc-loading{overflow:hidden;}
         <button class="tab-btn" data-key="m800">Men's 800m</button>
         <button class="tab-btn" data-key="w1500">Women's 1500m</button>
         <button class="tab-btn" data-key="m1500">Men's 1500m</button>
+        <button class="tab-btn" data-key="clubs">Club Rankings</button>
       </div>
-      <div class="table-scroll">
-        <table class="data-table">
+      <div class="table-scroll" id="individualStandingsTable">
+        <table class="data-table individual-standings-table">
           <thead><tr><th>Pos</th><th>Athlete</th><th>Club</th><th class="r">VMC SB</th><th class="r">M1</th><th class="r">M2</th><th class="r">M3</th><th class="r">M4</th><th class="r">M5</th><th class="r">Total</th></tr></thead>
           <tbody id="standingsBody"></tbody>
         </table>
       </div>
+      <div id="clubStandingsView" hidden></div>
     </div>
     <div class="standings-sidebar">
       <div class="sec-eyebrow-gold" id="standingsClubProgress" style="margin-bottom:8px;">Loading club points…</div>
@@ -720,7 +721,7 @@ body.vmc-loading{overflow:hidden;}
 <div id="page-history" class="page">
   <div class="page-hero">
     <div class="page-hero-bg"></div>
-    <div class="page-hero-wm">HISTORY</div>
+    <div class="page-hero-wm" aria-hidden="true"><img src="assets/vmc-winged-foot.png" alt=""></div>
     <div class="ph-content">
       <div class="ph-eyebrow">Wall of Fame</div>
       <h1 class="ph-title">VMC <em>History</em></h1>
@@ -914,7 +915,7 @@ body.vmc-loading{overflow:hidden;}
 <div id="page-about" class="page">
   <div class="page-hero">
     <div class="page-hero-bg"></div>
-    <div class="page-hero-wm">ABOUT</div>
+    <div class="page-hero-wm" aria-hidden="true"><img src="assets/vmc-winged-foot.png" alt=""></div>
     <div class="ph-content">
       <div class="ph-eyebrow">Victorian Milers Club</div>
       <h1 class="ph-title">About <em>VMC</em></h1>
@@ -1078,10 +1079,10 @@ body.vmc-loading{overflow:hidden;}
   <div class="footer-main">
     <div>
       <div style="display:flex;align-items:center;gap:10px;margin-bottom:12px;">
-        <div class="logo-badge" style="width:36px;height:36px;"><span style="font-size:17px;">VMC</span></div>
+        <div class="logo-badge" style="width:42px;height:42px;"><img src="assets/vmc-winged-foot.png" alt=""></div>
         <div class="logo-text-main">Victorian Milers Club</div>
       </div>
-      <div style="font-size:11px;color:var(--muted);font-weight:300;line-height:1.7;max-width:240px;">Victoria's premier middle-distance racing series, dedicated to the 800m, 1500m, and Mile.</div>
+      <div style="font-size:11px;color:var(--muted);font-weight:300;line-height:1.7;max-width:240px;">Victoria's premier middle-distance racing series</div>
       <div class="footer-social" style="margin-top:14px;">
         <a href="https://www.instagram.com/vicmilersclub/" class="footer-social-btn" title="Instagram" target="_blank" rel="noopener">
           <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/></svg>
@@ -1092,21 +1093,12 @@ body.vmc-loading{overflow:hidden;}
       </div>
     </div>
     <div>
-      <div class="footer-col-title">Navigation</div>
-      <div class="footer-links-list">
-        <a onclick="showPage('home')">Home</a>
-        <a onclick="showPage('events')">Events</a>
-        <a onclick="showPage('standings')">Standings</a>
-        <a onclick="showPage('history')">History</a>
-        <a onclick="showPage('about')">About</a>
-      </div>
-    </div>
-    <div>
-      <div class="footer-col-title">Contact</div>
-      <div style="font-size:11px;color:var(--muted);font-weight:300;line-height:1.9;">
-        info@vicmilers.com<br>
-        sponsors@vicmilers.com<br>
-        Melbourne, Victoria
+      <div class="footer-partners-label">Partners</div>
+      <div class="footer-partners-grid">
+        <div class="footer-partner"><img src="assets/partners/saint-logo.png" alt="Saint"></div>
+        <div class="footer-partner"><img src="assets/partners/australian-athletics.png" alt="Australian Athletics"></div>
+        <div class="footer-partner"><img src="assets/partners/runners-paradise.jpg" alt="Runners Paradise"></div>
+        <div class="footer-partner"><img src="assets/partners/athletics-victoria.png" alt="Athletics Victoria"></div>
       </div>
     </div>
   </div>
@@ -1156,7 +1148,7 @@ function finishSiteLoader() {
   const loader = document.getElementById('siteLoader');
   if (!loader) return;
   loader.style.setProperty('--loader-progress','100');
-  loader.style.setProperty('--loader-colour','rgb(192,0,26)');
+  loader.style.setProperty('--loader-colour','rgb(168,120,26)');
   loader.style.setProperty('--loader-glow','rgba(192,0,26,.32)');
   const status = document.getElementById('loaderStatus');
   const counter = document.getElementById('loaderPercent');
@@ -1273,6 +1265,7 @@ const VMC_POINTS = Object.freeze({1:50,2:40,3:30,4:25,5:20,6:18,7:16,8:14,9:12,1
 let standingsBySeason = new Map();
 let activeStandingsSeasonId = '';
 let clubStandingsData = [];
+let clubStandingsColumns = [];
 let standingsSeasonMeta = {label:'', completed:0, total:0, athletes:0};
 let homepageLbData = lbData;
 let homepageClubStandingsData = [];
@@ -1502,16 +1495,16 @@ let photosData = [
 ];
 
 let igData = [
-  {cap:"Race day at Box Hill 🏃‍♀️ #VMC #800m",color:"135deg, #3D0008, #1A1A1A"},
-  {cap:"Patrick Lim takes the 1500m win! 🥇",color:"135deg, #1A1400, #2D1A00"},
-  {cap:"Entries open for Meet 3 — link in bio",color:"135deg, #081A1A, #0D1A08"},
-  {cap:"The atmosphere at Lakeside tonight 🔥",color:"135deg, #1A0000, #2D0A00"},
-  {cap:"Sophie Nguyen smashes her PB! 2:04.3",color:"135deg, #0D0818, #1A0A1A"},
-  {cap:"Club championship standings after Meet 2",color:"135deg, #1A1800, #2D1A00"},
-  {cap:"Pacemakers wanted for Meet 3 📋",color:"135deg, #001A08, #0D1A0A"},
-  {cap:"Season openers always hit different ❤️",color:"135deg, #3D0008, #2D0008"},
-  {cap:"Aberfeldie track ready for Tuesday 🌙",color:"135deg, #0A0A1A, #1A1A2D"},
-  {cap:"VMC community — best in Victoria 🏆",color:"135deg, #1A0A00, #2D1400"},
+  {cap:"Racing under lights",image:"assets/instagram/short-track-0497.jpg"},
+  {cap:"Race night energy",image:"assets/instagram/short-track-0214.jpg"},
+  {cap:"The pack rolls through",image:"assets/instagram/short-track-0582.jpg"},
+  {cap:"Sunset sessions",image:"assets/instagram/short-track-0022.jpg"},
+  {cap:"All the way to the line",image:"assets/instagram/short-track-0317.jpg"},
+  {cap:"City lights and fast laps",image:"assets/instagram/short-track-0134.jpg"},
+  {cap:"Power on the bend",image:"assets/instagram/short-track-0274.jpg"},
+  {cap:"Locked in",image:"assets/instagram/short-track-0199.jpg"},
+  {cap:"Racing into the evening",image:"assets/instagram/short-track-0175.jpg"},
+  {cap:"A night to remember",image:"assets/instagram/short-track-0637.webp"},
 ];
 
 // ═══════════════════ GOOGLE SHEETS SYNC ═══════════════════
@@ -1759,6 +1752,19 @@ function renderClubBoard(containerId,dark=false){
       <div style="font-family:'Bebas Neue',sans-serif;font-size:14px;color:${dark?'var(--text)':'var(--dark)'};text-align:right;">${c.pts}</div>
     </div>`).join('');
 }
+
+function renderClubStandingsTable(){
+  const columns = clubStandingsColumns;
+  const header = columns.map(column=>`<th class="r">${column.label}</th>`).join('');
+  const rows = clubStandingsData.length ? clubStandingsData.map((club,index)=>`
+    <tr class="dt-row">
+      <td><div class="pos-n">${index + 1}</div></td>
+      <td><div class="td-name">${club.name}</div></td>
+      ${columns.map(column=>`<td class="td-pts">${club.events?.[column.id] || '—'}</td>`).join('')}
+      <td class="td-pts"><span>${club.pts}</span></td>
+    </tr>`).join('') : `<tr><td colspan="${columns.length + 3}" style="padding:24px;color:#8A7052;">No club points recorded for this season yet.</td></tr>`;
+  return `<div class="table-scroll"><table class="data-table club-standings-table"><thead><tr><th>Pos</th><th>Club</th>${header}<th class="r">Total</th></tr></thead><tbody>${rows}</tbody></table></div>`;
+}
 renderClubBoard('homeClubBoard');
 renderClubBoard('sideClub',true);
 
@@ -1877,6 +1883,16 @@ function toggleRes(id,btn){
 
 // ═══════════════════ STANDINGS PAGE ═══════════════════
 function renderStandings(key){
+  const individualTable = document.getElementById('individualStandingsTable');
+  const clubView = document.getElementById('clubStandingsView');
+  if (key === 'clubs') {
+    individualTable.hidden = true;
+    clubView.hidden = false;
+    clubView.innerHTML = renderClubStandingsTable();
+    return;
+  }
+  individualTable.hidden = false;
+  clubView.hidden = true;
   const rows = lbData[key] || [];
   document.getElementById('standingsBody').innerHTML=rows.length ? rows
     .slice()
@@ -2419,54 +2435,64 @@ function buildMasterMileChampions(seasons, meets, races, results) {
 
 renderMileChampions();
 
-// ═══════════════════ PHOTO SLIDER ═══════════════════
-document.getElementById('photoReel').innerHTML=photosData.map((p,i)=>`
-  <div class="photo-card">
-    <div class="photo-img">
-      <div class="photo-img-placeholder" style="background:linear-gradient(${p.color});">
-        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="rgba(201,168,76,0.3)" stroke-width="1.5"><rect x="3" y="5" width="18" height="14" rx="2"/><circle cx="12" cy="12" r="3"/></svg>
-        <div style="font-size:8px;letter-spacing:2px;text-transform:uppercase;color:rgba(201,168,76,0.18);">Photo ${i+1}</div>
-      </div>
-    </div>
-    <div class="photo-caption"><div class="photo-cap-title">${p.cap}</div><div class="photo-cap-sub">${p.sub}</div></div>
-  </div>`).join('');
-
-const photoReel=document.getElementById('photoReel');
-const photoDots=document.getElementById('photoDots');
-let photoOffset=0;
-const photoVisible=4,photoCardW=224;
-const photoMax=photosData.length-photoVisible;
-const photoTotalDots=Math.ceil(photosData.length/photoVisible);
-photoDots.innerHTML=Array.from({length:photoTotalDots},(_,i)=>`<div class="pdot ${i===0?'active':''}" data-i="${i}"></div>`).join('');
-function updatePhotoReel(){
-  photoReel.style.transform=`translateX(-${photoOffset*photoCardW}px)`;
-  document.querySelectorAll('.pdot').forEach((d,i)=>d.classList.toggle('active',i===Math.floor(photoOffset/photoVisible)));
-}
-document.getElementById('photoNext').addEventListener('click',()=>{if(photoOffset<photoMax){photoOffset=Math.min(photoOffset+photoVisible,photoMax);updatePhotoReel();}});
-document.getElementById('photoPrev').addEventListener('click',()=>{if(photoOffset>0){photoOffset=Math.max(photoOffset-photoVisible,0);updatePhotoReel();}});
-photoDots.addEventListener('click',e=>{const d=e.target.closest('.pdot');if(!d)return;photoOffset=Math.min(parseInt(d.dataset.i)*photoVisible,photoMax);updatePhotoReel();});
-
 // ═══════════════════ INSTAGRAM STRIP ═══════════════════
-document.getElementById('igReel').innerHTML=igData.map((p,i)=>`
-  <div class="ig-card">
-    <div class="ig-card-bg" style="background:linear-gradient(${p.color});">
-      <div class="ig-icon">📸</div>
-      <div class="ig-num">${i+1}</div>
-    </div>
-    <div class="ig-overlay"><div class="ig-cap">${p.cap}</div></div>
+const heroImages = [
+  'assets/vmc-hero-race.jpg',
+  'assets/instagram/short-track-0022.jpg',
+  'assets/instagram/short-track-0175.jpg',
+  'assets/instagram/short-track-0497.jpg'
+];
+const heroBackground = document.querySelector('.hero-bg-abs');
+if (heroBackground) heroBackground.style.backgroundImage = `url('${heroImages[Math.floor(Math.random() * heroImages.length)]}')`;
+
+const igPerSlide = 5;
+const igSlides = Array.from({length:Math.ceil(igData.length / igPerSlide)},(_,slideIndex)=>igData.slice(slideIndex * igPerSlide,(slideIndex + 1) * igPerSlide));
+document.getElementById('igReel').innerHTML=igSlides.map(slide=>`
+  <div class="ig-slide">${slide.map(p=>`
+    <div class="ig-card">
+      <div class="ig-card-bg"><img src="${p.image}" alt="${p.cap}" loading="lazy"></div>
+      <div class="ig-overlay"><div class="ig-cap">${p.cap}</div></div>
+    </div>`).join('')}
   </div>`).join('');
 
 const igReel=document.getElementById('igReel');
 const igDots=document.getElementById('igDots');
+const igTrack=igReel.closest('.ig-track');
+const igPrev=document.getElementById('igPrev');
+const igNext=document.getElementById('igNext');
 let igOffset=0;
-const igVisible=6,igCardW=172;
-const igMax=igData.length-igVisible;
-const igTotalDots=Math.ceil(igData.length/igVisible);
+const igTotalDots=igSlides.length;
 igDots.innerHTML=Array.from({length:igTotalDots},(_,i)=>`<div class="ig-dot ${i===0?'active':''}" data-i="${i}"></div>`).join('');
 function updateIgReel(){
-  igReel.style.transform=`translateX(-${igOffset*igCardW}px)`;
-  document.querySelectorAll('.ig-dot').forEach((d,i)=>d.classList.toggle('active',i===Math.floor(igOffset/igVisible)));
+  document.querySelectorAll('.ig-slide').forEach((slide,i)=>slide.classList.toggle('active',i===igOffset));
+  document.querySelectorAll('.ig-dot').forEach((d,i)=>d.classList.toggle('active',i===igOffset));
+  igPrev.disabled=igOffset===0;
+  igNext.disabled=igOffset===igTotalDots-1;
 }
+igDots.addEventListener('click',event=>{
+  const dot=event.target.closest('.ig-dot');
+  if(!dot) return;
+  igOffset=Number(dot.dataset.i);
+  updateIgReel();
+});
+igPrev.addEventListener('click',()=>{igOffset=Math.max(0,igOffset-1);updateIgReel();});
+igNext.addEventListener('click',()=>{igOffset=Math.min(igTotalDots-1,igOffset+1);updateIgReel();});
+let igDragStart=null;
+igTrack.addEventListener('pointerdown',event=>{
+  igDragStart=event.clientX;
+  igTrack.classList.add('is-dragging');
+  igTrack.setPointerCapture(event.pointerId);
+});
+igTrack.addEventListener('pointerup',event=>{
+  if(igDragStart===null) return;
+  const distance=event.clientX-igDragStart;
+  if(Math.abs(distance)>40) igOffset=Math.max(0,Math.min(igTotalDots-1,igOffset+(distance<0?1:-1)));
+  igDragStart=null;
+  igTrack.classList.remove('is-dragging');
+  updateIgReel();
+});
+igTrack.addEventListener('pointercancel',()=>{igDragStart=null;igTrack.classList.remove('is-dragging');});
+updateIgReel();
 
 // ═══════════════════ INITIALIZATION ═══════════════════
 function gvizValue(cell) {
@@ -2830,9 +2856,13 @@ function buildVerifiedHistoryStats() {
     [['w800','Women','800'],['m800','Men','800'],['w1500','Women','1500'],['m1500','Men','1500']].forEach(([key,gender,distance]) => {
       const official = officialChampion(year,key);
       const standingsWinner = season.events[key]?.[0];
-      const winner = official ? {name:official.name,club:official.club,sb:''} : standingsWinner;
+      // 2024–25 was decided by the final meet's A-race winner. From the
+      // following season onward, the points-table leader is champion unless a
+      // verified official champion record is supplied.
+      const finalMeetWinner = year === 2024 ? season.finalMeetWinners?.[key] : null;
+      const winner = official ? {name:official.name,club:official.club,sb:''} : (finalMeetWinner || standingsWinner);
       if (!winner) return;
-      champions[key] = {name:winner.name,club:winner.club,time:official ? '' : winner.sb};
+      champions[key] = {name:winner.name,club:winner.club,time:official ? '' : (finalMeetWinner ? winner.time : winner.sb)};
       addMetric(titles.overall[gender],winner,'champs',1);
       addMetric(titles[distance][gender],winner,'champs',1);
     });
@@ -2923,6 +2953,7 @@ function selectStandingsSeason(seasonId) {
   activeStandingsSeasonId = seasonId;
   lbData = season.events;
   clubStandingsData = season.clubs;
+  clubStandingsColumns = season.clubColumns || [];
   standingsSeasonMeta = season.meta;
 
   const seasonLabel = `${season.meta.label} Season`;
@@ -2970,7 +3001,7 @@ function buildSeasonStandings(seasons, meets, races, results) {
 
   results.forEach(result => {
     const seasonYear = seasonYears.get(result.Season_ID) || 0;
-    if (seasonYear < 2025) return;
+    if (seasonYear < 2024) return;
     const race = raceMap.get(result.Race_ID);
     const position = Number(result.Position);
     const status = String(result.DQ_DNF_DNS || '').trim().toLowerCase();
@@ -3023,14 +3054,16 @@ function buildSeasonStandings(seasons, meets, races, results) {
     entries.forEach(({result, race, key, event, seconds, basePoints}) => {
       const meet = meetMap.get(result.Meet_ID) || {};
       const meetNumber = Number(meet.Meet_No || meet.Meet_Number || String(result.Meet_ID || '').match(/(\d+)$/)?.[1]) || 0;
-      const championship = Boolean(String(race.Championship_Type || '').trim()) || result.Meet_ID === 'M2025-05';
+      // Meet 5 was the championship round in both completed recent seasons.
+      // Keep this explicit until the master RACES table carries the round flag.
+      const championship = Boolean(String(race.Championship_Type || '').trim()) || ['M2024-05','M2025-05'].includes(result.Meet_ID);
       const points = (basePoints || 0) * (championship ? 2 : 1);
       if (!points) return;
 
       const club = String(result.Club_Name_Source || '').trim();
       if (isEligibleClubForPoints(club)) {
-        const groupKey = [result.Meet_ID, key, club].join('|');
-        if (!clubGroups.has(groupKey)) clubGroups.set(groupKey, {club, scores:[]});
+        const groupKey = [result.Meet_ID, key, event, club].join('|');
+        if (!clubGroups.has(groupKey)) clubGroups.set(groupKey, {club, meetNumber, key, event, scores:[]});
         clubGroups.get(groupKey).scores.push(points);
       }
 
@@ -3074,12 +3107,46 @@ function buildSeasonStandings(seasons, meets, races, results) {
       }).sort(leaderboardSort);
     });
 
+    // In 2024–25, season champions were decided by the A race at the final
+    // meet, rather than the cumulative points table. Race grades were not
+    // retained in the imported source, so the fastest winning performance in
+    // each final-meet discipline is the A-race winner.
+    const finalMeetNumber = Math.max(...entries.map(entry => {
+      const meet = meetMap.get(entry.result.Meet_ID) || {};
+      return Number(meet.Meet_No || meet.Meet_Number || String(entry.result.Meet_ID || '').match(/(\d+)$/)?.[1]) || 0;
+    }));
+    const finalMeetWinners = {};
+    entries.filter(entry => {
+      const meet = meetMap.get(entry.result.Meet_ID) || {};
+      const meetNumber = Number(meet.Meet_No || meet.Meet_Number || String(entry.result.Meet_ID || '').match(/(\d+)$/)?.[1]) || 0;
+      return meetNumber === finalMeetNumber && entry.position === 1 && Object.prototype.hasOwnProperty.call(eventMaps, entry.key);
+    }).forEach(entry => {
+      const current = finalMeetWinners[entry.key];
+      if (!current || entry.seconds < current.seconds) {
+        finalMeetWinners[entry.key] = {
+          name:entry.result.Athlete_Name_Source || '',
+          club:entry.result.Club_Name_Source || '',
+          time:entry.result.Display_Time || String(entry.result.Time_Seconds || ''),
+          seconds:entry.seconds
+        };
+      }
+    });
+
     const clubTotals = new Map();
+    const clubColumnMap = new Map();
     clubGroups.forEach(group => {
       const contribution = group.scores.sort((a,b) => b-a).slice(0,3).reduce((sum,value) => sum+value,0);
-      clubTotals.set(group.club, (clubTotals.get(group.club) || 0) + contribution);
+      const columnId = `m${group.meetNumber}-${group.key}-${group.event}`;
+      const genderLabel = group.key.startsWith('w') ? 'W' : 'M';
+      const eventLabel = group.event === 'mile' ? 'Mile' : group.event.replace(/m$/i,'');
+      if (!clubColumnMap.has(columnId)) clubColumnMap.set(columnId, {id:columnId, meet:group.meetNumber, order:`${group.key.startsWith('w') ? '1' : '2'}-${eventLabel}`, label:`M${group.meetNumber} ${genderLabel} ${eventLabel}`});
+      const club = clubTotals.get(group.club) || {name:group.club, pts:0, events:{}};
+      club.pts += contribution;
+      club.events[columnId] = (club.events[columnId] || 0) + contribution;
+      clubTotals.set(group.club, club);
     });
-    const clubs = [...clubTotals.entries()].map(([name,pts]) => ({name,pts})).sort((a,b) => b.pts-a.pts || a.name.localeCompare(b.name));
+    const clubs = [...clubTotals.values()].sort((a,b) => b.pts-a.pts || a.name.localeCompare(b.name));
+    const clubColumns = [...clubColumnMap.values()].sort((a,b) => a.meet-b.meet || a.order.localeCompare(b.order));
     const scoringMeetIds = new Set(races.filter(race => {
       const event = String(race.Event || '').toLowerCase().replace(/[^a-z0-9]/g, '');
       if (!['800m','1500m','mile','3000m'].includes(event) || String(race.Official || 'Yes').toLowerCase() === 'no') return false;
@@ -3093,6 +3160,8 @@ function buildSeasonStandings(seasons, meets, races, results) {
     standingsBySeason.set(seasonId, {
       events:eventRows,
       clubs,
+      clubColumns,
+      finalMeetWinners,
       meta:{
         label:season.Season_Label || seasonId,
         completed:completedMeetIds.size,
