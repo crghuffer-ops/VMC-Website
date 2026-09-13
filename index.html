@@ -133,8 +133,9 @@ body.vmc-loading{overflow:hidden;}
 .footer-social-btn:hover{border-color:var(--gold);color:var(--gold);}
 .footer-partners-label{font-size:8px;letter-spacing:2.4px;text-transform:uppercase;color:var(--gold);font-weight:600;margin-bottom:12px;}
 .footer-partners-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px;}
-.footer-partner{height:76px;background:#fff;border:1px solid rgba(201,168,76,.2);display:flex;align-items:center;justify-content:center;padding:8px;}
-.footer-partner img{display:block;width:100%;height:100%;object-fit:contain;mix-blend-mode:multiply;}
+.footer-partner{height:100px;display:flex;align-items:center;justify-content:center;padding:10px;}
+.footer-partner img{display:block;width:100%;height:100%;object-fit:contain;opacity:.58;transition:opacity .2s;}
+.footer-partner:hover img{opacity:.85;}
 .footer-bottom{padding:16px 48px;border-top:1px solid rgba(245,240,232,.06);display:flex;justify-content:space-between;align-items:center;}
 .footer-copy{font-size:9px;color:rgba(245,240,232,.2);letter-spacing:1px;}
 .gsheet-badge{display:inline-flex;align-items:center;gap:8px;background:rgba(201,168,76,.08);border:1px solid rgba(201,168,76,.18);padding:8px 14px;}
@@ -184,19 +185,19 @@ body.vmc-loading{overflow:hidden;}
 .cc-event{font-size:8px;letter-spacing:2.5px;text-transform:uppercase;color:var(--gold);font-weight:600;margin-bottom:5px;}
 .cc-name{font-size:11px;font-weight:500;color:var(--text);margin-bottom:5px;display:flex;align-items:center;justify-content:center;gap:7px;flex-wrap:wrap;}
 .cc-time{font-family:'Bebas Neue',sans-serif;font-size:20px;color:#fff;letter-spacing:.5px;line-height:1;}
-.cc-label{font-size:8px;letter-spacing:1px;text-transform:uppercase;color:rgba(245,240,232,.25);margin-top:2px;}
+.cc-label{font-size:8px;letter-spacing:1px;text-transform:uppercase;color:#fff;margin-top:2px;}
 
 /* RECORDS & STATS */
 .records-band{background:var(--dark2);display:grid;grid-template-columns:repeat(4,1fr);border-left:1px solid rgba(168,120,26,.55);border-right:1px solid rgba(168,120,26,.55);}
-.home-hero + .records-band{border-top:3px solid var(--red);}
+.records-heading{margin:0;padding:12px 18px 8px;background:var(--dark2);border-top:3px solid var(--red);color:var(--gold);font-size:15px;letter-spacing:2.5px;text-transform:uppercase;text-align:center;}
 .records-band + .records-band{border-top:1px solid rgba(201,168,76,.16);border-bottom:3px solid var(--red);}
-.rec-cell{position:relative;overflow:hidden;min-height:104px;padding:22px 24px;border-right:1px solid rgba(201,168,76,.16);text-align:center;display:flex;flex-direction:column;align-items:center;justify-content:center;background:linear-gradient(145deg,rgba(168,120,26,.13),transparent 48%);transition:background .2s ease;}
-.rec-cell::before{content:'';position:absolute;left:0;top:20px;bottom:20px;width:2px;background:var(--red);opacity:.65;}
+.rec-cell{position:relative;overflow:hidden;min-height:78px;padding:12px 16px;border-right:1px solid rgba(201,168,76,.16);text-align:center;display:flex;flex-direction:column;align-items:center;justify-content:center;background:linear-gradient(145deg,rgba(168,120,26,.13),transparent 48%);transition:background .2s ease;}
+.rec-cell::before{content:'';position:absolute;left:0;top:12px;bottom:12px;width:2px;background:var(--red);opacity:.65;}
 .rec-cell:hover{background:linear-gradient(145deg,rgba(232,201,122,.18),rgba(201,168,76,.04));}
 .rec-cell:last-child{border-right:none;}
-.rec-event{font-size:8px;letter-spacing:2.2px;text-transform:uppercase;color:var(--gold);font-weight:700;margin-bottom:8px;}
-.rec-time{font-family:'Bebas Neue',sans-serif;font-size:32px;color:var(--text);letter-spacing:1.2px;line-height:1;margin-bottom:6px;text-shadow:0 3px 16px rgba(0,0,0,.35);}
-.rec-name{font-size:10px;color:rgba(245,240,232,.52);font-weight:300;letter-spacing:.15px;}
+.rec-event{font-size:8px;letter-spacing:2px;text-transform:uppercase;color:var(--gold);font-weight:700;margin-bottom:4px;}
+.rec-time{font-family:'Bebas Neue',sans-serif;font-size:22px;color:var(--text);letter-spacing:.7px;line-height:1;margin-bottom:4px;text-shadow:0 3px 16px rgba(0,0,0,.35);}
+.rec-name{font-size:11px;line-height:1.35;color:rgba(245,240,232,.75);font-weight:400;letter-spacing:.15px;}
 .stats-band{background:var(--dark);display:grid;grid-template-columns:repeat(4,1fr);border-top:1px solid rgba(201,168,76,.12);}
 .stat-cell{padding:20px 24px;border-right:1px solid rgba(255,255,255,.05);text-align:center;}
 .stat-cell:last-child{border-right:none;}
@@ -249,7 +250,7 @@ body.vmc-loading{overflow:hidden;}
 .ig-track{overflow:hidden;padding:0 48px;cursor:grab;touch-action:pan-y;}
 .ig-track.is-dragging{cursor:grabbing;}
 .ig-reel{display:block;}
-.ig-slide{display:none;grid-template-columns:repeat(5,minmax(0,1fr));gap:12px;animation:ig-page-in .22s ease both;}
+.ig-slide{display:none;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px;animation:ig-page-in .22s ease both;}
 .ig-slide.active{display:grid;}
 @keyframes ig-page-in{from{opacity:.35;transform:translateX(8px)}to{opacity:1;transform:translateX(0)}}
 .ig-card{aspect-ratio:1/1;position:relative;overflow:hidden;cursor:pointer;}
@@ -560,24 +561,25 @@ body.vmc-loading{overflow:hidden;}
         <button class="btn-ghost-hero" onclick="showPage('events')">2026–27 Schedule</button>
       </div>
       <div style="width:100%;max-width:820px;">
-        <div id="homeSeasonLabel" style="font-size:9px;letter-spacing:3px;text-transform:uppercase;color:rgba(201,168,76,.6);font-weight:600;margin-bottom:10px;text-align:center;">VMC Season</div>
+        <div id="homeSeasonLabel" style="font-size:clamp(14px,2vw,18px);letter-spacing:3px;text-transform:uppercase;color:var(--gold);font-weight:600;margin-bottom:14px;text-align:center;">VMC Season</div>
         <div id="homeChampionsStrip" class="champs-strip"></div>
       </div>
     </div>
   </div>
 
   <!-- VMC Records -->
+  <h2 class="records-heading">VMC Records</h2>
   <div class="records-band">
-    <div class="rec-cell" data-record-key="w800"><div class="rec-event">VMC Record — W 800m</div><div class="rec-time">--</div><div class="rec-name">Loading…</div></div>
-    <div class="rec-cell" data-record-key="m800"><div class="rec-event">VMC Record — M 800m</div><div class="rec-time">--</div><div class="rec-name">Loading…</div></div>
-    <div class="rec-cell" data-record-key="w1500"><div class="rec-event">VMC Record — W 1500m</div><div class="rec-time">--</div><div class="rec-name">Loading…</div></div>
-    <div class="rec-cell" data-record-key="m1500"><div class="rec-event">VMC Record — M 1500m</div><div class="rec-time">--</div><div class="rec-name">Loading…</div></div>
+    <div class="rec-cell" data-record-key="w800"><div class="rec-event">Women's 800m</div><div class="rec-time">--</div><div class="rec-name">Loading…</div></div>
+    <div class="rec-cell" data-record-key="m800"><div class="rec-event">Men's 800m</div><div class="rec-time">--</div><div class="rec-name">Loading…</div></div>
+    <div class="rec-cell" data-record-key="w1500"><div class="rec-event">Women's 1500m</div><div class="rec-time">--</div><div class="rec-name">Loading…</div></div>
+    <div class="rec-cell" data-record-key="m1500"><div class="rec-event">Men's 1500m</div><div class="rec-time">--</div><div class="rec-name">Loading…</div></div>
   </div>
   <div class="records-band">
-    <div class="rec-cell" data-record-key="wmile"><div class="rec-event">VMC Record — W Mile</div><div class="rec-time">--</div><div class="rec-name">Loading…</div></div>
-    <div class="rec-cell" data-record-key="mmile"><div class="rec-event">VMC Record — M Mile</div><div class="rec-time">--</div><div class="rec-name">Loading…</div></div>
-    <div class="rec-cell" data-record-key="w3000"><div class="rec-event">VMC Record — W 3000m</div><div class="rec-time">--</div><div class="rec-name">Loading…</div></div>
-    <div class="rec-cell" data-record-key="m3000"><div class="rec-event">VMC Record — M 3000m</div><div class="rec-time">--</div><div class="rec-name">Loading…</div></div>
+    <div class="rec-cell" data-record-key="wmile"><div class="rec-event">Women's Mile</div><div class="rec-time">--</div><div class="rec-name">Loading…</div></div>
+    <div class="rec-cell" data-record-key="mmile"><div class="rec-event">Men's Mile</div><div class="rec-time">--</div><div class="rec-name">Loading…</div></div>
+    <div class="rec-cell" data-record-key="w3000"><div class="rec-event">Women's 3000m</div><div class="rec-time">--</div><div class="rec-name">Loading…</div></div>
+    <div class="rec-cell" data-record-key="m3000"><div class="rec-event">Men's 3000m</div><div class="rec-time">--</div><div class="rec-name">Loading…</div></div>
   </div>
 
   <!-- Main 3 col: Standings | Results | Calendar -->
@@ -749,16 +751,6 @@ body.vmc-loading{overflow:hidden;}
         <div class="about-body">
           <p>Established in 2005, The Victorian Milers Club aims to foster and promote middle distance running amongst the Victorian athletics community.</p>
         </div>
-        <div style="display:grid;grid-template-columns:repeat(2,1fr);gap:14px;margin-top:28px;">
-          <div style="background:#fff;border:1px solid var(--border);padding:18px;text-align:center;">
-            <div style="font-family:'Bebas Neue',sans-serif;font-size:44px;color:var(--red);line-height:1;">35+</div>
-            <div style="font-size:9px;letter-spacing:2px;text-transform:uppercase;color:#8A7052;margin-top:4px;">Seasons of Racing</div>
-          </div>
-          <div style="background:#fff;border:1px solid var(--border);padding:18px;text-align:center;">
-            <div style="font-family:'Bebas Neue',sans-serif;font-size:44px;color:var(--red);line-height:1;">1000+</div>
-            <div style="font-size:9px;letter-spacing:2px;text-transform:uppercase;color:#8A7052;margin-top:4px;">PBs Set at VMC</div>
-          </div>
-        </div>
       </div>
 
       <div class="hist-section" id="hist-champions">
@@ -919,7 +911,7 @@ body.vmc-loading{overflow:hidden;}
     <div class="ph-content">
       <div class="ph-eyebrow">Victorian Milers Club</div>
       <h1 class="ph-title">About <em>VMC</em></h1>
-      <p class="ph-sub">Our mission, our people, our rules — and the sponsors who make it all possible.</p>
+      <p class="ph-sub">The Victorian Milers Club is Australia's premier middle-distance racing series.</p>
     </div>
   </div>
   <div class="history-layout">
@@ -932,7 +924,6 @@ body.vmc-loading{overflow:hidden;}
       <button class="hn-item" onclick="showAbout('pacemaking',this)">Pacemaking</button>
       <button class="hn-item" onclick="showAbout('photography',this)">Photography</button>
       <button class="hn-item" onclick="showAbout('prizes',this)">Prize Money</button>
-      <button class="hn-item" onclick="showAbout('partners',this)">Partners</button>
     </div>
     <div class="hist-content">
 
@@ -1045,31 +1036,6 @@ body.vmc-loading{overflow:hidden;}
           </table>
         </div>
       </div>
-      <div class="hist-section" id="about-partners">
-        <div class="sec-eyebrow">Our Partners</div>
-        <div class="sec-title">Sponsors</div>
-        <div class="about-rule"></div>
-        <div class="board-grid" style="grid-template-columns: repeat(2, 1fr);">
-          <div style="background:rgba(201,168,76,.04);border:1px solid rgba(201,168,76,.15);padding:24px;text-align:center;">
-            <div style="font-size:9px;letter-spacing:2px;text-transform:uppercase;color:var(--gold);margin-bottom:12px;">Principal Sponsor</div>
-            <div style="height:40px;background:rgba(0,0,0,0.05);display:flex;align-items:center;justify-content:center;font-size:10px;color:rgba(0,0,0,0.2);letter-spacing:2px;">LOGO HERE</div>
-          </div>
-          <div style="background:rgba(201,168,76,.04);border:1px solid rgba(201,168,76,.15);padding:24px;text-align:center;">
-            <div style="font-size:9px;letter-spacing:2px;text-transform:uppercase;color:var(--gold);margin-bottom:12px;">Gold Sponsor</div>
-            <div style="height:40px;background:rgba(0,0,0,0.05);display:flex;align-items:center;justify-content:center;font-size:10px;color:rgba(0,0,0,0.2);letter-spacing:2px;">LOGO HERE</div>
-          </div>
-        </div>
-        <div class="divider"></div>
-        <div class="sec-eyebrow">Contact & Social</div>
-        <div class="about-body" style="margin-top:12px;">
-          <p>General Enquiries: <span style="color:var(--red);font-weight:600;">info@vicmilers.com</span></p>
-          <p>Sponsorship: <span style="color:var(--red);font-weight:600;">sponsors@vicmilers.com</span></p>
-          <div class="footer-social" style="margin-top:20px;">
-            <a href="https://www.instagram.com/vicmilersclub/" class="footer-social-btn" style="border-color:var(--border);color:var(--dark);" title="Instagram" target="_blank" rel="noopener"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/></svg></a>
-              <a href="https://www.facebook.com/vicmilers" class="footer-social-btn" style="border-color:var(--border);color:var(--dark);" title="Facebook" target="_blank" rel="noopener"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 2h-3a5 5 0 00-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 011-1h3z"/></svg></a>
-          </div>
-        </div>
-      </div>
     </div> <!-- Closes hist-content -->
   </div> <!-- Closes history-layout -->
 </div> <!-- Closes page-about -->
@@ -1095,10 +1061,10 @@ body.vmc-loading{overflow:hidden;}
     <div>
       <div class="footer-partners-label">Partners</div>
       <div class="footer-partners-grid">
-        <div class="footer-partner"><img src="assets/partners/saint-logo.png" alt="Saint"></div>
-        <div class="footer-partner"><img src="assets/partners/australian-athletics.png" alt="Australian Athletics"></div>
-        <div class="footer-partner"><img src="assets/partners/runners-paradise.jpg" alt="Runners Paradise"></div>
-        <div class="footer-partner"><img src="assets/partners/athletics-victoria.png" alt="Athletics Victoria"></div>
+        <div class="footer-partner"><img src="assets/partners/saint-gold.png" alt="Saint"></div>
+        <div class="footer-partner"><img src="assets/partners/australian-athletics-gold.png" alt="Australian Athletics"></div>
+        <div class="footer-partner"><img src="assets/partners/runners-paradise-gold.png" alt="Runners Paradise"></div>
+        <div class="footer-partner"><img src="assets/partners/athletics-victoria-gold.png" alt="Athletics Victoria"></div>
       </div>
     </div>
   </div>
@@ -1364,14 +1330,14 @@ let meetsData = [
   },
   {n:3,year:'2025',date:'Tue 20 Jan 2026',venue:'Doncaster',time:'6:00pm',events:'800m & 1500m',status:'results',
     results:{
-      'W 800m':[{p:1,n:'Tess Kirsopp-Cole',t:'2:05.51'}],'M 800m':[{p:1,n:'Jack Lunn',t:'1:50.09'}],
-      'W 1500m':[{p:1,n:'Abbey Caldwell',t:'4:04.13'}],'M 1500m':[{p:1,n:'Jonathan Harris',t:'3:41.24'}],
+      "Women's 800m":[{p:1,n:'Tess Kirsopp-Cole',t:'2:05.51'}],"Men's 800m":[{p:1,n:'Jack Lunn',t:'1:50.09'}],
+      "Women's 1500m":[{p:1,n:'Abbey Caldwell',t:'4:04.13'}],"Men's 1500m":[{p:1,n:'Jonathan Harris',t:'3:41.24'}],
     }
   },
   {n:4,year:'2025',date:'Thu 05 Feb 2026',venue:'Lakeside Stadium',time:'6:00pm',events:'800m & Mile',status:'results',close:'Wed 04 Feb 2026 12pm',
     results:{
-      'W 800m':[{p:1,n:'Tess Kirsopp-Cole',t:'2:05.51'}],'M 800m':[{p:1,n:'Jack Lunn',t:'1:50.09'}],
-      'W Mile':[{p:1,n:'Olivia Twining',t:'5:02.94'}],'M Mile':[{p:1,n:'Oscar Gray',t:'4:14.41'}]
+      "Women's 800m":[{p:1,n:'Tess Kirsopp-Cole',t:'2:05.51'}],"Men's 800m":[{p:1,n:'Jack Lunn',t:'1:50.09'}],
+      "Women's Mile":[{p:1,n:'Olivia Twining',t:'5:02.94'}],"Men's Mile":[{p:1,n:'Oscar Gray',t:'4:14.41'}]
     }
   },
   {n:5,year:'2025',date:'Tue 31 Mar 2026',venue:'Box Hill Athletics Track',time:'6:30pm',events:'800m & 1500m',status:'results',
@@ -1984,7 +1950,7 @@ function renderChampionsHistory() {
   container.innerHTML=champData.map(y=>`
     <div class="champ-year-block"><div class="cy-title">${y.year}–${String(y.year+1).slice(2)} Season</div>
     <div class="cy-grid">
-      ${[['W 800m',y.w800],['M 800m',y.m800],['W 1500m',y.w1500],['M 1500m',y.m1500]].map(([ev,d])=>`
+      ${[["Women's 800m",y.w800],["Men's 800m",y.m800],["Women's 1500m",y.w1500],["Men's 1500m",y.m1500]].map(([ev,d])=>`
         <div class="cy-cell"><div class="cy-event">${ev}</div><div class="cy-name">${d?.name || '—'}</div><div class="cy-club">${d?.club || ''}</div><div class="cy-time">${d?.time || ''}</div></div>`).join('')}
     </div></div>`).join('');
 }
@@ -2008,14 +1974,14 @@ function formatToplistDate(value) {
 }
 function getRecordLabel(key) {
   const map = {
-    w800: 'W 800m',
-    m800: 'M 800m',
-    w1500: 'W 1500m',
-    m1500: 'M 1500m',
-    wmile: 'W Mile',
-    mmile: 'M Mile',
-    w3000: 'W 3000m',
-    m3000: 'M 3000m'
+    w800: "Women's 800m",
+    m800: "Men's 800m",
+    w1500: "Women's 1500m",
+    m1500: "Men's 1500m",
+    wmile: "Women's Mile",
+    mmile: "Men's Mile",
+    w3000: "Women's 3000m",
+    m3000: "Men's 3000m"
   };
   return map[key] || key;
 }
@@ -2031,7 +1997,7 @@ function updateHomepageRecords() {
     const name = card.querySelector('.rec-name');
 
     if (!entry) {
-      if (event) event.textContent = `VMC Record — ${getRecordLabel(key)}`;
+      if (event) event.textContent = getRecordLabel(key);
       if (time) time.textContent = '--';
       if (name) name.textContent = 'No result yet';
       return;
@@ -2039,7 +2005,7 @@ function updateHomepageRecords() {
 
     const performanceDate = formatToplistDate(entry.date);
 
-    if (event) event.textContent = `VMC Record — ${getRecordLabel(key)}`;
+    if (event) event.textContent = getRecordLabel(key);
     if (time) time.textContent = entry.time || '--';
     if (name) name.textContent = performanceDate ? `${entry.name}, ${performanceDate}` : entry.name;
   });
@@ -2445,8 +2411,9 @@ const heroImages = [
 const heroBackground = document.querySelector('.hero-bg-abs');
 if (heroBackground) heroBackground.style.backgroundImage = `url('${heroImages[Math.floor(Math.random() * heroImages.length)]}')`;
 
-const igPerSlide = 5;
-const igSlides = Array.from({length:Math.ceil(igData.length / igPerSlide)},(_,slideIndex)=>igData.slice(slideIndex * igPerSlide,(slideIndex + 1) * igPerSlide));
+const igPerSlide = 4;
+const igPosts = igData.slice(0, 8);
+const igSlides = Array.from({length:Math.ceil(igPosts.length / igPerSlide)},(_,slideIndex)=>igPosts.slice(slideIndex * igPerSlide,(slideIndex + 1) * igPerSlide));
 document.getElementById('igReel').innerHTML=igSlides.map(slide=>`
   <div class="ig-slide">${slide.map(p=>`
     <div class="ig-card">
