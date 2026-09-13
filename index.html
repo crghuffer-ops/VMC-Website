@@ -182,10 +182,10 @@ body.vmc-loading{overflow:hidden;}
 /* CHAMPIONS STRIP */
 .champs-strip{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;width:100%;max-width:820px;background:rgba(201,168,76,.15);border:1px solid rgba(201,168,76,.2);}
 .champ-cell{background:rgba(13,13,13,.88);padding:14px 18px;text-align:center;backdrop-filter:blur(4px);}
-.cc-event{font-size:8px;letter-spacing:2.5px;text-transform:uppercase;color:var(--gold);font-weight:600;margin-bottom:5px;}
-.cc-name{font-size:11px;font-weight:500;color:var(--text);margin-bottom:5px;display:flex;align-items:center;justify-content:center;gap:7px;flex-wrap:wrap;}
+.cc-event{font-size:9px;letter-spacing:2.5px;text-transform:uppercase;color:var(--gold);font-weight:600;margin-bottom:6px;}
+.cc-name{font-size:13px;font-weight:500;color:var(--text);margin-bottom:6px;display:flex;align-items:center;justify-content:center;gap:7px;flex-wrap:wrap;}
 .cc-time{font-family:'Bebas Neue',sans-serif;font-size:20px;color:#fff;letter-spacing:.5px;line-height:1;}
-.cc-label{font-size:8px;letter-spacing:1px;text-transform:uppercase;color:#fff;margin-top:2px;}
+.cc-label{font-size:10px;letter-spacing:1px;text-transform:uppercase;color:#fff;margin-top:2px;}
 
 /* RECORDS & STATS */
 .records-band{background:var(--dark2);display:grid;grid-template-columns:repeat(4,1fr);border-left:1px solid rgba(168,120,26,.55);border-right:1px solid rgba(168,120,26,.55);}
@@ -331,6 +331,12 @@ body.vmc-loading{overflow:hidden;}
 .individual-standings-table th:nth-child(n+5){width:7%;}
 .individual-standings-table th:nth-child(10){width:10%;}
 .individual-standings-table .td-time,.individual-standings-table .td-sm,.individual-standings-table .td-pts{text-align:center!important;}
+.time-standings-controls{display:flex;align-items:center;flex-wrap:wrap;gap:12px 20px;padding:16px 0 20px;}
+.time-standings-controls label{font-size:9px;letter-spacing:2.5px;text-transform:uppercase;color:#8A7052;font-weight:600;}
+.time-standings-controls select{font-family:inherit;font-size:11px;font-weight:500;color:#705735;background:#F0EBE0;border:1px solid var(--border);border-radius:0;padding:10px 32px 10px 12px;max-width:100%;cursor:pointer;}
+.time-standings-controls select:focus-visible{outline:2px solid var(--gold);outline-offset:3px;}
+#timeStandingsBody td:nth-child(5),#timeStandingsBody td:nth-child(6){font-size:10px;font-weight:400;line-height:1.5;color:#8A7052;}
+#timeStandingsBody td:nth-child(5){white-space:nowrap;}
 
 /* ═══════════════════════════════════
    HISTORY PAGE
@@ -692,6 +698,7 @@ body.vmc-loading{overflow:hidden;}
         <button class="tab-btn" data-key="w1500">Women's 1500m</button>
         <button class="tab-btn" data-key="m1500">Men's 1500m</button>
         <button class="tab-btn" data-key="clubs">Club Rankings</button>
+        <button class="tab-btn" data-key="times">By Time</button>
       </div>
       <div class="table-scroll" id="individualStandingsTable">
         <table class="data-table individual-standings-table">
@@ -700,6 +707,21 @@ body.vmc-loading{overflow:hidden;}
         </table>
       </div>
       <div id="clubStandingsView" hidden></div>
+      <div id="timeStandingsView" hidden>
+        <div class="time-standings-controls">
+        <label for="timeStandingsEvent">Season bests by time</label>
+        <select id="timeStandingsEvent" onchange="renderSeasonTimes()">
+          <option value="w800">Women's 800m</option><option value="m800">Men's 800m</option>
+          <option value="w1500">Women's 1500m</option><option value="m1500">Men's 1500m</option>
+          <option value="wmile">Women's Mile</option><option value="mmile">Men's Mile</option>
+          <option value="w3000">Women's 3000m</option><option value="m3000">Men's 3000m</option>
+        </select>
+        </div>
+        <div class="table-scroll"><table class="data-table" style="width:100%;">
+          <thead><tr><th>Pos</th><th>Athlete</th><th>Club</th><th style="text-align:center;">Time</th><th style="text-align:center;">Date</th><th style="text-align:center;">Venue</th></tr></thead>
+          <tbody id="timeStandingsBody"></tbody>
+        </table></div>
+      </div>
     </div>
     <div class="standings-sidebar">
       <div class="sec-eyebrow-gold" id="standingsClubProgress" style="margin-bottom:8px;">Loading club points…</div>
@@ -741,6 +763,7 @@ body.vmc-loading{overflow:hidden;}
       <button class="hn-item" onclick="showHist('mostwins',this)">Most A-Race Wins</button>
       <button class="hn-item" onclick="showHist('mostpoints',this)">Most Points</button>
       <button class="hn-item" onclick="showHist('mostchamps',this)">Most Championships</button>
+      <button class="hn-item" onclick="showHist('milerstats',this)">Miler Stats</button>
     </div>
     <div class="hist-content">
 
@@ -751,6 +774,14 @@ body.vmc-loading{overflow:hidden;}
         <div class="about-body">
           <p>Established in 2005, The Victorian Milers Club aims to foster and promote middle distance running amongst the Victorian athletics community.</p>
         </div>
+      </div>
+
+      <div class="hist-section" id="hist-milerstats">
+        <div class="sec-eyebrow">Across the Years</div>
+        <div class="sec-title">Miler Stats</div>
+        <p class="td-club" style="line-height:1.7;margin:12px 0 22px;">Calculated from valid official performances in the available results archive. Athletes are counted once using corrected names. Sub-time totals count every qualifying race, strictly below the stated time. Tied leaders are shown together.</p>
+        <div class="table-scroll"><table class="data-table" style="width:100%;"><thead><tr><th>Statistic</th><th>Athlete / Track</th><th style="text-align:center;">Count</th></tr></thead><tbody id="milerStatsBody"><tr><td colspan="3">Loading results…</td></tr></tbody></table></div>
+        <p class="td-club" style="line-height:1.7;margin-top:16px;">Track totals combine the ten fastest all-time performances in each men's and women's 800m, 1500m, mile and 3000m event, including ties at tenth. Repeat performances by an athlete count; unknown venues are not assigned to a track.</p>
       </div>
 
       <div class="hist-section" id="hist-champions">
@@ -1229,6 +1260,7 @@ let lbData = {
 // database loads. Keeping each season separate also lets the page switch years.
 const VMC_POINTS = Object.freeze({1:50,2:40,3:30,4:25,5:20,6:18,7:16,8:14,9:12,10:10,11:9,12:8,13:7,14:6,15:5,16:4,17:3,18:2,19:1,20:1});
 let standingsBySeason = new Map();
+let seasonTimeRankings = new Map();
 let activeStandingsSeasonId = '';
 let clubStandingsData = [];
 let clubStandingsColumns = [];
@@ -1851,6 +1883,14 @@ function toggleRes(id,btn){
 function renderStandings(key){
   const individualTable = document.getElementById('individualStandingsTable');
   const clubView = document.getElementById('clubStandingsView');
+  const timeView = document.getElementById('timeStandingsView');
+  timeView.hidden = key !== 'times';
+  if (key === 'times') {
+    individualTable.hidden = true;
+    clubView.hidden = true;
+    renderSeasonTimes();
+    return;
+  }
   if (key === 'clubs') {
     individualTable.hidden = true;
     clubView.hidden = false;
@@ -1878,6 +1918,15 @@ function renderStandings(key){
     <td class="td-sm">${r.m5 || '-'}</td>
     <td class="td-pts"><span>${r.pts}</span></td></tr>`;
     }).join('') : '<tr><td colspan="10" style="padding:24px;color:#8A7052;">No points recorded for this event yet.</td></tr>';
+}
+function renderSeasonTimes() {
+  const key = document.getElementById('timeStandingsEvent').value;
+  const rows = seasonTimeRankings.get(activeStandingsSeasonId)?.[key] || [];
+  const escape = value => String(value ?? '').replace(/[&<>"']/g, char => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[char]));
+  document.getElementById('timeStandingsBody').innerHTML = rows.length ? rows.map((row,index) => {
+    const rank = rows.findIndex(other => other.seconds === row.seconds) + 1;
+    return `<tr class="dt-row"><td style="text-align:center;">${rank}</td><td><div class="td-name">${escape(row.name)}</div></td><td><div class="td-club">${escape(row.club)}</div></td><td class="td-time" style="text-align:center;">${escape(row.time)}</td><td style="text-align:center;">${escape(formatToplistDate(row.date))}</td><td style="text-align:center;">${escape(row.location)}</td></tr>`;
+  }).join('') : '<tr><td colspan="6" style="padding:24px;">No valid times recorded for this event in this season yet.</td></tr>';
 }
 renderStandings('w800');
 document.getElementById('standingsTabs').addEventListener('click',e=>{
@@ -2710,6 +2759,9 @@ function buildMasterToplists(seasons, meets, races, results, athletes = []) {
   });
   Object.keys(toplistMap).forEach(key => toplistMap[key] = []);
   const best = new Map();
+  const seasonBest = new Map();
+  const statsPerformances = new Map();
+  seasonTimeRankings = new Map();
 
   results.forEach(result => {
     if (!isAllTimeEligible(result)) return;
@@ -2735,6 +2787,18 @@ function buildMasterToplists(seasons, meets, races, results, athletes = []) {
     const identity = athleteIdentity(result, athleteMap);
     if (!identity.key) return;
     const bestKey = key + '|' + identity.key;
+    const performanceKey = result.Race_ID + '|' + identity.key;
+    if (!statsPerformances.has(performanceKey) || seconds < statsPerformances.get(performanceKey).seconds) {
+      const statsMeet = meetMap.get(result.Meet_ID) || {};
+      const statsSeason = seasonMap.get(result.Season_ID) || {};
+      statsPerformances.set(performanceKey, {key,seconds,identity:identity.key,name:identity.display,venue:statsMeet.Venue || '',meetId:result.Meet_ID,meetLabel:[statsSeason.Season_Label || result.Season_ID,statsMeet.Meet_Name || `Meet ${statsMeet.Meet_No || ''}`,statsMeet.Venue,statsMeet.Date].filter(Boolean).join(' · ')});
+    }
+    const seasonId = result.Season_ID || race.Season_ID || meetMap.get(result.Meet_ID)?.Season_ID;
+    const seasonBestKey = seasonId + '|' + bestKey;
+    if (seasonId && (!seasonBest.has(seasonBestKey) || seconds < seasonBest.get(seasonBestKey).seconds)) {
+      const meet = meetMap.get(result.Meet_ID) || {};
+      seasonBest.set(seasonBestKey, {seasonId,key,seconds,name:identity.display,club:result.Club_Name_Source || '',time:result.Display_Time || '',date:meet.Date || '',location:meet.Venue || ''});
+    }
     if (!best.has(bestKey) || seconds < best.get(bestKey).seconds) {
       const meet = meetMap.get(result.Meet_ID) || {};
       const season = seasonMap.get(result.Season_ID) || {};
@@ -2752,12 +2816,103 @@ function buildMasterToplists(seasons, meets, races, results, athletes = []) {
   });
 
   best.forEach(item => toplistMap[item.key].push(item));
+  renderMilerStats([...statsPerformances.values()]);
+  seasonBest.forEach(item => {
+    if (!seasonTimeRankings.has(item.seasonId)) seasonTimeRankings.set(item.seasonId, {});
+    const events = seasonTimeRankings.get(item.seasonId);
+    (events[item.key] ||= []).push(item);
+  });
+  seasonTimeRankings.forEach(events => Object.values(events).forEach(rows => rows.sort((a,b) => a.seconds - b.seconds || a.name.localeCompare(b.name))));
+  renderSeasonTimes();
   Object.keys(toplistMap).forEach(key => {
     toplistMap[key].sort((a,b) => a.seconds - b.seconds || a.name.localeCompare(b.name));
     toplistMap[key] = toplistMap[key].slice(0, 200);
   });
   updateHomepageRecords();
   renderToplist(document.querySelector('#toplistTabs .tab-btn.active')?.dataset.tl || 'w800');
+}
+
+function calculateMilerStats(performances) {
+  const unique = rows => new Set(rows.map(row => row.identity)).size;
+  const athleteGenders = new Map();
+  performances.forEach(row => {
+    const counts = athleteGenders.get(row.identity) || {w:0,m:0};
+    counts[row.key[0]] += 1;
+    athleteGenders.set(row.identity,counts);
+  });
+  const genderCount = gender => [...athleteGenders.values()].filter(counts => counts[gender] > counts[gender === 'w' ? 'm' : 'w']).length;
+  const leaders = counts => {
+    const count = Math.max(0, ...counts.values());
+    return {name:count ? [...counts].filter(([,value]) => value === count).map(([name]) => name).sort().join(' / ') : 'No qualifying performances',count};
+  };
+  const rows = [
+    {label:'Number of Athletes',name:'All athletes',count:unique(performances)},
+    {label:'Number of Female Athletes',name:'Women',count:genderCount('w')},
+    {label:'Number of Male Athletes',name:'Men',count:genderCount('m')}
+  ];
+  const meetLeader = (filter, uniqueAthletes = false) => {
+    const groups = new Map();
+    const labels = new Map();
+    performances.filter(filter).forEach(row => {
+      if (!row.meetId) return;
+      labels.set(row.meetId,row.meetLabel || row.meetId);
+      if (uniqueAthletes) {
+        if (!groups.has(row.meetId)) groups.set(row.meetId,new Set());
+        groups.get(row.meetId).add(row.identity);
+      } else groups.set(row.meetId,(groups.get(row.meetId) || 0) + 1);
+    });
+    const counts = new Map([...groups].map(([id,value]) => [id,uniqueAthletes ? value.size : value]));
+    const count = Math.max(0,...counts.values());
+    return {name:count ? [...counts].filter(([,value]) => value === count).map(([id]) => labels.get(id)).sort().join(' / ') : 'No qualifying performances',count};
+  };
+  rows.push(
+    {label:'Meet with Most Female Athletes',...meetLeader(row => row.key.startsWith('w'),true)},
+    {label:'Meet with Most Male Athletes',...meetLeader(row => row.key.startsWith('m'),true)}
+  );
+  const tracks = new Map();
+  const venueAliases = {'lakeside stadium':'Lakeside','lakeside':'Lakeside','doncaster athletic track':'Doncaster','doncaster athletics track':'Doncaster','doncaster':'Doncaster','box hill athletic club':'Box Hill','box hill':'Box Hill'};
+  for (const key of ['w800','m800','w1500','m1500','wmile','mmile','w3000','m3000']) {
+    const ranked = performances.filter(row => row.key === key).sort((a,b) => a.seconds - b.seconds);
+    const cutoff = ranked[Math.min(9,ranked.length - 1)]?.seconds;
+    ranked.filter(row => row.seconds <= cutoff).forEach(row => {
+      const raw = row.venue.trim();
+      if (!raw || /^(unknown|tbc|n\/a)$/i.test(raw)) return;
+      const venue = venueAliases[raw.toLowerCase()] || raw;
+      tracks.set(venue,(tracks.get(venue) || 0) + 1);
+    });
+  }
+  rows.push({label:'Track With the Most Top 10 Performances',...leaders(tracks)});
+  const thresholds = [
+    ['m800',120,'Male Athlete with Most Sub 2:00 800m Performances'],
+    ['m800',110,'Male Athlete with Most Sub 1:50 800m Performances'],
+    ['m1500',240,'Male Athlete with Most Sub 4:00 1500m Performances'],
+    ['m1500',225,'Male Athlete with Most Sub 3:45 1500m Performances'],
+    ['w800',140,'Female Athlete with Most Sub 2:20 800m Performances'],
+    ['w800',130,'Female Athlete with Most Sub 2:10 800m Performances'],
+    ['w1500',280,'Female Athlete with Most Sub 4:40 1500m Performances'],
+    ['w1500',260,'Female Athlete with Most Sub 4:20 1500m Performances']
+  ];
+  thresholds.forEach(([key,limit,label]) => {
+    const counts = new Map();
+    const names = new Map();
+    performances.filter(row => row.key === key && row.seconds < limit).forEach(row => {
+      counts.set(row.identity,(counts.get(row.identity) || 0) + 1);
+      names.set(row.identity,row.name);
+    });
+    rows.push({label,...leaders(new Map([...counts].map(([identity,count]) => [names.get(identity),count])))});
+  });
+  rows.push(
+    {label:'Meet with Most Sub 2:00 800m Performances',...meetLeader(row => row.key.endsWith('800') && row.seconds < 120)},
+    {label:'Meet with Most Sub 4:00 1500m Performances',...meetLeader(row => row.key.endsWith('1500') && row.seconds < 240)}
+  );
+  return rows;
+}
+
+function renderMilerStats(performances) {
+  const body = document.getElementById('milerStatsBody');
+  if (!body) return;
+  const escape = value => String(value).replace(/[&<>"']/g, char => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[char]));
+  body.innerHTML = calculateMilerStats(performances).map(row => `<tr class="dt-row"><td><div class="td-name">${escape(row.label)}</div></td><td><div class="td-club">${escape(row.name)}</div></td><td class="td-time" style="text-align:center;">${row.count.toLocaleString('en-AU')}</td></tr>`).join('');
 }
 
 function renderWinsTable(id, rows) {
@@ -3214,6 +3369,8 @@ async function loadMasterSnapshot() {
 }
 
 function applyMasterDatabase({seasons, meets, races, results, athletes = [], champions = []}) {
+  // Committee-confirmed correction, applied to both live data and the local fallback.
+  meets = meets.map(meet => meet.Meet_ID === 'M2025-03' ? {...meet,Date:'20 Jan 2026',Venue:'Doncaster'} : meet);
   setOfficialSeasonChampions(champions, athletes, results);
   results = normalizeMasterResults(results, athletes);
   mergeMasterResults(seasons, meets, races, results);
